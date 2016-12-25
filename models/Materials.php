@@ -48,13 +48,13 @@ class Materials extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'ref' => Yii::t('app', 'Ref'),
-            'name' => Yii::t('app', 'Name'),
-            'qty' => Yii::t('app', 'Qty'),
-            'minqty' => Yii::t('app', 'Minqty'),
+            'ref' => Yii::t('app', 'Material'),
+            'name' => Yii::t('app', 'Material description'),
+            'qty' => Yii::t('app', 'Stock qty'),
+            'minqty' => Yii::t('app', 'Minimal qty'),
             'unit' => Yii::t('app', 'Unit'),
             'type' => Yii::t('app', 'Type'),
-            'gruppa' => Yii::t('app', 'Gruppa'),
+            'gruppa' => Yii::t('app', 'Group'),
         ];
     }
 }
