@@ -28,7 +28,7 @@ class m161225_091919_materials extends Migration
             'minqty' => $this->decimal(7,3)->defaultValue(1.000),
             'unit' => $this->string(3)->defaultValue(NULL),
             'type' => $this->string(8)->defaultValue(NULL),
-            'gruppa' => $this->integer(3)->unsigned()->defaultValue(0),
+            'gruppa' => $this->string(3)->defaultValue('000'),
         ]);
         
     }

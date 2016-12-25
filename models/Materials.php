@@ -2,7 +2,8 @@
 
 namespace app\models;
 
-use Yii;
+use yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "materials".
@@ -14,9 +15,9 @@ use Yii;
  * @property string $minqty
  * @property string $unit
  * @property string $type
- * @property integer $gruppa
+ * @property string $gruppa
  */
-class Materials extends \yii\db\ActiveRecord
+class Materials extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -32,10 +33,10 @@ class Materials extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ref', 'gruppa'], 'integer'],
+            [['ref'], 'integer'],
             [['qty', 'minqty'], 'number'],
             [['name'], 'string', 'max' => 128],
-            [['unit'], 'string', 'max' => 3],
+            [['unit', 'gruppa'], 'string', 'max' => 3],
             [['type'], 'string', 'max' => 8],
             [['ref'], 'unique'],
         ];
