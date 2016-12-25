@@ -12,6 +12,9 @@ nbproject
 # windows thumbnail cache
 Thumbs.db
 
+# user data dir
+/data
+
 # composer vendor dir
 /vendor
 
@@ -28,3 +31,6 @@ phpunit.phar
 
 tests/_output/*
 tests/_support/_generated
+
+#logs
+/*.log
