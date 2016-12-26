@@ -21,7 +21,7 @@ class m161225_091919_materials extends Migration
     public function safeUp()
     {
         $this->createTable('materials', [
-            'id' => $this->primaryKey(4)->notNull(),
+            'id' => $this->primaryKey(),
             'ref' => $this->integer(8)->defaultValue(NULL)->unique(),
             'name' => $this->string(128)->defaultValue(NULL),
             'qty' => $this->decimal(7,3)->defaultValue(NULL),
