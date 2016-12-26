@@ -58,4 +58,9 @@ class Materials extends ActiveRecord
             'gruppa' => Yii::t('app', 'Group'),
         ];
     }
+    
+    public function getMovements()
+    {
+        return $this->hasMany(Movements::className(), ['materials_id' => 'ref']);
+    }
 }

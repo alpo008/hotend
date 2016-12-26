@@ -184,6 +184,9 @@ return [
     //HOTEND
     'Material' => 'Материал',
     'Materials' => 'Материалы',
+    'Movements' => 'Операции',
+    'Create Movements' => 'Добавить запись',
+    'Qty' => 'Кол-во',
     'Material description' => 'Описание материала',
     'Stock qty' => 'Остаток',
     'Minimal qty' => 'Мин. остаток',
