@@ -23,7 +23,8 @@ class m161226_092749_stocks extends Migration
     {
         $this->createTable('stocks',[
             'id' => $this->primaryKey()->notNull()->unique(),
-            'placename' => $this->string(32)->notNull()
+            'placename' => $this->string(32)->notNull(),
+            'description' => $this->text()
         ]);
     }
 
