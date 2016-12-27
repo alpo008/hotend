@@ -63,6 +63,6 @@ class Movements extends ActiveRecord
 
     public function getMaterials()
     {
-        return $this->hasOne(Materials::className(), ['ref' => 'materials_id']);
+        return $this->hasOne(Materials::className(), ['id' => 'materials_id']);
     }
 }

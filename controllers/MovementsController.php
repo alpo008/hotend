@@ -53,7 +53,7 @@ class MovementsController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
-        $data = $model->getMaterials()->select(['name', 'unit', 'type', 'gruppa'])->one();
+        $materials_data = $model->getMaterials()->select(['name', 'unit', 'type', 'gruppa'])->one();
 
         return $this->render('view', [
             'model' => $model,

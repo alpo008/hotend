@@ -47,9 +47,9 @@ class MaterialsController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+            $model = $this->findModel($id);
+            $movements_data = $model->getMovements()->orderBy('transaction_date DESC')->all();
+            return $this->render('view', compact ("model", "movements_data"));
     }
 
     /**
