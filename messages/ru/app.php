@@ -196,6 +196,8 @@ return [
     'Type' => 'Вид материала',
     'Group' => 'Группа материалов',
     'Create Materials' => 'Новый материал',
+    'Stock History' => 'История складских операций',
+    'No stock data available' => 'Нет данных по складским операциям.',
     'You are not allowed to perform this action.' => 'Для выполнения этого действия требуется более высокий уровень доступа.',
     'You can upload at most {limit, number} {limit, plural, one{file} other{files}}.' => 'Вы не можете загружать более {limit, number} {limit, plural, one{файла} few{файлов} many{файлов} other{файла}}.',
     'in {delta, plural, =1{a day} other{# days}}' => 'через {delta, plural, =1{день} one{# день} few{# дня} many{# дней} other{# дня}}',

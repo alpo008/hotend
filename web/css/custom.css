@@ -9,5 +9,22 @@
         padding: 5px;
     }
     .material-cart__movements-data{
-        border: 1px solid #000!important;
+        padding: 0 15px;
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
     }
+    .material-cart_nav-tabs{
+        margin-top: 25px;
+    }
+        .material-cart__movements-data > .row{
+            border-bottom: 1px solid #ddd!important;
+        }
+        .material-cart__movements-data:last-child{
+            -webkit-border-radius: 0 0 4px 4px!important;
+            -moz-border-radius: 0 0 4px 4px!important;
+            border-radius: 0 0 4px 4px!important;
+        }
+            .material-cart__movements-data > .row > div{
+                color: #555!important;
+                text-align: center!important;
+            }
