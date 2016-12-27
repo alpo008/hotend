@@ -56,6 +56,8 @@ class Materials extends ActiveRecord
             'unit' => Yii::t('app', 'Unit'),
             'type' => Yii::t('app', 'Type'),
             'gruppa' => Yii::t('app', 'Group'),
+            'stock_rest' => Yii::t('app', 'Stock Rest'),
+            'stock_min' => Yii::t('app', 'Min Stock'),
         ];
     }
     

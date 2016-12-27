@@ -64,12 +64,12 @@ class MaterialsSearch extends Materials
             'ref' => $this->ref,
             'qty' => $this->qty,
             'minqty' => $this->minqty,
-            'gruppa' => $this->gruppa,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'unit', $this->unit])
-            ->andFilterWhere(['like', 'type', $this->type]);
+            ->andFilterWhere(['like', 'type', $this->type])
+            ->andFilterWhere(['like', 'gruppa', $this->gruppa]);
 
         return $dataProvider;
     }

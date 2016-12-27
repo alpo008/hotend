@@ -187,6 +187,8 @@ return [
     'Movements' => 'Операции',
     'Create Movements' => 'Добавить запись',
     'Qty' => 'Кол-во',
+    'Stock Rest' => 'Остаток на складе',
+    'Min Stock' => 'Минимально допустимый остаток',
     'Material description' => 'Описание материала',
     'Stock qty' => 'Остаток',
     'Minimal qty' => 'Мин. остаток',
