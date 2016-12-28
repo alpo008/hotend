@@ -69,58 +69,63 @@ $this->params['breadcrumbs'][] = $this->title;
 </p>
 
 <!-- Nav tabs -->
-<ul class="nav nav-tabs material-cart_nav-tabs" role="tablist">
-    <li role="presentation" class="active">
-        <a href="#home" aria-controls="home" role="tab" data-toggle="tab">
-            <?php echo Yii::t('app', 'Stock History') ?>
-        </a>
-    </li>
-    <li role="presentation"><a href="#location" aria-controls="location" role="tab" data-toggle="tab">Расположение на складе</a></li>
-    <li role="presentation"><a href="#orders" aria-controls="orders" role="tab" data-toggle="tab">История заявок</a></li>
 
-</ul>
+<div class="material-cart__nav-tabs">
+    <ul class="nav nav-tabs nav-justified" role="tablist">
+        <li role="presentation" class="active">
+            <a href="#home" aria-controls="home" role="tab" data-toggle="tab">
+                <?php echo Yii::t('app', 'Stock History') ?>
+            </a>
+        </li>
+        <li role="presentation"><a href="#location" aria-controls="location" role="tab" data-toggle="tab">Расположение
+                на складе</a></li>
+        <li role="presentation"><a href="#orders" aria-controls="orders" role="tab" data-toggle="tab">История заявок</a>
+        </li>
 
-<!-- Tab panes -->
-<div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="home">
-        <div class="material-cart__movements-data">
-            <?php
+    </ul>
 
-            /** @var object $movements_data */
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="home">
+            <div class="material-cart__movements-data">
+                <?php
 
-            if (count($movements_data) !== 0):
-                foreach ($movements_data as $movement):?>
-                    <div class="row">
-                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
-                            <a href="/movements/<?php echo $movement->id?>">
-                                <?php echo $movement->transaction_date;?>
-                            </a>
+                /** @var object $movements_data */
+
+                if (count($movements_data) !== 0):
+                    foreach ($movements_data as $movement):?>
+                        <div class="row">
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                                <a href="/movements/<?php echo $movement->id ?>">
+                                    <?php echo $movement->transaction_date; ?>
+                                </a>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                                <?php echo $movement->direction; ?>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                                <?php echo $movement->from_to; ?>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                                <?php echo $movement->qty . ' ' . $model->unit; ?>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                                <?php echo $movement->person_in_charge; ?>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                                <?php echo $movement->docref; ?>
+                            </div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
-                            <?php echo $movement->direction;?>
-                        </div>
-                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
-                            <?php echo $movement->from_to;?>
-                        </div>
-                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
-                            <?php echo $movement->qty . ' ' . $model->unit;?>
-                        </div>
-                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
-                            <?php echo $movement->person_in_charge;?>
-                        </div>
-                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
-                            <?php echo $movement->docref;?>
-                        </div>
-                    </div>
-            <?php
-                endforeach;
-            else:
-                echo Yii::t('app', 'No stock data available');
-            endif;
-            ?>
+                        <?php
+                    endforeach;
+                else:
+                    echo Yii::t('app', 'No stock data available');
+                endif;
+                ?>
+            </div>
         </div>
+        <div role="tabpanel" class="tab-pane" id="location">Расположение на складе</div>
+        <div role="tabpanel" class="tab-pane" id="orders">История заявок</div>
     </div>
-    <div role="tabpanel" class="tab-pane" id="location">Расположение на складе</div>
-    <div role="tabpanel" class="tab-pane" id="orders">История заявок</div>
 </div>
 

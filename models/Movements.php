@@ -51,7 +51,7 @@ class Movements extends ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'materials_id' => Yii::t('app', 'Material'),
-            'direction' => Yii::t('app', 'Direction'),
+            'direction' => Yii::t('app', 'Stock Direction'),
             'qty' => Yii::t('app', 'Qty'),
             'from_to' => Yii::t('app', 'From To'),
             'transaction_date' => Yii::t('app', 'Transaction Date'),

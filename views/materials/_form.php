@@ -10,26 +10,30 @@ use yii\widgets\ActiveForm;
 
 <div class="materials-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin();
+    ?>
 
-    <?= $form->field($model, 'ref')->textInput() ?>
+    <?php //echo $form->field($model, 'ref')->textInput() ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'name')->textInput(['maxlength' => false, 'class'=>'form-control col-lg-8'])?>
+
 
     <?= $form->field($model, 'qty')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'minqty')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'unit')->textInput(['maxlength' => true]) ?>
-
+    <?= $form->field($model, 'unit')->dropDownList($lists['units']) ?>
+    
     <?= $form->field($model, 'type')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'gruppa')->textInput() ?>
+
+    <?= $form->field($model, 'file')->fileInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
-    <?php ActiveForm::end(); ?>
+    <?php ActiveForm::end();?>
 
 </div>

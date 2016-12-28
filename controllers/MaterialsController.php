@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\custom\AuxData;
 use Yii;
 use app\models\Materials;
 use app\models\search\MaterialsSearch;
@@ -79,13 +80,13 @@ class MaterialsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $lists['units'] = AuxData::getUnits();
+ 
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+            return $this->render('update', compact("model", "lists"));
         }
     }
 

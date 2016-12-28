@@ -4,6 +4,7 @@ namespace app\models;
 
 use yii;
 use yii\db\ActiveRecord;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "materials".
@@ -16,12 +17,16 @@ use yii\db\ActiveRecord;
  * @property string $unit
  * @property string $type
  * @property string $gruppa
+ * @property resource $file
  */
 class Materials extends ActiveRecord
 {
     /**
      * @inheritdoc
      */
+
+    public $file;
+
     public static function tableName()
     {
         return 'materials';
@@ -39,6 +44,7 @@ class Materials extends ActiveRecord
             [['unit', 'gruppa'], 'string', 'max' => 3],
             [['type'], 'string', 'max' => 8],
             [['ref'], 'unique'],
+            [['file'], 'file', 'skipOnEmpty' => true, 'extensions' => 'jpg'],
         ];
     }
 
@@ -58,7 +64,18 @@ class Materials extends ActiveRecord
             'gruppa' => Yii::t('app', 'Group'),
             'stock_rest' => Yii::t('app', 'Stock Rest'),
             'stock_min' => Yii::t('app', 'Min Stock'),
+            'file' => Yii::t('app', 'Upload image')
         ];
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        $storagePath = Yii::getAlias('@app/web/photos/');
+        if ($this->file = UploadedFile::getInstance($this, 'file')){
+            return $this->file->saveAs($storagePath . $this->ref . '.' . $this->file->extension);
+        }else{
+            return true;
+        }
     }
     
     public function getMovements()
