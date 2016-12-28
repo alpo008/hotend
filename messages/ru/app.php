@@ -199,6 +199,7 @@ return [
     'Stock History' => 'История складских операций',
     'Stock Direction' =>'Тип операции',
     'Update Materials' => 'Редактировать карту материала',
+    'Save changes' => 'Сохранить изменения',
 
     'No stock data available' => 'Нет данных по складским операциям.',
     'You are not allowed to perform this action.' => 'Для выполнения этого действия требуется более высокий уровень доступа.',

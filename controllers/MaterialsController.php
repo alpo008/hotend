@@ -61,13 +61,12 @@ class MaterialsController extends Controller
     public function actionCreate()
     {
         $model = new Materials();
+        $lists['units'] = AuxData::getUnits();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+            return $this->render('create', compact("model", "lists"));
         }
     }
 
@@ -81,7 +80,6 @@ class MaterialsController extends Controller
     {
         $model = $this->findModel($id);
         $lists['units'] = AuxData::getUnits();
- 
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

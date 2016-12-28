@@ -11,7 +11,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Materials'), 'url' =
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
-<div class="materials-update">
+<div class="materials-update container">
 
     <h1><?= Html::encode($model->ref) ?></h1>
     <h2><?= Html::encode($model->name) ?></h2>
@@ -32,7 +32,5 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
         <div class="col-lg-9 material-cart__attributes">
             <?php echo $this->render('_form', compact("model", "lists"));?>
         </div>
-
     </div>
-
 </div>
