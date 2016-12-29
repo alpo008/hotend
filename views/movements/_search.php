@@ -30,6 +30,8 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'stocks_id') ?>
 
     <?php // echo $form->field($model, 'person_in_charge') ?>
+    
+    <?php // echo $form->field($model, 'person_receiver') ?>
 
     <?php // echo $form->field($model, 'docref') ?>
 

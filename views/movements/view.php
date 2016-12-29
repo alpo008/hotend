@@ -36,6 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'transaction_date',
             'stocks_id',
             'person_in_charge',
+            'person_receiver',
             'docref',
         ],
     ]) ?>

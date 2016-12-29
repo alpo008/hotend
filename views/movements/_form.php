@@ -25,6 +25,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'stocks_id')->textInput() ?>
 
     <?= $form->field($model, 'person_in_charge')->textInput(['maxlength' => true]) ?>
+    
+    <?= $form->field($model, 'person_receiver')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'docref')->textInput(['maxlength' => true]) ?>
 

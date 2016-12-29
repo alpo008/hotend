@@ -30,6 +30,7 @@ class m161225_152415_movements extends Migration
             'transaction_date' => $this->date()->notNull(),
             'stocks_id' => $this->integer(8),
             'person_in_charge' => $this->string(64)->notNull(),
+            'person_receiver' => $this->string(64)->notNull(),
             'docref' => $this->string(128)
         ]);
         $this->addForeignKey('fk_movements_materials', 'movements', 'materials_id', 'materials', 'id');

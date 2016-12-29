@@ -20,7 +20,7 @@ class MovementsSearch extends Movements
         return [
             [['id', 'materials_id', 'direction', 'stocks_id'], 'integer'],
             [['qty'], 'number'],
-            [['from_to', 'transaction_date', 'person_in_charge', 'docref'], 'safe'],
+            [['from_to', 'transaction_date', 'person_in_charge', 'person_receiver', 'docref'], 'safe'],
         ];
     }
 
@@ -70,6 +70,7 @@ class MovementsSearch extends Movements
 
         $query->andFilterWhere(['like', 'from_to', $this->from_to])
             ->andFilterWhere(['like', 'person_in_charge', $this->person_in_charge])
+            ->andFilterWhere(['like', 'person_receiver', $this->person_receiver])
             ->andFilterWhere(['like', 'docref', $this->docref]);
 
         return $dataProvider;

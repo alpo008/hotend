@@ -16,6 +16,7 @@ use yii\db\ActiveRecord;
  * @property string $transaction_date
  * @property integer $stocks_id
  * @property string $person_in_charge
+ * @property string $person_receiver
  * @property string $docref
  */
 class Movements extends ActiveRecord
@@ -34,11 +35,11 @@ class Movements extends ActiveRecord
     public function rules()
     {
         return [
-            [['materials_id', 'from_to', 'person_in_charge'], 'required'],
+            [['materials_id', 'from_to', 'person_in_charge', 'person_receiver'], 'required'],
             [['materials_id', 'direction', 'stocks_id'], 'integer'],
             [['qty'], 'number'],
             [['transaction_date'], 'safe'],
-            [['from_to', 'person_in_charge'], 'string', 'max' => 64],
+            [['from_to', 'person_in_charge', 'person_receiver'], 'string', 'max' => 64],
             [['docref'], 'string', 'max' => 128],
         ];
     }
@@ -57,6 +58,7 @@ class Movements extends ActiveRecord
             'transaction_date' => Yii::t('app', 'Transaction Date'),
             'stocks_id' => Yii::t('app', 'Stocks ID'),
             'person_in_charge' => Yii::t('app', 'Person In Charge'),
+            'person_receiver' => Yii::t('app', 'Person Receiver'),
             'docref' => Yii::t('app', 'Docref'),
         ];
     }
