@@ -19,6 +19,13 @@ class AuxData extends Model
             'М' => 'М',
             'ПАР' => 'ПАР',
         );
+    }    
+    
+    public static function getDirections(){
+        return array(
+            '0' => 'Расход',
+            '1' => 'Приход',
+        );
     }
 
 

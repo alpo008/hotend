@@ -3,7 +3,7 @@
 namespace app\controllers;
 
 use app\models\custom\AuxData;
-use Yii;
+use yii;
 use app\models\Materials;
 use app\models\search\MaterialsSearch;
 use yii\web\Controller;

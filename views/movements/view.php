@@ -30,7 +30,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'materials_id',
-            'direction',
+            [
+                'attribute' => 'direction',
+                'value' => $lists['directions'][$model->direction],
+            ],
             'qty',
             'from_to',
             'transaction_date',

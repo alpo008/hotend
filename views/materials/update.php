@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Materials */
 
-$this->title = Yii::t('app', 'Update Materials').':';
+$this->title = Yii::t('app', 'Update Materials').': '. $model->ref;
 
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Materials'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
 <div class="materials-update container">
 
-    <h1><?= Html::encode($model->ref) ?></h1>
+    <h1><?= Html::encode($this->title) ?></h1>
     <h2><?= Html::encode($model->name) ?></h2>
 
     <div class="row material-cart">

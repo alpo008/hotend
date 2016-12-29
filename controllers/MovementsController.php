@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\custom\AuxData;
 use app\models\Materials;
 use yii;
 use app\models\Movements;
@@ -38,11 +39,9 @@ class MovementsController extends Controller
     {
         $searchModel = new MovementsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $lists['directions'] = AuxData::getDirections();
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+        return $this->render('index', compact ('searchModel', 'dataProvider', 'lists'));
     }
 
     /**
@@ -54,10 +53,9 @@ class MovementsController extends Controller
     {
         $model = $this->findModel($id);
         $materials_data = $model->getMaterials()->select(['name', 'unit', 'type', 'gruppa'])->one();
+        $lists['directions'] = AuxData::getDirections();
 
-        return $this->render('view', [
-            'model' => $model,
-        ]);
+        return $this->render('view', compact ("model", "lists"));
     }
 
     /**
@@ -68,13 +66,12 @@ class MovementsController extends Controller
     public function actionCreate()
     {
         $model = new Movements();
+        $lists['directions'] = AuxData::getDirections();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+            return $this->render('create', compact ("model", "lists"));
         }
     }
 

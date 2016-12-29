@@ -24,9 +24,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            //'id',
             'materials_id',
-            'direction',
+            [
+                'attribute' => 'direction',
+                'value' => function ($searchModel) use ($lists){
+                    return $lists['directions'][$searchModel->direction];
+                }
+            ],
             'qty',
             'from_to',
             // 'transaction_date',

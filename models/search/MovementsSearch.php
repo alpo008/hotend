@@ -2,7 +2,8 @@
 
 namespace app\models\search;
 
-use Yii;
+use app\models\custom\AuxData;
+use yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Movements;
@@ -18,9 +19,9 @@ class MovementsSearch extends Movements
     public function rules()
     {
         return [
-            [['id', 'materials_id', 'direction', 'stocks_id'], 'integer'],
+            [['id', 'materials_id', 'stocks_id'], 'integer'],
             [['qty'], 'number'],
-            [['from_to', 'transaction_date', 'person_in_charge', 'person_receiver', 'docref'], 'safe'],
+            [['from_to', 'transaction_date', 'person_in_charge', 'person_receiver', 'docref', 'direction'], 'safe'],
         ];
     }
 
@@ -52,17 +53,27 @@ class MovementsSearch extends Movements
 
         $this->load($params);
 
+        $directions = AuxData::getDirections();
+        $direction = NULL;
+        if (in_array($params['MovementsSearch']['direction'], $directions)) {
+            $directions = array_flip($directions);
+            $direction = $directions [$params['MovementsSearch']['direction']];
+        }
+
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
         }
 
+
+
+
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
             'materials_id' => $this->materials_id,
-            'direction' => $this->direction,
+            'direction' => $direction,
             'qty' => $this->qty,
             'transaction_date' => $this->transaction_date,
             'stocks_id' => $this->stocks_id,

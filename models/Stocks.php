@@ -2,7 +2,8 @@
 
 namespace app\models;
 
-use Yii;
+use yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "stocks".
@@ -11,7 +12,7 @@ use Yii;
  * @property string $placename
  * @property string $description
  */
-class Stocks extends \yii\db\ActiveRecord
+class Stocks extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -30,6 +31,7 @@ class Stocks extends \yii\db\ActiveRecord
             [['placename', 'description'], 'required'],
             [['description'], 'string'],
             [['placename'], 'string', 'max' => 32],
+            [['placename'], 'unique'],
         ];
     }
 
