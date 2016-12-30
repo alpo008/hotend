@@ -101,7 +101,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </a>
                             </div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
-                                <?php echo $movement->direction; ?>
+                                <?php echo $lists['directions'][$movement->direction]; ?>
                             </div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
                                 <?php echo $movement->from_to; ?>

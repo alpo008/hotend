@@ -25,16 +25,36 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'id',
-            'materials_id',
-            [
+            'transaction_date',
+            //'materials_id',
+            'materials.ref',
+            'materials.name',
+/*            [
                 'attribute' => 'direction',
                 'value' => function ($searchModel) use ($lists){
                     return $lists['directions'][$searchModel->direction];
                 }
+            ],*/
+            [
+
+                'attribute' => 'direction',
+                'value' => function ($searchModel) use ($lists){
+                    if (isset ($searchModel->direction)){
+                    return $lists['directions'][$searchModel->direction];
+                    }else{
+                        return NULL;
+                    }
+                },
+
+                'format' => 'raw',
+                /**
+                 * Отображение фильтра.
+                 * Вместо поля для ввода - выпадающий список с заданными значениями directions
+                 */
+                'filter' => $lists['directions'],
             ],
             'qty',
             'from_to',
-            // 'transaction_date',
             // 'stocks_id',
             // 'person_in_charge',
             // 'person_receiver',

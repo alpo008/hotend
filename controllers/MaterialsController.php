@@ -50,7 +50,8 @@ class MaterialsController extends Controller
     {
             $model = $this->findModel($id);
             $movements_data = $model->getMovements()->orderBy('transaction_date DESC')->all();
-            return $this->render('view', compact ("model", "movements_data"));
+            $lists['directions'] = AuxData::getDirections();
+            return $this->render('view', compact ("model", "movements_data", "lists"));
     }
 
     /**

@@ -29,7 +29,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'materials_id',
+            //'materials_id',
+            'materials.ref',
+            'materials.name',
             [
                 'attribute' => 'direction',
                 'value' => $lists['directions'][$model->direction],

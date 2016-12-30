@@ -26,6 +26,7 @@ class Materials extends ActiveRecord
      */
 
     public $file;
+    public $fullRef;
 
     public static function tableName()
     {
@@ -82,4 +83,10 @@ class Materials extends ActiveRecord
     {
         return $this->hasMany(Movements::className(), ['materials_id' => 'id']);
     }
+    
+    public  function getFullRef (){
+        return $this->ref .';'. $this->name;
+    }
+    
+    
 }

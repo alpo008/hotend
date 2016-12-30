@@ -3,6 +3,7 @@
 namespace app\models\search;
 
 use app\models\custom\AuxData;
+use app\models\Materials;
 use yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -16,12 +17,18 @@ class MovementsSearch extends Movements
     /**
      * @inheritdoc
      */
+    public function attributes()
+    {
+        // делаем поле зависимости доступным для поиска
+        return array_merge(parent::attributes(), ['materials.name', 'materials.ref']);
+    }
+
     public function rules()
     {
         return [
             [['id', 'materials_id', 'stocks_id'], 'integer'],
             [['qty'], 'number'],
-            [['from_to', 'transaction_date', 'person_in_charge', 'person_receiver', 'docref', 'direction'], 'safe'],
+            [['from_to', 'transaction_date', 'person_in_charge', 'person_receiver', 'docref', 'direction', 'materials.name', 'materials.ref'], 'safe'],
         ];
     }
 
@@ -53,12 +60,6 @@ class MovementsSearch extends Movements
 
         $this->load($params);
 
-        $directions = AuxData::getDirections();
-        $direction = NULL;
-        if (in_array($params['MovementsSearch']['direction'], $directions)) {
-            $directions = array_flip($directions);
-            $direction = $directions [$params['MovementsSearch']['direction']];
-        }
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
@@ -73,7 +74,7 @@ class MovementsSearch extends Movements
         $query->andFilterWhere([
             'id' => $this->id,
             'materials_id' => $this->materials_id,
-            'direction' => $direction,
+            'direction' => $this->direction,
             'qty' => $this->qty,
             'transaction_date' => $this->transaction_date,
             'stocks_id' => $this->stocks_id,
@@ -83,6 +84,12 @@ class MovementsSearch extends Movements
             ->andFilterWhere(['like', 'person_in_charge', $this->person_in_charge])
             ->andFilterWhere(['like', 'person_receiver', $this->person_receiver])
             ->andFilterWhere(['like', 'docref', $this->docref]);
+
+        $query->joinWith('materials');
+        
+        $query->andFilterWhere(['LIKE', 'materials.name', $this->getAttribute('materials.name')]);
+        $query->andFilterWhere(['LIKE', 'materials.ref', $this->getAttribute('materials.ref')]);
+
 
         return $dataProvider;
     }
