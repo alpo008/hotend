@@ -9,6 +9,7 @@
 namespace app\models\custom;
 
 
+use app\models\Materials;
 use yii\base\Model;
 
 class AuxData extends Model
@@ -26,6 +27,13 @@ class AuxData extends Model
             '0' => 'Расход',
             '1' => 'Приход',
         );
+    }    
+    public static function getMaterials(){
+        $temp = Materials::find()
+            ->select (['code' => 'id', 'value' => "concat (id, '; ', ref, '; ',name)"])
+            ->asArray()
+            ->all();
+        return array_column($temp, 'value', 'code');
     }
 
 

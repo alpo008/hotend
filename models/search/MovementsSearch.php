@@ -2,8 +2,6 @@
 
 namespace app\models\search;
 
-use app\models\custom\AuxData;
-use app\models\Materials;
 use yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -19,7 +17,6 @@ class MovementsSearch extends Movements
      */
     public function attributes()
     {
-        // делаем поле зависимости доступным для поиска
         return array_merge(parent::attributes(), ['materials.name', 'materials.ref']);
     }
 
@@ -66,8 +63,6 @@ class MovementsSearch extends Movements
             // $query->where('0=1');
             return $dataProvider;
         }
-
-
 
 
         // grid filtering conditions

@@ -213,6 +213,7 @@ return [
     'Create Stocks' => 'Создать новое складское место',
     'Update Stocks' => 'Редактировать данные о складском месте',
     'dated' => 'от',
+    'Long Name' => 'ID материала',
 
     'No stock data available' => 'Нет данных по складским операциям.',
     'You are not allowed to perform this action.' => 'Для выполнения этого действия требуется более высокий уровень доступа.',

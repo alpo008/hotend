@@ -18,6 +18,7 @@ use yii\db\ActiveRecord;
  * @property string $person_in_charge
  * @property string $person_receiver
  * @property string $docref
+ * @property string $longname
  */
 class Movements extends ActiveRecord
 {
@@ -29,6 +30,14 @@ class Movements extends ActiveRecord
         return 'movements';
     }
 
+    public function attributes()
+    {
+
+        return array_merge(parent::attributes(), ['longname']);
+    }
+    
+    //public $longname;
+
     /**
      * @inheritdoc
      */
@@ -36,11 +45,11 @@ class Movements extends ActiveRecord
     {
         return [
             [['materials_id', 'from_to', 'person_in_charge', 'person_receiver'], 'required'],
-            [['materials_id', 'direction', 'stocks_id'], 'integer'],
+            [['direction', 'stocks_id'], 'integer'],
             [['qty'], 'number'],
-            [['transaction_date'], 'safe'],
+            [['transaction_date', 'materials_id'], 'safe'],
             [['from_to', 'person_in_charge', 'person_receiver'], 'string', 'max' => 64],
-            [['docref'], 'string', 'max' => 128],
+            [['docref', 'longname'], 'string', 'max' => 128],
         ];
     }
 
@@ -60,7 +69,20 @@ class Movements extends ActiveRecord
             'person_in_charge' => Yii::t('app', 'Person In Charge'),
             'person_receiver' => Yii::t('app', 'Person Receiver'),
             'docref' => Yii::t('app', 'Docref'),
+            'longname' => Yii::t('app', 'Long Name'),
         ];
+    }
+
+    public function beforeValidate()
+    {
+        parent::beforeValidate();
+        if (isset ($this->dirtyAttributes['materials_id'])) {
+            $temp = explode(';', $this->dirtyAttributes['materials_id']);
+            $this->setAttribute('materials_id', $temp[0]);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function getMaterials()

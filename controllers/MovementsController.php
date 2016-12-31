@@ -67,6 +67,7 @@ class MovementsController extends Controller
     {
         $model = new Movements();
         $lists['directions'] = AuxData::getDirections();
+        $lists['materials'] = AuxData::getMaterials();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -85,6 +86,7 @@ class MovementsController extends Controller
     {
         $model = $this->findModel($id);
         $lists['directions'] = AuxData::getDirections();
+        $lists['materials'] = AuxData::getMaterials();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

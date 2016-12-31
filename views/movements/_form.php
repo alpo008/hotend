@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use anmaslov\autocomplete\AutoComplete;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Movements */
@@ -18,7 +19,23 @@ use yii\bootstrap\ActiveForm;
         ],
     ]); ?>
 
-    <?= $form->field($model, 'materials_id')->textInput() ?>
+    <?php /*echo $form->field($model, 'materials_id')->textInput()*/ ?>
+    <?php $trans_date = (isset ($model->transaction_date)) ? $model->transaction_date : date ('Y-m-d');?>
+
+    <?php echo
+        $form->field($model, 'longname')->textInput()->widget(
+            AutoComplete::className(),
+            [
+                'attribute' => 'materials_id',
+                'name' => 'Movements[materials_id]',
+                'data' =>  $lists['materials'],
+                'value' => (isset ($lists['materials'][$model->materials_id])) ? $lists['materials'][$model->materials_id] : '',
+                'clientOptions' => [
+                    'minChars' => 2,
+                ]
+            ])
+
+    ?>
 
     <?= $form->field($model, 'direction')->dropDownList($lists['directions']) ?>
 
@@ -26,7 +43,7 @@ use yii\bootstrap\ActiveForm;
 
     <?= $form->field($model, 'from_to')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'transaction_date')->textInput() ?>
+    <?= $form->field($model, 'transaction_date')->textInput(['value' => $trans_date]) ?>
 
     <?= $form->field($model, 'stocks_id')->textInput() ?>
 
