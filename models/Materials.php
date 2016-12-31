@@ -40,7 +40,8 @@ class Materials extends ActiveRecord
     {
         return [
             [['ref'], 'integer'],
-            [['qty', 'minqty'], 'number'],
+            [['ref', 'qty', 'minqty'], 'number'],
+            [['qty', 'minqty', 'name'], 'required'],
             [['name'], 'string', 'max' => 128],
             [['unit', 'gruppa'], 'string', 'max' => 3],
             [['type'], 'string', 'max' => 8],
@@ -56,7 +57,7 @@ class Materials extends ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'ref' => Yii::t('app', 'Material'),
+            'ref' => Yii::t('app', 'Material ref'),
             'name' => Yii::t('app', 'Material description'),
             'qty' => Yii::t('app', 'Stock qty'),
             'minqty' => Yii::t('app', 'Minimal qty'),

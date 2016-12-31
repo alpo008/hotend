@@ -23,6 +23,7 @@ use yii\bootstrap\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => false, 'class'=>'form-control col-lg-8 col-md-8'])?>
 
+    <?= $form->field($model, 'ref')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'qty')->textInput(['maxlength' => true]) ?>
 

@@ -32,24 +32,22 @@ class Movements extends ActiveRecord
 
     public function attributes()
     {
-
         return array_merge(parent::attributes(), ['longname']);
     }
     
-    //public $longname;
-
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['materials_id', 'from_to', 'person_in_charge', 'person_receiver'], 'required'],
+            [['materials_id', 'from_to', 'person_in_charge', 'person_receiver', 'qty' ], 'required'],
             [['direction', 'stocks_id'], 'integer'],
             [['qty'], 'number'],
             [['transaction_date', 'materials_id'], 'safe'],
             [['from_to', 'person_in_charge', 'person_receiver'], 'string', 'max' => 64],
-            [['docref', 'longname'], 'string', 'max' => 128],
+            [['docref'], 'string', 'max' => 128],
+            [['longname'], 'string', 'max' => 144],
         ];
     }
 
@@ -78,9 +76,15 @@ class Movements extends ActiveRecord
         parent::beforeValidate();
         if (isset ($this->dirtyAttributes['materials_id'])) {
             $temp = explode(';', $this->dirtyAttributes['materials_id']);
+            if (count ($temp) > 2){
             $this->setAttribute('materials_id', $temp[0]);
             return true;
+            }else{
+                $this->setAttribute('materials_id', ' ');
+                return false;
+            }
         } else {
+            $this->setAttribute('materials_id', ' ');
             return false;
         }
     }
