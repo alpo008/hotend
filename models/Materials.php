@@ -18,7 +18,8 @@ use yii\web\UploadedFile;
  * @property string $type
  * @property string $gruppa
  * @property resource $file
- * @property mixed locations
+ * @property mixed $locations
+ * @property mixed $stocks
  */
 class Materials extends ActiveRecord
 {
@@ -102,13 +103,11 @@ class Materials extends ActiveRecord
      * @return mixed
      */
     
-    public function getQuantities($stocks_id)
+    public function getQuantities()
     {
-        $temp_array = array_column ($this->locations, 'qty', 'stocks_id'); 
-        if (array_key_exists($stocks_id, $temp_array)){
-            return $temp_array[$stocks_id];
-        }else{
-            return NULL;
-        }
+        $temp_array = array_column ($this->locations, 'qty', 'stocks_id');
+        $this->setAttribute('qty', array_sum($temp_array));
+        $this->save();
+        return $temp_array;
     }
 }

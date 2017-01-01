@@ -24,5 +24,12 @@
             border-radius: 0 0 4px 4px!important;
 
         }
+        
+    .stock-cart__materials-data{
+        border: 1px solid #000;
+        -webkit-border-radius: 4px!important;
+        -moz-border-radius: 4px!important;
+        border-radius: 4px!important;
+    }
 
 

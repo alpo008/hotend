@@ -11,6 +11,7 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property string $placename
  * @property string $description
+ * @property mixed $materials
  */
 class Stocks extends ActiveRecord
 {
@@ -50,5 +51,11 @@ class Stocks extends ActiveRecord
     public function getLocations()
     {
         return $this->hasMany(Locations::className(), ['stocks_id' => 'id']);
+    }
+
+    public function getMaterials()
+    {
+        return $this->hasMany(Materials::className(), ['id' => 'materials_id'])
+            ->via('locations');
     }
 }

@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\models\Locations;
+use app\models\Materials;
 use Yii;
 use app\models\Stocks;
 use app\models\search\StocksSearch;
@@ -51,9 +53,8 @@ class StocksController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        $model = $this->findModel($id);
+        return $this->render('view', compact ('model'));
     }
 
     /**

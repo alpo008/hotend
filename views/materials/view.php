@@ -132,14 +132,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 if (!!count($model->stocks)):
                     foreach ($model->stocks as $stock): ?>
                         <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
                                 <a href="/stocks/<?php echo $stock->id ?>">
                                     <?php echo $stock->placename?>
                                 </a>
                             </div>
 
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                <?php echo  $model->getQuantities($stock->id) . ' ' . $model->unit; ?>
+                            <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
+                                <?php echo  $model->getQuantities()[$stock->id] . ' ' . $model->unit; ?>
                             </div>
                         </div>
                     <?php
