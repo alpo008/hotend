@@ -77,8 +77,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php echo Yii::t('app', 'Stock History') ?>
             </a>
         </li>
-        <li role="presentation"><a href="#location" aria-controls="location" role="tab" data-toggle="tab">Расположение
-                на складе</a></li>
+        <li role="presentation">
+            <a href="#location" aria-controls="location" role="tab" data-toggle="tab">
+                <?php echo Yii::t('app', 'Stock Locations') ?>
+            </a></li>
         <li role="presentation"><a href="#orders" aria-controls="orders" role="tab" data-toggle="tab">История заявок</a>
         </li>
 
@@ -87,7 +89,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <!-- Tab panes -->
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="home">
-            <div class="material-cart__movements-data">
+            <div class="material-cart__movements-data text-center">
                 <?php
 
                 /** @var object $movements_data */
@@ -119,12 +121,35 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?php
                     endforeach;
                 else:
-                    echo Yii::t('app', 'No stock data available');
+                    echo Yii::t('app', 'No movements data available');
                 endif;
                 ?>
             </div>
         </div>
-        <div role="tabpanel" class="tab-pane" id="location">Расположение на складе</div>
+        <div role="tabpanel" class="tab-pane" id="location">
+            <div class="material-cart__stocks-data text-center">
+            <?php
+                if (!!count($model->stocks)):
+                    foreach ($model->stocks as $stock): ?>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <a href="/stocks/<?php echo $stock->id ?>">
+                                    <?php echo $stock->placename?>
+                                </a>
+                            </div>
+
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <?php echo  $model->getQuantities($stock->id) . ' ' . $model->unit; ?>
+                            </div>
+                        </div>
+                    <?php
+                    endforeach;
+                else:
+                    echo Yii::t('app', 'No stock data available');
+                endif;
+            ?>
+            </div>
+        </div>
         <div role="tabpanel" class="tab-pane" id="orders">История заявок</div>
     </div>
 </div>

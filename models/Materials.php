@@ -18,6 +18,7 @@ use yii\web\UploadedFile;
  * @property string $type
  * @property string $gruppa
  * @property resource $file
+ * @property mixed locations
  */
 class Materials extends ActiveRecord
 {
@@ -84,10 +85,30 @@ class Materials extends ActiveRecord
     {
         return $this->hasMany(Movements::className(), ['materials_id' => 'id']);
     }
-    
-    public  function getFullRef (){
-        return $this->ref .';'. $this->name;
+
+    public function getLocations()
+    {
+        return $this->hasMany(Locations::className(), ['materials_id' => 'id']);
     }
+
+    public function getStocks()
+    {
+        return $this->hasMany(Stocks::className(), ['id' => 'stocks_id'])
+            ->via('locations');
+    }
+
+    /**
+     * @param integer $stocks_id
+     * @return mixed
+     */
     
-    
+    public function getQuantities($stocks_id)
+    {
+        $temp_array = array_column ($this->locations, 'qty', 'stocks_id'); 
+        if (array_key_exists($stocks_id, $temp_array)){
+            return $temp_array[$stocks_id];
+        }else{
+            return NULL;
+        }
+    }
 }

@@ -30,6 +30,10 @@ class Movements extends ActiveRecord
         return 'movements';
     }
 
+    /**
+     * @return array
+     */
+
     public function attributes()
     {
         return array_merge(parent::attributes(), ['longname']);

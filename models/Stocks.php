@@ -46,4 +46,9 @@ class Stocks extends ActiveRecord
             'description' => Yii::t('app', 'Description'),
         ];
     }
+
+    public function getLocations()
+    {
+        return $this->hasMany(Locations::className(), ['stocks_id' => 'id']);
+    }
 }

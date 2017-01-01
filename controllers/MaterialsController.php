@@ -3,6 +3,8 @@
 namespace app\controllers;
 
 use app\models\custom\AuxData;
+use app\models\Locations;
+use app\models\Stocks;
 use yii;
 use app\models\Materials;
 use app\models\search\MaterialsSearch;
