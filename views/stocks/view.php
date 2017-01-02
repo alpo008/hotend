@@ -35,38 +35,43 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
 </div>
-<div class="row">
 
-    <div class="container">
-        <div class = "stock-cart__materials-data table-bordered text-center">
+
+<?php
+
+/** @var object $movements_data */
+
+    if (!!count($model->materials)):
+?>
+        <table class="table table-bordered">
+            <caption><?php echo Yii::t('app', 'Stored materials')?></caption>
             <?php
-
-            /** @var object $movements_data */
-
-            if (!!count($model->materials)):
                 foreach ($model->materials as $material): ?>
-                    <div class="row">
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
+                    <tr>
+                        <td>
                             <a href="/materials/<?php echo $material->id ?>">
                                 <?php echo $material->ref; ?>
                             </a>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-4">
+                        </td>
+                        <td>
                             <?php echo $material->name; ?>
-                        </div>
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
+                        </td>
+                        <td>
                             <?php
                             $temp = array_column($material->locations, 'qty', 'materials_id');
                             echo $temp[$material->id] . ' ' . $material->unit;
                             ?>
-                        </div>
-                    </div>
+                        </td>
+                    </tr>
                     <?php
                 endforeach;
-            else:
-                echo Yii::t('app', 'No stock place data available');
-            endif;
             ?>
-        </div>
-    </div>
-</div>
+        </table>
+    <?php
+    else:
+        echo Yii::t('app', 'No stock place data available');
+    endif;
+?>
+
+
+

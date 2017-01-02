@@ -139,7 +139,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             </div>
 
                             <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
-                                <?php echo  $model->getQuantities()[$stock->id] . ' ' . $model->unit; ?>
+                                <?php echo  $model->qty . ' ' . $model->unit; ?>
                             </div>
                         </div>
                     <?php
