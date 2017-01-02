@@ -75,7 +75,7 @@ class Movements extends ActiveRecord
         ];
     }
 
-    public function beforeValidate()
+/*    public function beforeValidate()
     {
         parent::beforeValidate();
         if (isset ($this->dirtyAttributes['materials_id'])) {
@@ -91,10 +91,15 @@ class Movements extends ActiveRecord
             $this->setAttribute('materials_id', ' ');
             return false;
         }
-    }
+    }*/
 
     public function getMaterials()
     {
         return $this->hasOne(Materials::className(), ['id' => 'materials_id']);
+    }
+
+    public function getStocks()
+    {
+        return $this->hasOne(Stocks::className(), ['id' => 'stocks_id']);
     }
 }

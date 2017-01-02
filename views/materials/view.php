@@ -88,7 +88,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <!-- Tab panes -->
     <div class="tab-content">
-        <div role="tabpanel" class="tab-pane movements-data active" id="home">
+        <div role="tabpanel" class="tab-pane active" id="home">
 
             <?php
 

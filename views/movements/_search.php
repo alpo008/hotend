@@ -26,15 +26,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'from_to') ?>
 
-    <?php // echo $form->field($model, 'transaction_date') ?>
+    <?php echo $form->field($model, 'transaction_date') ?>
 
-    <?php // echo $form->field($model, 'stocks_id') ?>
+    <?php echo $form->field($model, 'stocks_id') ?>
 
-    <?php // echo $form->field($model, 'person_in_charge') ?>
+    <?php echo $form->field($model, 'person_in_charge') ?>
     
-    <?php // echo $form->field($model, 'person_receiver') ?>
+    <?php echo $form->field($model, 'person_receiver') ?>
 
-    <?php // echo $form->field($model, 'docref') ?>
+    <?php echo $form->field($model, 'docref') ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>

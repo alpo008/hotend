@@ -17,7 +17,7 @@ class MovementsSearch extends Movements
      */
     public function attributes()
     {
-        return array_merge(parent::attributes(), ['materials.name', 'materials.ref']);
+        return array_merge(parent::attributes(), ['materials.name', 'materials.ref', 'stocks.placename']);
     }
 
     public function rules()
@@ -25,7 +25,7 @@ class MovementsSearch extends Movements
         return [
             [['id', 'materials_id', 'stocks_id'], 'integer'],
             [['qty'], 'number'],
-            [['from_to', 'transaction_date', 'person_in_charge', 'person_receiver', 'docref', 'direction', 'materials.name', 'materials.ref'], 'safe'],
+            [['from_to', 'transaction_date', 'person_in_charge', 'person_receiver', 'docref', 'direction', 'materials.name', 'materials.ref', 'stocks.placename'], 'safe'],
         ];
     }
 
@@ -67,23 +67,25 @@ class MovementsSearch extends Movements
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
+            //'id' => $this->id,
             'materials_id' => $this->materials_id,
             'direction' => $this->direction,
-            'qty' => $this->qty,
-            'transaction_date' => $this->transaction_date,
+            'movements.qty' =>  $this->qty,
             'stocks_id' => $this->stocks_id,
         ]);
 
         $query->andFilterWhere(['like', 'from_to', $this->from_to])
             ->andFilterWhere(['like', 'person_in_charge', $this->person_in_charge])
             ->andFilterWhere(['like', 'person_receiver', $this->person_receiver])
-            ->andFilterWhere(['like', 'docref', $this->docref]);
+            ->andFilterWhere(['like', 'docref', $this->docref])
+            ->andFilterWhere(['like', 'transaction_date', $this->transaction_date]);
 
         $query->joinWith('materials');
+        $query->joinWith('stocks');
         
         $query->andFilterWhere(['LIKE', 'materials.name', $this->getAttribute('materials.name')]);
         $query->andFilterWhere(['LIKE', 'materials.ref', $this->getAttribute('materials.ref')]);
+        $query->andFilterWhere(['LIKE', 'stocks.placename', $this->getAttribute('stocks.placename')]);
 
 
         return $dataProvider;

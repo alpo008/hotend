@@ -27,14 +27,11 @@ $this->params['breadcrumbs'][] = $this->title;
             //'id',
             'transaction_date',
             //'materials_id',
-            'materials.ref',
+            //'materials.ref',
             'materials.name',
-/*            [
-                'attribute' => 'direction',
-                'value' => function ($searchModel) use ($lists){
-                    return $lists['directions'][$searchModel->direction];
-                }
-            ],*/
+            'qty',
+            'stocks.placename',
+
             [
 
                 'attribute' => 'direction',
@@ -53,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
                  */
                 'filter' => $lists['directions'],
             ],
-            'qty',
+
             'from_to',
             // 'stocks_id',
             // 'person_in_charge',

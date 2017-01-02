@@ -41,6 +41,7 @@ class MovementsController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $lists['directions'] = AuxData::getDirections();
 
+
         return $this->render('index', compact ('searchModel', 'dataProvider', 'lists'));
     }
 
