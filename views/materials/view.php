@@ -88,68 +88,80 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <!-- Tab panes -->
     <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="home">
-            <div class="material-cart__movements-data text-center">
-                <?php
+        <div role="tabpanel" class="tab-pane movements-data active" id="home">
 
-                /** @var object $movements_data */
+            <?php
 
-                if (count($movements_data) !== 0):
-                    foreach ($movements_data as $movement):?>
-                        <div class="row">
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
-                                <a href="/movements/<?php echo $movement->id ?>">
-                                    <?php echo $movement->transaction_date; ?>
+            /** @var object $movements_data */
+
+            if (!!count($movements_data)): ?>
+                <div class="panel-body">
+                    <table class="table table-bordered">
+                        <?php
+                        foreach ($movements_data as $movement):?>
+                            <tr>
+                                <td>
+                                    <a href="/movements/<?php echo $movement->id ?>">
+                                        <?php echo $movement->transaction_date; ?>
+                                    </a>
+                                </td>
+                                <td>
+                                    <?php echo $lists['directions'][$movement->direction]; ?>
+                                </td>
+                                <td>
+                                    <?php echo $movement->from_to; ?>
+                                </td>
+                                <td>
+                                    <?php echo $movement->qty . ' ' . $model->unit; ?>
+                                </td>
+                                <td>
+                                    <?php echo $movement->person_in_charge; ?>
+                                </td>
+                                <td>
+                                    <?php echo $movement->docref; ?>
+                                </td>
+                            </tr>
+                            <?php
+                        endforeach; ?>
+                    </table>
+                </div>
+            <?php
+            else:
+                echo Yii::t('app', 'No movements data available');
+            endif;
+            ?>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="location">
+
+            <?php
+
+            if (!!count($model->stocks)):?>
+
+            <div class="panel-body">
+                <table class="table table-bordered">
+                    <?php
+                    foreach ($model->stocks as $stock): ?>
+                        <tr>
+                            <td>
+                                <a href="/stocks/<?php echo $stock->id ?>">
+                                    <?php echo $stock->placename ?>
                                 </a>
-                            </div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
-                                <?php echo $lists['directions'][$movement->direction]; ?>
-                            </div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
-                                <?php echo $movement->from_to; ?>
-                            </div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
-                                <?php echo $movement->qty . ' ' . $model->unit; ?>
-                            </div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
-                                <?php echo $movement->person_in_charge; ?>
-                            </div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
-                                <?php echo $movement->docref; ?>
-                            </div>
-                        </div>
+                            </td>
+                            <td>
+                                <?php echo $qties[$stock->id] . ' ' . $model->unit; ?>
+                            </td>
+                        </tr>
                         <?php
                     endforeach;
-                else:
-                    echo Yii::t('app', 'No movements data available');
-                endif;
-                ?>
+            else:
+                echo Yii::t('app', 'No stock data available');
+            endif;
+                    ?>
+                </table>
             </div>
         </div>
-        <div role="tabpanel" class="tab-pane" id="location">
-            <div class="material-cart__stocks-data text-center">
-            <?php
-                if (!!count($model->stocks)):
-                    foreach ($model->stocks as $stock): ?>
-                        <div class="row">
-                            <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
-                                <a href="/stocks/<?php echo $stock->id ?>">
-                                    <?php echo $stock->placename?>
-                                </a>
-                            </div>
 
-                            <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
-                                <?php echo  $model->qty . ' ' . $model->unit; ?>
-                            </div>
-                        </div>
-                    <?php
-                    endforeach;
-                else:
-                    echo Yii::t('app', 'No stock data available');
-                endif;
-            ?>
-            </div>
-        </div>
         <div role="tabpanel" class="tab-pane" id="orders">История заявок</div>
     </div>
 </div>

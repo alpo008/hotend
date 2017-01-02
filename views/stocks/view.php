@@ -41,8 +41,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
 /** @var object $movements_data */
 
-    if (!!count($model->materials)):
-?>
+    if (!!count($model->materials)):?>
+
         <table class="table table-bordered">
             <caption><?php echo Yii::t('app', 'Stored materials')?></caption>
             <?php

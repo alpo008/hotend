@@ -106,14 +106,12 @@ class Materials extends ActiveRecord
     public function getQuantities()
     {
         $temp_array = array_column ($this->locations, 'qty', 'stocks_id');
-        var_dump($temp_array);
         $this->updateQuantity(array_sum($temp_array));
         return $temp_array;
     }
 
     public function  updateQuantity($qty='0')
     {
-        var_dump($this->attributes);
         $this->setAttribute('qty', $qty);
         $this->qty = $qty;
         $this->save();
