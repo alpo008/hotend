@@ -51,7 +51,7 @@ class Movements extends ActiveRecord
             [['transaction_date', 'materials_id'], 'safe'],
             [['from_to', 'person_in_charge', 'person_receiver'], 'string', 'max' => 64],
             [['docref'], 'string', 'max' => 128],
-            [['longname'], 'string', 'max' => 144],
+            [['longname'], 'string', 'min' => 16],
         ];
     }
 
@@ -75,31 +75,64 @@ class Movements extends ActiveRecord
         ];
     }
 
-/*    public function beforeValidate()
+    /**
+     * @param bool $insert
+     * @return bool
+     */
+    public function beforeSave($insert)
     {
-        parent::beforeValidate();
-        if (isset ($this->dirtyAttributes['materials_id'])) {
-            $temp = explode(';', $this->dirtyAttributes['materials_id']);
-            if (count ($temp) > 2){
-            $this->setAttribute('materials_id', $temp[0]);
-            return true;
-            }else{
-                $this->setAttribute('materials_id', ' ');
-                return false;
+
+        if (parent::beforeSave($insert)) {
+            $location = $this->getLocation();
+            if(!count($location)){
+                $location = new Locations();
+                $location->materials_id = (int) $this->materials_id;
+                $location->stocks_id = $this->stocks_id;
+                $location->qty = 0;
+
             }
+
+                if (!!$this->direction){
+                    $quantity = (int) $location->qty + (int) $this->qty;
+                }else{
+                    $quantity = (int) $location->qty - (int) $this->qty;
+                }
+
+            if ($quantity == 0){
+                return $location->delete();
+            }elseif ($quantity < 0){
+                    $this->addError('qty', Yii::t('app', 'The stock rest is too small for this movement'));
+                    return false;
+                }else{
+                    $location->setAttribute('qty', $quantity);
+                    return $location->save();
+                }
+
+
         } else {
-            $this->setAttribute('materials_id', ' ');
             return false;
         }
-    }*/
+    }
+
 
     public function getMaterials()
     {
         return $this->hasOne(Materials::className(), ['id' => 'materials_id']);
     }
 
+    /**
+     * @return yii\db\ActiveQuery
+     */
     public function getStocks()
     {
         return $this->hasOne(Stocks::className(), ['id' => 'stocks_id']);
+    }
+
+    /**
+     * @return array|null|ActiveRecord
+     */
+    public function getLocation()
+    {
+        return Locations::find()->where(['stocks_id' => $this->stocks_id, 'materials_id' => $this->materials_id])->one();
     }
 }

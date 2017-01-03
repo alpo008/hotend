@@ -10,6 +10,7 @@ namespace app\models\custom;
 
 
 use app\models\Materials;
+use app\models\Stocks;
 use yii\base\Model;
 
 class AuxData extends Model
@@ -30,10 +31,18 @@ class AuxData extends Model
     }    
     public static function getMaterials(){
         $temp = Materials::find()
-            ->select (['code' => 'id', 'value' => "concat (id, '; ', ref, '; ',name)"])
+            ->select (['m_id' => 'id', 'value' => "concat (id, '; ', ref, '; ',name)"])
             ->asArray()
             ->all();
-        return array_column($temp, 'value', 'code');
+        return array_column($temp, 'value', 'm_id');
+    }    
+    
+    public static function getStocks(){
+        $temp = Stocks::find()
+            ->select (['s_id' => 'id', 'value' => 'placename'])
+            ->asArray()
+            ->all();
+        return array_column($temp, 'value', 's_id');
     }
 
 

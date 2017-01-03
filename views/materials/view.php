@@ -80,14 +80,17 @@ $this->params['breadcrumbs'][] = $this->title;
         <li role="presentation">
             <a href="#location" aria-controls="location" role="tab" data-toggle="tab">
                 <?php echo Yii::t('app', 'Stock Locations') ?>
-            </a></li>
-        <li role="presentation"><a href="#orders" aria-controls="orders" role="tab" data-toggle="tab">История заявок</a>
+            </a>
         </li>
-
+        <li role="presentation">
+            <a href="#orders" aria-controls="orders" role="tab" data-toggle="tab">
+                История заявок
+            </a>
+        </li>
     </ul>
 
     <!-- Tab panes -->
-    <div class="tab-content">
+    <div class="tab-content material-cart__tab-content">
         <div role="tabpanel" class="tab-pane active" id="home">
 
             <?php
@@ -95,7 +98,7 @@ $this->params['breadcrumbs'][] = $this->title;
             /** @var object $movements_data */
 
             if (!!count($movements_data)): ?>
-                <div class="panel-body">
+
                     <table class="table table-bordered">
                         <?php
                         foreach ($movements_data as $movement):?>
@@ -124,7 +127,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <?php
                         endforeach; ?>
                     </table>
-                </div>
+
             <?php
             else:
                 echo Yii::t('app', 'No movements data available');
@@ -138,7 +141,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             if (!!count($model->stocks)):?>
 
-            <div class="panel-body">
+
                 <table class="table table-bordered">
                     <?php
                     foreach ($model->stocks as $stock): ?>
@@ -159,10 +162,14 @@ $this->params['breadcrumbs'][] = $this->title;
             endif;
                     ?>
                 </table>
-            </div>
+
         </div>
 
-        <div role="tabpanel" class="tab-pane" id="orders">История заявок</div>
+        <div role="tabpanel" class="tab-pane" id="orders">
+История за явок <br/>
+                lorem
+
+        </div>
     </div>
 </div>
 

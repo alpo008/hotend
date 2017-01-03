@@ -219,6 +219,7 @@ return [
     'Stock place' => 'Складское место',
     'No stock place data available' => 'Нет данных о материалах, хранящихся на этом месте',
     'Stored materials' => 'Хранящиеся материалы',
+    'The stock rest is too small for this movement' => 'На этом складском месте недостаточное количество материала',
 
     'No stock data available' => 'Нет данных по наличию материала на складе.',
     'No movements data available' => 'Нет данных по складским операциям.',

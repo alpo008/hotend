@@ -29,7 +29,7 @@ class Locations extends ActiveRecord
     {
         return [
             [['materials_id', 'stocks_id'], 'integer'],
-            [['qty'], 'number'],
+            [['qty'], 'number', 'min' => 0],
         ];
     }
 
@@ -55,3 +55,4 @@ class Locations extends ActiveRecord
         return $this->hasOne(Stocks::className(), ['id' => 'stocks_id']);
     }
 }
+
