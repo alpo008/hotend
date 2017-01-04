@@ -98,6 +98,11 @@ class Materials extends ActiveRecord
             ->via('locations');
     }
 
+    public function getOrders()
+    {
+        return $this->hasMany(Orders::className(), ['materials_id' => 'id']);
+    }
+
     /**
      * @param integer $stocks_id
      * @return mixed

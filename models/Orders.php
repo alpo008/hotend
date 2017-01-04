@@ -2,7 +2,8 @@
 
 namespace app\models;
 
-use Yii;
+use yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "orders".
@@ -17,7 +18,7 @@ use Yii;
  *
  * @property Materials $materials
  */
-class Orders extends \yii\db\ActiveRecord
+class Orders extends ActiveRecord
 {
     /**
      * @inheritdoc
