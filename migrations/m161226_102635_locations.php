@@ -22,6 +22,7 @@ class m161226_102635_locations extends Migration
     public function safeUp()
     {
         $this->createTable('locations',[
+            'id' => $this->primaryKey(),
             'materials_id' => $this->integer(8),
             'stocks_id' => $this->integer(8),
             'qty' => $this->decimal(7,3)->defaultValue(0)

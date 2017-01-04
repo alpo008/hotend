@@ -2,19 +2,17 @@
 
 namespace app\controllers;
 
-use app\models\custom\AuxData;
-use app\models\Materials;
-use yii;
-use app\models\Movements;
-use app\models\search\MovementsSearch;
+use Yii;
+use app\models\Orders;
+use app\models\search\OrdersSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * MovementsController implements the CRUD actions for Movements model.
+ * OrdersController implements the CRUD actions for Orders model.
  */
-class MovementsController extends Controller
+class OrdersController extends Controller
 {
     /**
      * @inheritdoc
@@ -32,56 +30,52 @@ class MovementsController extends Controller
     }
 
     /**
-     * Lists all Movements models.
+     * Lists all Orders models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new MovementsSearch();
+        $searchModel = new OrdersSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $lists['directions'] = AuxData::getDirections();
 
-
-        return $this->render('index', compact ('searchModel', 'dataProvider', 'lists'));
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**
-     * Displays a single Movements model.
+     * Displays a single Orders model.
      * @param integer $id
      * @return mixed
      */
     public function actionView($id)
     {
-        $model = $this->findModel($id);
-        $materials_data = $model->getMaterials()->select(['name', 'unit', 'type', 'gruppa'])->one();
-        $lists['directions'] = AuxData::getDirections();
-
-
-        return $this->render('view', compact ("model", "lists"));
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
     }
 
     /**
-     * Creates a new Movements model.
+     * Creates a new Orders model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Movements();
-        $lists['directions'] = AuxData::getDirections();
-        $lists['materials'] = AuxData::getMaterials();
-        $lists['stocks'] = AuxData::getStocks();
+        $model = new Orders();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $model->materials->getQuantities();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render('create', compact ("model", "lists"));
+            return $this->render('create', [
+                'model' => $model,
+            ]);
         }
     }
 
     /**
-     * Updates an existing Movements model.
+     * Updates an existing Orders model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -89,19 +83,18 @@ class MovementsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $lists['directions'] = AuxData::getDirections();
-        $lists['materials'] = AuxData::getMaterials();
-        $lists['stocks'] = AuxData::getStocks();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render('update', compact ("model", "lists"));
+            return $this->render('update', [
+                'model' => $model,
+            ]);
         }
     }
 
     /**
-     * Deletes an existing Movements model.
+     * Deletes an existing Orders model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -114,15 +107,15 @@ class MovementsController extends Controller
     }
 
     /**
-     * Finds the Movements model based on its primary key value.
+     * Finds the Orders model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Movements the loaded model
+     * @return Orders the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Movements::findOne($id)) !== null) {
+        if (($model = Orders::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

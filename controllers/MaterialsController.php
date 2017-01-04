@@ -83,12 +83,13 @@ class MaterialsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $qties = $model->getQuantities();
         $lists['units'] = AuxData::getUnits();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render('update', compact("model", "lists"));
+            return $this->render('update', compact("model", "lists", "qties"));
         }
     }
 

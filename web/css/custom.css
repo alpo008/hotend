@@ -9,13 +9,7 @@
         padding: 5px;
         text-align: center;
     }
-    .material-cart__movements-data, .material-cart__stocks-data{
 
-        color: #555!important;
-    }
-.material-cart__movements-data table{
-    margin-top: 5px;
-}
     .material-cart__nav-tabs{
         margin-top: 40px;
     }
@@ -34,6 +28,8 @@
         -moz-border-radius: 4px!important;
         border-radius: 4px!important;
     }
+
 .navbar{
     background-color: #555!important;
 }
+

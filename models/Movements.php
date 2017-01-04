@@ -81,7 +81,6 @@ class Movements extends ActiveRecord
      */
     public function beforeSave($insert)
     {
-
         if (parent::beforeSave($insert)) {
             $location = $this->getLocation();
             if(!count($location)){
@@ -89,14 +88,13 @@ class Movements extends ActiveRecord
                 $location->materials_id = (int) $this->materials_id;
                 $location->stocks_id = $this->stocks_id;
                 $location->qty = 0;
-
             }
-
-                if (!!$this->direction){
-                    $quantity = (int) $location->qty + (int) $this->qty;
-                }else{
-                    $quantity = (int) $location->qty - (int) $this->qty;
-                }
+            
+            if (!!$this->direction){
+                $quantity = (int) $location->qty + (int) $this->qty;
+            }else{
+                $quantity = (int) $location->qty - (int) $this->qty;
+            }
 
             if ($quantity == 0){
                 return $location->delete();
@@ -107,14 +105,14 @@ class Movements extends ActiveRecord
                     $location->setAttribute('qty', $quantity);
                     return $location->save();
                 }
-
-
         } else {
             return false;
         }
     }
 
-
+    /**
+     * @return yii\db\ActiveQuery
+     */
     public function getMaterials()
     {
         return $this->hasOne(Materials::className(), ['id' => 'materials_id']);

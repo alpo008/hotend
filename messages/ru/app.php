@@ -220,6 +220,12 @@ return [
     'No stock place data available' => 'Нет данных о материалах, хранящихся на этом месте',
     'Stored materials' => 'Хранящиеся материалы',
     'The stock rest is too small for this movement' => 'На этом складском месте недостаточное количество материала',
+    'Orders' => 'Заявки',
+    'Create Orders' => 'Создать заявку',
+    'Materials ID' => 'ID материала',
+    'Order Date' => 'Дата подачи заявки',
+    'Order ref' => 'Номер заявки',
+    'Applicant' => 'Лицо, оформившее заявку',
 
     'No stock data available' => 'Нет данных по наличию материала на складе.',
     'No movements data available' => 'Нет данных по складским операциям.',
