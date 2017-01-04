@@ -35,10 +35,9 @@ class Orders extends ActiveRecord
     {
         return [
             [['materials_id', 'order_date'], 'required'],
-            [['materials_id'], 'integer'],
+            [['materials_id', 'status'], 'integer'],
             [['qty'], 'number'],
             [['order_date'], 'safe'],
-            [['status'], 'string', 'max' => 32],
             [['person'], 'string', 'max' => 64],
             [['docref'], 'string', 'max' => 128],
             [['materials_id'], 'exist', 'skipOnError' => true, 'targetClass' => Materials::className(), 'targetAttribute' => ['materials_id' => 'id']],

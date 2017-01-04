@@ -29,7 +29,7 @@ class m161226_110323_orders extends Migration
             'materials_id' => $this->integer(8)->notNull(),
             'qty' => $this->decimal(7, 3)->notNull()->defaultValue(0),
             'order_date' => $this->date()->notNull(),
-            'status' => $this->string(32),
+            'status' => $this->integer(0)->defaultValue(0),
             'person' => $this->string(64),
             'docref' => $this->string(128),
         ], $tableOptions);

@@ -24,13 +24,31 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            //'id',
             'materials_id',
             'qty',
             'order_date',
-            'status',
+            //'status',
+            [
+
+                'attribute' => 'status',
+                'value' => function ($searchModel) use ($lists){
+                    if (isset ($searchModel->direction)){
+                        return $lists['statuses'][$searchModel->status];
+                    }else{
+                        return NULL;
+                    }
+                },
+
+                'format' => 'raw',
+                /**
+                 * Отображение фильтра.
+                 * Вместо поля для ввода - выпадающий список с заданными значениями directions
+                 */
+                'filter' => $lists['statuses'],
+            ],
             // 'person',
-            // 'docref',
+            'docref',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

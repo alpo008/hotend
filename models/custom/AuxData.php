@@ -11,6 +11,7 @@ namespace app\models\custom;
 
 use app\models\Materials;
 use app\models\Stocks;
+use yii;
 use yii\base\Model;
 
 class AuxData extends Model
@@ -43,6 +44,19 @@ class AuxData extends Model
             ->asArray()
             ->all();
         return array_column($temp, 'value', 's_id');
+    }    
+    
+    public static function getOrderStatus(){
+        return array(
+            '0' => Yii::t('app', 'To do'),
+            '1' => Yii::t('app', 'Out of date'),
+            '2' => Yii::t('app', 'Placed'),
+            '3' => Yii::t('app', 'Paid'),
+            '4' => Yii::t('app', 'Arrived'),
+            '5' => Yii::t('app', 'Completed'),
+            
+
+        );
     }
 
 

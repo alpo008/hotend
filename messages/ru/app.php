@@ -226,6 +226,13 @@ return [
     'Order Date' => 'Дата подачи заявки',
     'Order ref' => 'Номер заявки',
     'Applicant' => 'Лицо, оформившее заявку',
+    'To do' => 'Сделать',
+    'Out of date' => 'Забыта',
+    'Placed' => 'Подана',
+    'Paid' => 'Оплачена',
+    'Arrived' => 'Поступила на склад',
+    'Completed' => 'Закрыта',
+    
 
     'No stock data available' => 'Нет данных по наличию материала на складе.',
     'No movements data available' => 'Нет данных по складским операциям.',

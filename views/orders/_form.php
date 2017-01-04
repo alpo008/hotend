@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'order_date')->textInput() ?>
 
-    <?= $form->field($model, 'status')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'status')->dropDownList($lists['statuses']) ?>
 
     <?= $form->field($model, 'person')->textInput(['maxlength' => true]) ?>
 

@@ -2,8 +2,9 @@
 
 namespace app\controllers;
 
-use Yii;
+use yii;
 use app\models\Orders;
+use app\models\custom\AuxData;
 use app\models\search\OrdersSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -37,11 +38,8 @@ class OrdersController extends Controller
     {
         $searchModel = new OrdersSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+        $lists['statuses'] = AuxData::getOrderStatus();
+        return $this->render('index', compact("searchModel", "lists", "dataProvider"));
     }
 
     /**
@@ -51,9 +49,9 @@ class OrdersController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        $model = $this->findModel($id);
+        $lists['statuses'] = AuxData::getOrderStatus();
+        return $this->render('view', compact("model", "lists"));
     }
 
     /**
@@ -64,13 +62,12 @@ class OrdersController extends Controller
     public function actionCreate()
     {
         $model = new Orders();
+        $lists['statuses'] = AuxData::getOrderStatus();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+            return $this->render('create', compact("model", "lists"));
         }
     }
 
@@ -83,13 +80,11 @@ class OrdersController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        $lists['statuses'] = AuxData::getOrderStatus();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+            return $this->render('update', compact("model", "lists"));
         }
     }
 
