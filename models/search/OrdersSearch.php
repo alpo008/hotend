@@ -13,14 +13,21 @@ use app\models\Orders;
 class OrdersSearch extends Orders
 {
     /**
+     * @return array
+     */
+    public function attributes()
+    {
+        return array_merge(parent::attributes(), ['materials.name', 'materials.ref']);
+    }
+    /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'materials_id'], 'integer'],
+            [['materials_id'], 'integer'],
             [['qty'], 'number'],
-            [['order_date', 'status', 'person', 'docref'], 'safe'],
+            [['id', 'order_date', 'status', 'person', 'docref', 'materials.name', 'materials.ref'], 'safe'],
         ];
     }
 
@@ -60,15 +67,20 @@ class OrdersSearch extends Orders
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
+            //'id' => $this->id,
             'materials_id' => $this->materials_id,
             'qty' => $this->qty,
             'order_date' => $this->order_date,
         ]);
 
+        $query->joinWith('materials');
+
+
         $query->andFilterWhere(['like', 'status', $this->status])
             ->andFilterWhere(['like', 'person', $this->person])
-            ->andFilterWhere(['like', 'docref', $this->docref]);
+            ->andFilterWhere(['like', 'docref', $this->docref])
+        ->andFilterWhere(['LIKE', 'materials.name', $this->getAttribute('materials.name')])
+        ->andFilterWhere(['LIKE', 'materials.ref', $this->getAttribute('materials.ref')]);
 
         return $dataProvider;
     }

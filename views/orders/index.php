@@ -25,15 +25,16 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'id',
-            'materials_id',
+            //'materials_id',
+            'materials.ref',
+            'materials.name',
             'qty',
             'order_date',
             //'status',
             [
-
                 'attribute' => 'status',
                 'value' => function ($searchModel) use ($lists){
-                    if (isset ($searchModel->direction)){
+                    if (isset ($searchModel->status)){
                         return $lists['statuses'][$searchModel->status];
                     }else{
                         return NULL;

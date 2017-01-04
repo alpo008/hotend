@@ -39,6 +39,7 @@ class OrdersController extends Controller
         $searchModel = new OrdersSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $lists['statuses'] = AuxData::getOrderStatus();
+        $lists['materials'] = AuxData::getMaterials();
         return $this->render('index', compact("searchModel", "lists", "dataProvider"));
     }
 
@@ -63,6 +64,7 @@ class OrdersController extends Controller
     {
         $model = new Orders();
         $lists['statuses'] = AuxData::getOrderStatus();
+        $lists['materials'] = AuxData::getMaterials();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -81,6 +83,7 @@ class OrdersController extends Controller
     {
         $model = $this->findModel($id);
         $lists['statuses'] = AuxData::getOrderStatus();
+        $lists['materials'] = AuxData::getMaterials();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {

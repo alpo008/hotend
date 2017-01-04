@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use anmaslov\autocomplete\AutoComplete;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Orders */
@@ -12,11 +13,25 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'materials_id')->textInput() ?>
+    <?php // $form->field($model, 'materials_id')->textInput() ?>
+
+    <?php echo
+    $form->field($model, 'materials_id')->textInput()->widget(
+    AutoComplete::className(),
+    [
+    'attribute' => 'materials_id',
+    'name' => 'Orders[materials_id]',
+    'data' =>  $lists['materials'],
+    'value' => (isset ($lists['materials'][$model->materials_id])) ? $lists['materials'][$model->materials_id] : '',
+    'clientOptions' => [
+    'minChars' => 2,
+    ]
+    ])
+    ?>
 
     <?= $form->field($model, 'qty')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'order_date')->textInput() ?>
+    <?= $form->field($model, 'order_date')->textInput(['value' => date ('Y-m-d')]) ?>
 
     <?= $form->field($model, 'status')->dropDownList($lists['statuses']) ?>
 
