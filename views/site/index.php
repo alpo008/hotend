@@ -5,49 +5,72 @@
 $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
-
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
-
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
-
     <div class="body-content">
-
         <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
+            <div class="col-lg-12">
+                <h2><?= Yii::t('app', 'Urgent orders')?></h2>
+                <table class = "table table-bordered">
+                    <tr>
+                        <td>
+                            <?=Yii::t('app', 'Material ref')?>
+                        </td>
+                        <td>
+                            <?=Yii::t('app', 'Material')?>
+                        </td>
+                        <td>
+                            <?=Yii::t('app', 'Planned to order')?>
+                        </td>
+                        <td>
+                            <?=Yii::t('app', 'Stock qty')?>
+                        </td>
+                        <td>
+                            <?=Yii::t('app', 'Order Date')?>
+                        </td>
+                        <td>
+                            <?=Yii::t('app', 'Status')?>
+                        </td>
+                        <td>
+                            <?=Yii::t('app', 'Order ref')?>
+                        </td>
+                        <td>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
+                        </td>
+                    </tr>
+                    <?php
+                        foreach ($lists['orders_to_do'] as $order_to_do): ?>
+                            <tr>
+                                <td>
+                                    <?=$order_to_do['materials']['ref']?>
+                                </td>
+                                <td>
+                                    <?=$order_to_do['materials']['name']?>
+                                </td>
+                                <td>
+                                    <?=$order_to_do['qty']?>
+                                </td>
+                                <td>
+                                    <?=$order_to_do['materials']['qty']?>
+                                </td>
+                                <td>
+                                    <?=$order_to_do['order_date'] ?>
+                                </td>
+                                <td>
+                                    <?=$lists['statuses'][$order_to_do['status']] ?>
+                                </td>
+                                <td>
+                                    <?=$order_to_do['docref'] ?>
+                                </td>
+                                <td>
+                                    <a href="/orders/update/<?=$order_to_do['id']?>">
+                                        <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+                                    </a>
+                                </td>
+                            </tr>
+                    <?php
+                        endforeach;
+                    ?>
+                </table>
             </div>
         </div>
-
     </div>
 </div>

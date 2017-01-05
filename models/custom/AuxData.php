@@ -10,6 +10,7 @@ namespace app\models\custom;
 
 
 use app\models\Materials;
+use app\models\Orders;
 use app\models\Stocks;
 use yii;
 use yii\base\Model;
@@ -55,10 +56,27 @@ class AuxData extends Model
             '4' => Yii::t('app', 'Arrived'),
             '5' => Yii::t('app', 'Completed'),
             '6' => Yii::t('app', 'Canceled'),
-
-
         );
     }
+    
+    public static function getMissedOrders(){
+        //$month_ago = date ('Y-m-d', mktime(0, 0, 0, date("m") - 3,   date("d"),   date("Y")));
+        $two_weeks_ago = date ('Y-m-d', mktime(0, 0, 0, date("m"),   date("d") -14,   date("Y")));
+        //$today = date ('Y-m-d');
+        $missed = Orders::find()
+            ->where(['status' => '2'])
+            ->andWhere(['<', 'order_date' ,  $two_weeks_ago])
+        ->all();
 
+        foreach ($missed as $missed_order){
+            $missed_order->status = '1';
+            $missed_order->save();
+        }
 
+        return Orders::find()
+            ->where(['<', 'status', '2'])
+            ->joinWith('materials')
+            ->asArray()
+            ->all();
+    }
 }

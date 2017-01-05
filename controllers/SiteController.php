@@ -2,7 +2,8 @@
 
 namespace app\controllers;
 
-use Yii;
+use app\models\custom\AuxData;
+use yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -60,7 +61,9 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $lists['orders_to_do'] = AuxData::getMissedOrders();
+        $lists['statuses'] = AuxData::getOrderStatus();
+        return $this->render('index', compact ("lists"));
     }
 
     /**
