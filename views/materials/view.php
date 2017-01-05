@@ -99,7 +99,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             if (!!count($movements_data)): ?>
 
-                    <table class="table table-bordered">
+                    <table class="table table-striped">
                         <?php
                         foreach ($movements_data as $movement):?>
                             <tr>
@@ -142,7 +142,7 @@ $this->params['breadcrumbs'][] = $this->title;
             if (!!count($model->stocks)):?>
 
 
-                <table class="table table-bordered">
+                <table class="table table-striped">
                     <?php
                     foreach ($model->stocks as $stock): ?>
                         <tr>

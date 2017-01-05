@@ -231,9 +231,9 @@ return [
     'Placed' => 'Подана',
     'Paid' => 'Оплачена',
     'Arrived' => 'Поступила на склад',
-    'Completed' => 'Закрыта',
+    'Completed' => 'Выполнена',
+    'Canceled' => 'Отменена',
     
-
     'No stock data available' => 'Нет данных по наличию материала на складе.',
     'No movements data available' => 'Нет данных по складским операциям.',
     'You are not allowed to perform this action.' => 'Для выполнения этого действия требуется более высокий уровень доступа.',

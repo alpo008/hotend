@@ -92,12 +92,16 @@ class Materials extends ActiveRecord
         return $this->hasMany(Locations::className(), ['materials_id' => 'id']);
     }
 
+    
     public function getStocks()
     {
         return $this->hasMany(Stocks::className(), ['id' => 'stocks_id'])
             ->via('locations');
     }
 
+    /**
+     * @return yii\db\ActiveQuery
+     */
     public function getOrders()
     {
         return $this->hasMany(Orders::className(), ['materials_id' => 'id']);
@@ -115,6 +119,9 @@ class Materials extends ActiveRecord
         return $temp_array;
     }
 
+    /**
+     * @param string $qty
+     */
     public function  updateQuantity($qty='0')
     {
         $this->setAttribute('qty', $qty);

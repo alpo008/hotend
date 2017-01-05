@@ -54,7 +54,8 @@ class AuxData extends Model
             '3' => Yii::t('app', 'Paid'),
             '4' => Yii::t('app', 'Arrived'),
             '5' => Yii::t('app', 'Completed'),
-            
+            '6' => Yii::t('app', 'Canceled'),
+
 
         );
     }
