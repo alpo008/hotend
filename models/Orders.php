@@ -37,7 +37,7 @@ class Orders extends ActiveRecord
             [['materials_id', 'order_date'], 'required'],
             [['status'], 'integer'],
             [['qty'], 'number'],
-            [['order_date', 'materials_id'], 'safe'],
+            [['order_date', 'updated', 'materials_id'], 'safe'],
             [['person'], 'string', 'max' => 64],
             [['docref'], 'string', 'max' => 128],
             [['materials_id'], 'exist', 'skipOnError' => true, 'targetClass' => Materials::className(), 'targetAttribute' => ['materials_id' => 'id']],
@@ -57,6 +57,7 @@ class Orders extends ActiveRecord
             'status' => Yii::t('app', 'Status'),
             'person' => Yii::t('app', 'Applicant'),
             'docref' => Yii::t('app', 'Order ref'),
+            'updated' => Yii::t('app', 'Updated'),
         ];
     }
 

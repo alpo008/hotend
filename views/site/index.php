@@ -2,75 +2,67 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'My Yii Application';
+use yii\bootstrap\Html;
+use yii\grid\GridView;
+use yii\widgets\Pjax;
+
+$this->title = 'H O T E N D';
+
 ?>
 <div class="site-index">
     <div class="body-content">
         <div class="row">
             <div class="col-lg-12">
+                <?php
+                if (!$message):?>
+                <p class="alert-warning"><?= Yii::t('app', 'DB was rebuilt'); ?></p>
+                <?php else:?>
+                 <p class="alert-success"><?= Yii::t('app', 'DB integrity is normal'); ?></p>
+                <?php endif; ?>
+                
                 <h2><?= Yii::t('app', 'Urgent orders')?></h2>
-                <table class = "table table-bordered">
-                    <tr>
-                        <td>
-                            <?=Yii::t('app', 'Material ref')?>
-                        </td>
-                        <td>
-                            <?=Yii::t('app', 'Material')?>
-                        </td>
-                        <td>
-                            <?=Yii::t('app', 'Planned to order')?>
-                        </td>
-                        <td>
-                            <?=Yii::t('app', 'Stock qty')?>
-                        </td>
-                        <td>
-                            <?=Yii::t('app', 'Order Date')?>
-                        </td>
-                        <td>
-                            <?=Yii::t('app', 'Status')?>
-                        </td>
-                        <td>
-                            <?=Yii::t('app', 'Order ref')?>
-                        </td>
-                        <td>
-
-                        </td>
-                    </tr>
-                    <?php
-                        foreach ($lists['orders_to_do'] as $order_to_do): ?>
-                            <tr>
-                                <td>
-                                    <?=$order_to_do['materials']['ref']?>
-                                </td>
-                                <td>
-                                    <?=$order_to_do['materials']['name']?>
-                                </td>
-                                <td>
-                                    <?=$order_to_do['qty']?>
-                                </td>
-                                <td>
-                                    <?=$order_to_do['materials']['qty']?>
-                                </td>
-                                <td>
-                                    <?=$order_to_do['order_date'] ?>
-                                </td>
-                                <td>
-                                    <?=$lists['statuses'][$order_to_do['status']] ?>
-                                </td>
-                                <td>
-                                    <?=$order_to_do['docref'] ?>
-                                </td>
-                                <td>
-                                    <a href="/orders/update/<?=$order_to_do['id']?>">
-                                        <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
-                                    </a>
-                                </td>
-                            </tr>
-                    <?php
-                        endforeach;
-                    ?>
-                </table>
             </div>
         </div>
     </div>
+
+    <?php Pjax::begin(); ?>    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'materials.ref',
+            'materials.name',
+            'qty',
+            'materials.qty',
+            'order_date',
+            [
+                'attribute' => 'status',
+                'value' => function ($searchModel) use ($lists){
+                    if (isset ($searchModel->status)){
+                        return $lists['statuses'][$searchModel->status];
+                    }else{
+                        return NULL;
+                    }
+                },
+
+                'format' => 'raw',
+                /**
+                 * Отображение фильтра.
+                 * Вместо поля для ввода - выпадающий список с заданными значениями directions
+                 */
+                'filter' => $lists['statuses'],
+            ],
+            'docref',
+            [
+                'label' => '',
+                'format' => 'raw',
+                'value' => function($searchModel){
+                    return  Html::a('<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>', ['/orders/update/', 'id' => $searchModel->id], ['class' => 'profile-link']);
+                },
+            ],
+        ]
+    ]); ?>
+    <?php Pjax::end(); ?>
+
 </div>

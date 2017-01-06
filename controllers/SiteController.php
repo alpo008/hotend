@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\custom\AuxData;
+use app\models\search\MissedOrdersSearch;
 use yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -61,9 +62,19 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $searchModel = new MissedOrdersSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $urgents = AuxData::getUrgent();
+        if(!!$urgents){
+            AuxData::updateUrgents($urgents);
+            $message = false;
+        }else{
+            $message = true;
+        };
+
         $lists['orders_to_do'] = AuxData::getMissedOrders();
         $lists['statuses'] = AuxData::getOrderStatus();
-        return $this->render('index', compact ("lists"));
+        return $this->render('index', compact ("searchModel", "dataProvider", "lists", "message"));
     }
 
     /**

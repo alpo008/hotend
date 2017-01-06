@@ -128,4 +128,5 @@ class Materials extends ActiveRecord
         $this->qty = $qty;
         $this->save();
     }
+
 }

@@ -2,22 +2,24 @@
 
 namespace app\models\search;
 
+
 use yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Orders;
 
+
 /**
  * OrdersSearch represents the model behind the search form about `app\models\Orders`.
  */
-class OrdersSearch extends Orders
+class MissedOrdersSearch extends Orders
 {
     /**
      * @return array
      */
     public function attributes()
     {
-        return array_merge(parent::attributes(), ['materials.name', 'materials.ref']);
+        return array_merge(parent::attributes(), ['materials.name', 'materials.ref', 'materials.qty']);
     }
     /**
      * @inheritdoc
@@ -26,8 +28,8 @@ class OrdersSearch extends Orders
     {
         return [
             [['materials_id'], 'integer'],
-            [['qty'], 'number'],
-            [['id', 'order_date', 'status', 'person', 'docref', 'materials.name', 'materials.ref'], 'safe'],
+            [['qty', 'materials.qty'], 'number'],
+            [['id', 'order_date', 'status', 'docref', 'materials.name', 'materials.ref'], 'safe'],
         ];
     }
 
@@ -49,9 +51,8 @@ class OrdersSearch extends Orders
      */
     public function search($params)
     {
-        $query = Orders::find();
-
-        // add conditions that should always apply here
+        $query = Orders::find()
+            ->where(['<', 'status', '2']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -69,7 +70,7 @@ class OrdersSearch extends Orders
         $query->andFilterWhere([
             //'id' => $this->id,
             'materials_id' => $this->materials_id,
-            'qty' => $this->qty,
+            'orders.qty' => $this->qty,
             'order_date' => $this->order_date,
         ]);
 
@@ -82,6 +83,8 @@ class OrdersSearch extends Orders
         ->andFilterWhere(['LIKE', 'materials.name', $this->getAttribute('materials.name')])
         ->andFilterWhere(['LIKE', 'materials.ref', $this->getAttribute('materials.ref')]);
 
+
         return $dataProvider;
     }
+
 }

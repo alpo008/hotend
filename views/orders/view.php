@@ -39,6 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'person',
             'docref',
+            'updated',
         ],
     ]) ?>
 
