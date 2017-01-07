@@ -32,6 +32,7 @@ class m161226_110323_orders extends Migration
             'status' => $this->integer(0)->defaultValue(0),
             'person' => $this->string(64),
             'docref' => $this->string(128),
+            'updated' => $this->date()->defaultValue(NULL),
         ], $tableOptions);
         $this->addForeignKey('fk_orders_materials', 'orders', 'materials_id', 'materials', 'id');
     }

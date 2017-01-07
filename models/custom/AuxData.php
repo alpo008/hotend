@@ -69,10 +69,15 @@ class AuxData extends Model
             ->where(['>', '([[materials.minqty]] - [[materials.qty]])', 0])
             ->andWhere(['orders.updated' => NULL])
             ->all();
-    }    
-    
+    }
+
+    /**
+     * @param array $urgents
+     * @return array $updated_list
+     */
     public static function updateUrgents ($urgents)
     {
+        $updated_list = array();
         foreach ($urgents as $urgent){
             if (!$urgent['orders']){
                 $new_order = new Orders();
@@ -86,6 +91,14 @@ class AuxData extends Model
                     'docref' => NULL,
                     'updated' => date ('Y-m-d'),
                 ]);
+                $updated_list[] = [
+                    $new_order->materials->ref,
+                    $new_order->materials->name,
+                    $new_order->materials->qty,
+                    $new_order->materials->unit,
+                    $new_order->materials->type,
+                    $new_order->materials->gruppa,
+                    ];
                 $new_order->save();
             }else{
                 foreach($urgent['orders'] as $order_to_update){
@@ -94,10 +107,19 @@ class AuxData extends Model
                         'updated' => date ('Y-m-d'),
                         'status' => 1,
                         ]);
+                    $updated_list[] = [
+                        $to_update->materials->ref,
+                        $to_update->materials->name,
+                        $to_update->materials->qty,
+                        $to_update->materials->unit,
+                        $to_update->materials->type,
+                        $to_update->materials->gruppa,
+                    ];
                     $to_update->save();
                 };
             }
         }
+        return $updated_list;
     }
     
     public static function getMissedOrders(){

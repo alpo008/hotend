@@ -36,7 +36,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => '',
                 'format' => 'raw',
                 'value' => function($model){
-                    if ($model->qty > $model->minqty){
+                    if ($model->minqty == 0){
+                        return Html::img('@web/icons/off_led.jpg', ['alt' => 'OK', 'style' => 'width: 16px;']);
+                    }elseif ($model->qty > $model->minqty){
                         return Html::img('@web/icons/green_led.jpg', ['alt' => 'OK', 'style' => 'width: 16px;']);
                     }elseif($model->qty == $model->minqty){
                         return Html::img('@web/icons/blinking_green_led.gif', ['alt' => 'MIN', 'style' => 'width: 18px;']);

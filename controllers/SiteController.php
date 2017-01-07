@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\custom\AuxData;
+use app\models\custom\TempFile;
 use app\models\search\MissedOrdersSearch;
 use yii;
 use yii\filters\AccessControl;
@@ -65,8 +66,11 @@ class SiteController extends Controller
         $searchModel = new MissedOrdersSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $urgents = AuxData::getUrgent();
+        $output_data = TempFile::getInstance();
+
         if(!!$urgents){
-            AuxData::updateUrgents($urgents);
+            $mail_list = AuxData::updateUrgents($urgents);
+            $output_data->writeCsv($mail_list);
             $message = false;
         }else{
             $message = true;

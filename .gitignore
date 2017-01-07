@@ -15,6 +15,9 @@ Thumbs.db
 # user data dir
 /data
 
+#temp file dir
+/temp
+
 # composer vendor dir
 /vendor
 
