@@ -2,8 +2,10 @@
 
 namespace app\models;
 
+use app\models\custom\AuxData;
 use yii;
 use yii\db\ActiveRecord;
+use app\models\custom\TempFile;
 
 /**
  * This is the model class for table "movements".
@@ -82,6 +84,7 @@ class Movements extends ActiveRecord
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
+
             $location = $this->getLocation();
             if(!count($location)){
                 $location = new Locations();
@@ -103,12 +106,59 @@ class Movements extends ActiveRecord
                     return false;
                 }else{
                     $location->setAttribute('qty', $quantity);
+                        
                     return $location->save();
                 }
         } else {
             return false;
         }
     }
+
+    /**
+     * @param bool $insert
+     * @param array $changedAttributes
+     * @return bool
+     */
+    public  function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+        $output_data = TempFile::getInstance();
+        $qty_updated = array_sum($this->materials->getQuantities());
+        if ($qty_updated > $this->materials->minqty){
+            $prev_orders = Orders::find()->
+            where(['materials_id' => $this->materials_id])
+                ->andWhere(['<', 'status', '5'])
+                ->all();
+            if (!!$prev_orders){
+                foreach ($prev_orders as $prev_order){
+                    $prev_order->setAttributes(['status' => 5, 'updated' =>date('Y-m-d')]);
+                    $prev_order->save();
+                }
+            }
+        }else{
+            $prev_orders = Orders::find()->
+            where(['materials_id' => $this->materials_id])
+                ->andWhere(['<', 'status', '2'])
+                ->all();
+            if (!!$prev_orders){
+                foreach ($prev_orders as $prev_order){
+                    $prev_order->setAttributes(['status' => 0, 'updated' =>date('Y-m-d')]);
+                    $prev_order->save();
+                }
+            }else{
+                $completed_orders = Orders::find()->
+                where(['materials_id' => $this->materials_id])
+                    ->andWhere(['>', 'status', '3'])
+                    ->all();
+                if (!!$completed_orders){
+                    $update_data = AuxData::createNewOrder($this->materials[$this->materials_id]);
+                    $output_data->writeCsv($update_data);
+                }
+            }
+         }
+        return true;  
+    }
+
 
     /**
      * @return yii\db\ActiveQuery

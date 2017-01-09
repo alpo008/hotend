@@ -52,7 +52,6 @@ $config = [
         ],
 
 
-
         'i18n' => [
             'translations' => [
                 '*' => [

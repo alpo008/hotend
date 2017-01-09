@@ -65,18 +65,16 @@ class SiteController extends Controller
     {
         $searchModel = new MissedOrdersSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $urgents = AuxData::getUrgent();
+        $urgents = AuxData::getUrgents();
         $output_data = TempFile::getInstance();
 
+        $mail_list = NULL;
         if(!!$urgents){
             $mail_list = AuxData::updateUrgents($urgents);
             $output_data->writeCsv($mail_list);
-            $message = false;
-        }else{
-            $message = true;
-        };
+        }
+        $message = (!$mail_list) ? true : false;
 
-        $lists['orders_to_do'] = AuxData::getMissedOrders();
         $lists['statuses'] = AuxData::getOrderStatus();
         return $this->render('index', compact ("searchModel", "dataProvider", "lists", "message"));
     }

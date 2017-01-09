@@ -41,7 +41,7 @@ class TempFile
         $link = fopen($this->storagePath, 'a+');
         $result = true;
         foreach ($data as $line) {
-            $result = fputcsv($link, $line);
+            fputcsv($link, $line, ',');
         }
         fclose($link);
         return $result;
@@ -66,5 +66,4 @@ class TempFile
             return false;
         }
     }
-
 }

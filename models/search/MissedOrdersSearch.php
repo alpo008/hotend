@@ -53,6 +53,7 @@ class MissedOrdersSearch extends Orders
     {
         $query = Orders::find()
             ->where(['<', 'status', '2']);
+        
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
