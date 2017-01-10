@@ -33,7 +33,12 @@ use anmaslov\autocomplete\AutoComplete;
 
     <?= $form->field($model, 'order_date')->textInput(['value' => date ('Y-m-d')]) ?>
 
-    <?= $form->field($model, 'status')->dropDownList($lists['statuses']) ?>
+    <?= $form->field($model, 'status')->dropDownList($lists['statuses'],
+        ['options' => [
+            '0' => ['disabled' => true],
+            '1' => ['disabled' => true],
+            '5' => ['disabled' => true]
+        ]]) ?>
 
     <?= $form->field($model, 'person')->textInput(['maxlength' => true]) ?>
 
