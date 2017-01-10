@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'person',
             'docref',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn', 'buttons' => ['delete' => function(){return false;}]],
         ],
     ]); ?>
 <?php Pjax::end(); ?></div>
