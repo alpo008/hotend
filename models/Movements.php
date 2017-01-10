@@ -151,8 +151,8 @@ class Movements extends ActiveRecord
                     ->andWhere(['>', 'status', '3'])
                     ->all();
                 if (!!$completed_orders){
-                    $update_data = AuxData::createNewOrder($this->materials[$this->materials_id]);
-                    $output_data->writeCsv($update_data);
+                    $update_data = AuxData::createNewOrder($this->materials);
+                    $output_data->writeCsv([$update_data]);
                 }
             }
          }

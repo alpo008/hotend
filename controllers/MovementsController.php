@@ -56,7 +56,6 @@ class MovementsController extends Controller
         $materials_data = $model->getMaterials()->select(['name', 'unit', 'type', 'gruppa'])->one();
         $lists['directions'] = AuxData::getDirections();
 
-
         return $this->render('view', compact ("model", "lists"));
     }
 

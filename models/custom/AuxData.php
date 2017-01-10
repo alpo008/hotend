@@ -85,27 +85,18 @@ class AuxData extends Model
             if (!$urgent['orders']){
                 $updated_list[] = self::createNewOrder($urgent);
             }else{
-                foreach($urgent['orders'] as $order_to_update){
-                    $to_update = Orders::findOne(['id' => $order_to_update->id]);
-                    if ($order_to_update->status <2){
-                        if ($to_update->attributes['updated'] < $two_weeks_ago){
-                            $to_update->setAttributes([
-                                'updated' => date ('Y-m-d'),
-                                'status' => 1,
-                                ]);
-                            $updated_list[] = [
-                                $to_update->materials->ref,
-                                $to_update->materials->name,
-                                $to_update->materials->qty,
-                                $to_update->materials->unit,
-                                $to_update->materials->type,
-                                $to_update->materials->gruppa,
-                                self::getOrderStatus()[$to_update->status],
-                            ];
-                            $to_update->save();
-                        }
+
+                $orders_map = array_column ($urgent['orders'], 'status', 'id');
+                //var_dump($orders_map);
+                if (min($orders_map) <= 2){
+                    $min_key = array_search(min($orders_map), $orders_map);
+                    $order_to_update = Orders::findOne(['id' => $min_key]);
+                    if ($order_to_update->attributes['updated'] < $two_weeks_ago){
+                        $updated_list[] = self::updateExistingOrder($order_to_update);
                     }
-                };
+                }elseif ((max($orders_map) >= 2) && (min($orders_map) >= 2)){
+                    $updated_list[] = self::createNewOrder($urgent);
+                }
             }
         }
         return $updated_list;
@@ -134,5 +125,28 @@ class AuxData extends Model
             ];
             $new_order->save();
             return $update_list;
+    }
+
+    /**
+     * @param object $item
+     * @return array $update_list
+     */
+    public  static  function updateExistingOrder ($item)
+    {
+        $item->setAttributes([
+            'updated' => date ('Y-m-d'),
+            'status' => 1,
+        ]);
+        $update_list = [
+            $item->materials->ref,
+            $item->materials->name,
+            $item->materials->qty,
+            $item->materials->unit,
+            $item->materials->type,
+            $item->materials->gruppa,
+            self::getOrderStatus()[$item->status],
+        ];
+        $item->save();
+        return $update_list;
     }
 }
