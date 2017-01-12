@@ -47,7 +47,8 @@ class MovementsSearch extends Movements
      */
     public function search($params)
     {
-        $query = Movements::find();
+        $query = Movements::find()
+            ->orderBy('transaction_date DESC');;
 
         // add conditions that should always apply here
 

@@ -15,18 +15,26 @@ use anmaslov\autocomplete\AutoComplete;
 
     <?php // $form->field($model, 'materials_id')->textInput() ?>
 
-    <?php echo
-    $form->field($model, 'materials_id')->textInput()->widget(
-    AutoComplete::className(),
-    [
-    'attribute' => 'materials_id',
-    'name' => 'Orders[materials_id]',
-    'data' =>  $lists['materials'],
-    'value' => (isset ($lists['materials'][$model->materials_id])) ? $lists['materials'][$model->materials_id] : '',
-    'clientOptions' => [
-    'minChars' => 2,
-    ]
-    ])
+    <?php
+    if ($model->isNewRecord){
+        echo $form->field($model, 'materials_id')->textInput()->widget(
+        AutoComplete::className(),
+        [
+        'attribute' => 'materials_id',
+        'name' => 'Orders[materials_id]',
+        'data' =>  $lists['materials'],
+        'value' => (isset ($lists['materials'][$model->materials_id])) ? $lists['materials'][$model->materials_id] : '',
+        'clientOptions' => [
+        'minChars' => 2,
+        ]
+        ]);
+    }else{
+        echo $form->field($model, 'materials_id')
+        ->textInput(
+            [
+                'value' => (isset ($lists['materials'][$model->materials_id])) ? $lists['materials'][$model->materials_id] : '', 'disabled' => true
+            ]);
+    }
     ?>
 
     <?= $form->field($model, 'qty')->textInput(['maxlength' => true]) ?>

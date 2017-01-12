@@ -57,7 +57,8 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'person_receiver',
             // 'docref',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => ['delete' => function(){return false;}, 'update' => function(){return false;}]],
         ],
     ]); ?>
 <?php Pjax::end(); ?></div>

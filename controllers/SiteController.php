@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\custom\AuxData;
+use app\models\custom\SendMail;
 use app\models\custom\TempFile;
 use app\models\search\MissedOrdersSearch;
 use yii;
@@ -73,6 +74,14 @@ class SiteController extends Controller
             $mail_list = AuxData::updateUrgents($urgents);
             $output_data->writeCsv($mail_list);
         }
+
+        $attachment = $output_data->getStoragePath();
+        if (!!file($attachment)){
+            if(SendMail::sendNotification($attachment)){
+                unlink ($attachment);
+            }
+        }
+
         $message = (!$mail_list) ? true : false;
 
         $lists['statuses'] = AuxData::getOrderStatus();

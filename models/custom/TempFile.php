@@ -34,6 +34,14 @@ class TempFile
     }
 
     /**
+     * @return string
+     */
+    public function getStoragePath()
+    {
+        return $this->storagePath;
+    }
+
+    /**
      * @param array $data
      * @return bool $result
      */

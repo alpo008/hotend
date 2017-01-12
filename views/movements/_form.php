@@ -23,7 +23,7 @@ use anmaslov\autocomplete\AutoComplete;
     <?php $trans_date = (isset ($model->transaction_date)) ? $model->transaction_date : date ('Y-m-d');?>
     
     <?php echo
-        $form->field($model, 'longname')->textInput()->widget(
+    $form->field($model, 'longname')->textInput()->widget(
             AutoComplete::className(),
             [
                 'attribute' => 'materials_id',
