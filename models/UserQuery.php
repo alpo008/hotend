@@ -9,7 +9,7 @@ use yii\db\ActiveQuery;
  *
  * @see \app\models\User
  */
-class UsersQuery extends ActiveQuery
+class UserQuery extends ActiveQuery
 {
     /*public function active()
     {
