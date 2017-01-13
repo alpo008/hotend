@@ -6,13 +6,13 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Orders */
 
-$this->title = $model->id;
+$this->title = Yii::t('app', 'Order') . ' № ' .$model->id;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Orders'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="orders-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= $this->title . ' ' . Yii::t('app', 'dated') . ' ' . $model->order_date ?></h1>
 
     <p>
         <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>

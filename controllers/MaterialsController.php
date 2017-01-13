@@ -54,6 +54,7 @@ class MaterialsController extends Controller
             $qties = $model->getQuantities();
             $movements_data = $model->getMovements()->orderBy('transaction_date DESC')->all();
             $lists['directions'] = AuxData::getDirections();
+            $lists['statuses'] = AuxData::getOrderStatus();
             return $this->render('view', compact ("model", "movements_data", "lists", "qties"));
     }
 

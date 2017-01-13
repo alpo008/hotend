@@ -52,7 +52,8 @@ class MissedOrdersSearch extends Orders
     public function search($params)
     {
         $query = Orders::find()
-            ->where(['<', 'status', '2']);
+            ->where(['<', 'status', '2'])
+            ->orderBy('order_date DESC');
         
 
         $dataProvider = new ActiveDataProvider([

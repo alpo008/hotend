@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
 use anmaslov\autocomplete\AutoComplete;
 
 /* @var $this yii\web\View */
@@ -11,7 +11,13 @@ use anmaslov\autocomplete\AutoComplete;
 
 <div class="orders-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+        'layout' => 'horizontal',
+        'fieldConfig' => [
+            'template' => "{label}\n<div class=\"col-lg-9 col-md9\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
+            'labelOptions' => ['class' => 'col-lg-3 col-md-3  text-left'],
+        ],
+    ]); ?>
 
     <?php // $form->field($model, 'materials_id')->textInput() ?>
 
@@ -39,7 +45,7 @@ use anmaslov\autocomplete\AutoComplete;
 
     <?= $form->field($model, 'qty')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'order_date')->textInput(['value' => date ('Y-m-d')]) ?>
+    <?= $form->field($model, 'order_date')->textInput(['value' => ($model->isNewRecord)? date ('Y-m-d') : $model->order_date]) ?>
 
     <?= $form->field($model, 'status')->dropDownList($lists['statuses'],
         ['options' => [
@@ -51,6 +57,10 @@ use anmaslov\autocomplete\AutoComplete;
     <?= $form->field($model, 'person')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'docref')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'updated')->textInput(['maxlength' => true, 'value' => date ('Y-m-d'), 'disabled' => ($model->isNewRecord)? false : true]) ?>
+
+
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

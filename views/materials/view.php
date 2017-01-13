@@ -166,8 +166,34 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
 
         <div role="tabpanel" class="tab-pane" id="orders">
-История за явок <br/>
-                lorem
+            <?php
+
+            if (!!count($model->orders)):?>
+
+
+            <table class="table table-striped">
+                <?php
+                foreach ($model->orders as $order): ?>
+                    <tr>
+                        <td>
+                            <a href="/orders/<?php echo $order->id ?>">
+                                <?php echo $order->order_date ?>
+                            </a>
+                        </td>
+                        <td>
+                            <?php echo (!!$order->docref) ? $order->docref : Yii::t('app', 'No reference'); ?>
+                        </td>
+                        <td>
+                            <?php echo $lists['statuses'][$order->status] ?>
+                        </td>
+                    </tr>
+                    <?php
+                endforeach;
+                else:
+                    echo Yii::t('app', 'No order data available');
+                endif;
+                ?>
+            </table>
 
         </div>
     </div>
