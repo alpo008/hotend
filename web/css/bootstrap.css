@@ -6752,3 +6752,11 @@ body {
 .material-cart__image img {
   padding: 0 0 10px 0;
 }
+#w2 li a.active,
+.navbar-header a.active {
+  background-color: #00596a !important;
+}
+#w2 li a.active:hover,
+.navbar-header a.active:hover {
+  color: #ddd;
+}

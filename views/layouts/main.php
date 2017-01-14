@@ -26,9 +26,11 @@ AppAsset::register($this);
 
 <div class="wrap">
     <?php
+    $action_name = Yii::$app->controller->id;
     NavBar::begin([
         'brandLabel' => Yii::t('app', 'Home'),
         'brandUrl' => Yii::$app->homeUrl,
+        'brandOptions' => ['class' => ($action_name === 'site') ? 'active' : ''],
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
@@ -36,17 +38,25 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => Yii::t ('app', 'Materials'), 'url' => ['/materials']],
-            ['label' => Yii::t ('app','Movements'), 'url' => ['/movements']],
-            ['label' => Yii::t ('app','Stocks'), 'url' => ['/stocks']],
-            ['label' => Yii::t ('app','Orders'), 'url' => ['/orders']],
+            ['label' => Yii::t ('app', 'Materials'), 'url' => ['/materials'],
+            'linkOptions' => ['class' => ($action_name === 'materials') ? 'active' : '']
+            ],
+            ['label' => Yii::t ('app','Movements'), 'url' => ['/movements'],
+            'linkOptions' => ['class' => ($action_name === 'movements') ? 'active' : '']
+            ],
+            ['label' => Yii::t ('app','Stocks'), 'url' => ['/stocks'],
+            'linkOptions' => ['class' => ($action_name === 'stocks') ? 'active' : '']
+            ],
+            ['label' => Yii::t ('app','Orders'), 'url' => ['/orders'],
+            'linkOptions' => ['class' => ($action_name === 'orders') ? 'active' : '']
+            ],
             Yii::$app->user->isGuest ? (
                 ['label' => Yii::t ('app','Login'), 'url' => ['/site/login']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->surname . ' ' . Yii::$app->user->identity->name .')',
+                    Yii::t('app', 'Logout') . ' (' . Yii::$app->user->identity->surname . ' ' . Yii::$app->user->identity->name .')',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()
@@ -67,10 +77,11 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+        <p class="pull-left">&copy; Ruscam-Ufa 2017</p>
 
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
+    <?php var_dump($action_name);?>
 </footer>
 
 <?php $this->endBody() ?>

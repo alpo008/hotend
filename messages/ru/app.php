@@ -244,6 +244,8 @@ return [
     'Updated' => 'Дата обновления',
     'No order data available' => 'Нет заявок на данный материал',
     'Remember Me' => 'Запомнить меня',
+    'Create User' => 'Новая учетная запись',
+    'Update User' => 'Изменить данные учетной записи',
     
     'No stock data available' => 'Нет данных по наличию материала на складе.',
     'No movements data available' => 'Нет данных по складским операциям.',

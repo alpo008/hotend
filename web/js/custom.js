@@ -57,6 +57,6 @@
         if (this.value == 1){
             FormData.setDealerName($('#movements-person_receiver'), FormData.userName())
         }
-    })
+    });
 
 })(jQuery);
