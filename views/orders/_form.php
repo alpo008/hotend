@@ -54,7 +54,13 @@ use anmaslov\autocomplete\AutoComplete;
             '5' => ['disabled' => true]
         ]]) ?>
 
-    <?= $form->field($model, 'person')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'person')->textInput([
+        'maxlength' => true,
+        'disabled' => true,
+        'value' =>($model->isNewRecord ) ?
+            ((!!Yii::$app->user->identity) ? Yii::$app->user->identity->surname . ' ' . Yii::$app->user->identity->name : '') :
+            $model->person]);
+    ?>
 
     <?= $form->field($model, 'docref')->textInput(['maxlength' => true]) ?>
 

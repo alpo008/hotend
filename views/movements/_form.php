@@ -47,7 +47,13 @@ use anmaslov\autocomplete\AutoComplete;
 
     <?= $form->field($model, 'stocks_id')->dropDownList($lists['stocks'], ['value' => $model->stocks_id]) ?>
 
-    <?= $form->field($model, 'person_in_charge')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'person_in_charge')->textInput([
+        'maxlength' => true,
+        'value' => ($model->isNewRecord ) ?
+            ((!!Yii::$app->user->identity) ? Yii::$app->user->identity->surname . ' ' . Yii::$app->user->identity->name : '') :
+            $model->person_in_charge
+        ])
+    ?>
     
     <?= $form->field($model, 'person_receiver')->textInput(['maxlength' => true]) ?>
 
