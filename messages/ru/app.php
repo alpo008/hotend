@@ -243,6 +243,7 @@ return [
     'No reference' => 'Номер не присвоен',
     'Updated' => 'Дата обновления',
     'No order data available' => 'Нет заявок на данный материал',
+    'Remember Me' => 'Запомнить меня',
     
     'No stock data available' => 'Нет данных по наличию материала на складе.',
     'No movements data available' => 'Нет данных по складским операциям.',

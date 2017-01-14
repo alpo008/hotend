@@ -50,7 +50,9 @@
         }
     };
 
-
+    /**
+     * Fills recipients field when material comes to the stock.
+     */
     $('#movements-direction').on('change', function(){
         if (this.value == 1){
             FormData.setDealerName($('#movements-person_receiver'), FormData.userName())

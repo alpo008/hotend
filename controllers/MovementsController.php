@@ -37,11 +37,13 @@ class MovementsController extends Controller
      */
     public function actionIndex()
     {
+        if(Yii::$app->user->isGuest){
+            return $this->goHome();
+        };
+        
         $searchModel = new MovementsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $lists['directions'] = AuxData::getDirections();
-
-
         return $this->render('index', compact ('searchModel', 'dataProvider', 'lists'));
     }
 

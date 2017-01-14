@@ -64,6 +64,10 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        if(Yii::$app->user->isGuest){
+            return $this->actionLogin();
+        };
+
         $searchModel = new MissedOrdersSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $urgents = AuxData::getUrgents();
