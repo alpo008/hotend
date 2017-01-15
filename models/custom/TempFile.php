@@ -45,7 +45,6 @@ class TempFile
      * @param array $data
      * @return bool $result
      */
-
     public  function saveTemp ($data)
     {
         $filename = $this->getStoragePath() . $data['name'] . '.' . $data['ext'];
@@ -58,7 +57,13 @@ class TempFile
         }
     }
 
+    /**
+     * @param string $name
+     * @param array $data
+     * @return bool
+     */
     public function writeCsv($name, $data){
+        if (!!$data){
         $link = fopen($name, 'a+');
         $result = true;
         foreach ($data as $line) {
@@ -66,10 +71,13 @@ class TempFile
         }
         fclose($link);
         return $result;
+        }else{
+            return false;
+        }
     }
 
     /**
-     * @param $data
+     * @param array $data
      * @return array|bool
      */
 

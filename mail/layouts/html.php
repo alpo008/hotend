@@ -16,7 +16,7 @@ use yii\helpers\Html;
         }
         table td {
             width: auto;
-            border: 1px solid #000;
+            border: 1px dotted #000;
         }
     </style>
     <title><?= Html::encode($this->title) ?></title>

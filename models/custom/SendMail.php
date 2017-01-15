@@ -14,7 +14,10 @@ use yii\base\Model;
 
 class SendMail extends Model
 {
-
+    /**
+     * @param string $fileName
+     * @return bool
+     */
     public static function sendNotification($fileName)
     {
         $source = TempFile::getInstance();

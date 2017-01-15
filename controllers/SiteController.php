@@ -124,7 +124,7 @@ class SiteController extends Controller
     public function actionLogout()
     {
         $output_data = TempFile::getInstance();
-        $attachment = $output_data->getStoragePath();
+        $attachment = $output_data->getStoragePath(). 'temp.csv';
         if (!!file($attachment)){
             if(SendMail::sendNotification($attachment)){
                 unlink ($attachment);
