@@ -10,6 +10,15 @@ use yii\helpers\Html;
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=<?= Yii::$app->charset ?>" />
+    <style type="text/css">
+        table {
+            border: 1px solid #000;
+        }
+        table td {
+            width: auto;
+            border: 1px solid #000;
+        }
+    </style>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>

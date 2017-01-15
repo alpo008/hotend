@@ -76,15 +76,19 @@ class SiteController extends Controller
         $mail_list = NULL;
         if(!!$urgents){
             $mail_list = AuxData::updateUrgents($urgents);
-            $output_data->writeCsv($mail_list);
+            $output_data->saveTemp([
+                'name' => 'temp',
+                'ext' => 'csv',
+                'content' => $mail_list,
+            ]);
         }
 
-        $attachment = $output_data->getStoragePath();
+/*        $attachment = $output_data->getStoragePath() . 'temp.csv';
         if (!!file($attachment)){
             if(SendMail::sendNotification($attachment)){
                 unlink ($attachment);
             }
-        }
+        }*/
 
         $message = (!$mail_list) ? true : false;
 

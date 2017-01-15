@@ -152,7 +152,11 @@ class Movements extends ActiveRecord
                     ->all();
                 if (!!$completed_orders){
                     $update_data = AuxData::createNewOrder($this->materials);
-                    $output_data->writeCsv([$update_data]);
+                    $output_data->saveTemp([
+                        'name' => 'temp',
+                        'ext' => 'csv',
+                        'content' => $update_data,
+                    ]);
                 }
             }
          }
