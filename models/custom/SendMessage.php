@@ -9,16 +9,17 @@
 namespace app\models\custom;
 
 
+
 use yii;
 use yii\base\Model;
 
-class SendMail extends Model
+class SendMessage extends Model
 {
     /**
      * @param string $fileName
      * @return bool
      */
-    public static function sendNotification($fileName)
+    public static function sendNotification()
     {
         $source = TempFile::getInstance();
         $data = $source->readCsv([
@@ -36,6 +37,7 @@ class SendMail extends Model
             $message_body .='</tr>';
         }
         $message_body .= "</table>";
+
 
         Yii::$app->mailer->compose('@app/mail/layouts/html.php', ['content' => $message_body])
         ->setTo('test@test.ru')

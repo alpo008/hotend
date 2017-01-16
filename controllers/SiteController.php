@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\custom\AuxData;
 use app\models\custom\SendMail;
+use app\models\custom\SendMessage;
 use app\models\custom\TempFile;
 use app\models\search\MissedOrdersSearch;
 use yii;
@@ -125,8 +126,8 @@ class SiteController extends Controller
     {
         $output_data = TempFile::getInstance();
         $attachment = $output_data->getStoragePath(). 'temp.csv';
-        if (!!file($attachment)){
-            if(SendMail::sendNotification($attachment)){
+        if (is_file($attachment)){
+            if(SendMessage::sendNotification()){
                 unlink ($attachment);
             }
         }

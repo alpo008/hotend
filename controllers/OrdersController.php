@@ -2,10 +2,12 @@
 
 namespace app\controllers;
 
+use app\models\User;
 use yii;
 use app\models\Orders;
 use app\models\custom\AuxData;
 use app\models\search\OrdersSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -27,6 +29,29 @@ class OrdersController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view', 'create', 'update', 'delete'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['site/login'],
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                        'matchCallback' => function ($rule, $action) {
+                            return User::checkRights(Yii::$app->user->identity['role'], $this->uniqueId, $action->id);
+                        }
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['logout'],
+                        'roles' => ['@'],
+                    ],
+                ],
+            ]
         ];
     }
 

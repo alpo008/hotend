@@ -3,10 +3,11 @@
 namespace app\controllers;
 
 use app\models\custom\AuxData;
-use app\models\Materials;
+use app\models\User;
 use yii;
 use app\models\Movements;
 use app\models\search\MovementsSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -28,6 +29,29 @@ class MovementsController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['view', 'create', 'update', 'delete'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['site/login'],
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                        'matchCallback' => function ($rule, $action) {
+                            return User::checkRights(Yii::$app->user->identity['role'], $this->uniqueId, $action->id);
+                        }
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['logout'],
+                        'roles' => ['@'],
+                    ],
+                ],
+            ]
         ];
     }
 
@@ -55,7 +79,6 @@ class MovementsController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
-        $materials_data = $model->getMaterials()->select(['name', 'unit', 'type', 'gruppa'])->one();
         $lists['directions'] = AuxData::getDirections();
 
         return $this->render('view', compact ("model", "lists"));

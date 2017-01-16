@@ -211,5 +211,148 @@ class User extends ActiveRecord implements IdentityInterface
         // TODO: Implement validateAuthKey() method.
     }
 
+    /**
+     * @param string$user
+     * @param string $contr
+     * @param string $act
+     * @return bool
+     */
+    public static function checkRights($user, $contr, $act)
+    {
+        return self::getRights()[$user][$contr][$act];
+    }
 
+    /**
+     * @return array
+     */
+    public static function getDropdown()
+    {
+        return array (
+            'ADMIN' => 'ADMIN',
+            'ENGINEER' => 'ENGINEER',
+            'OPERATOR' => 'OPERATOR',
+         );
+    }
+
+    /**
+     * @return array
+     */
+    public static function getRights()
+    {
+        return array(
+            'ADMIN' => array(
+                'materials' => array(
+                    'index' =>true,
+                    'view' => true,
+                    'create' => true,
+                    'update' => true,
+                    'delete' => true,
+                ),
+                'movements' => array(
+                    'index' =>true,
+                    'view' => true,
+                    'create' => true,
+                    'update' => true,
+                    'delete' => true,
+                ),
+                'orders' => array(
+                    'index' =>true,
+                    'view' => true,
+                    'create' => true,
+                    'update' => true,
+                    'delete' => true,
+                ),
+                'stocks' => array(
+                    'index' =>true,
+                    'view' => true,
+                    'create' => true,
+                    'update' => true,
+                    'delete' => true,
+                ),
+                'user' => array(
+                    'index' =>true,
+                    'view' => true,
+                    'create' => true,
+                    'update' => true,
+                    'delete' => true,
+                )
+            ),
+
+            'ENGINEER' => array(
+                'materials' => array(
+                    'index' =>true,
+                    'view' => true,
+                    'create' => true,
+                    'update' => true,
+                    'delete' => true,
+                ),
+                'movements' => array(
+                    'index' =>true,
+                    'view' => true,
+                    'create' => true,
+                    'update' => false,
+                    'delete' => false,
+                ),
+                'orders' => array(
+                    'index' =>true,
+                    'view' => true,
+                    'create' => true,
+                    'update' => true,
+                    'delete' => false,
+                ),
+                'stocks' => array(
+                    'index' =>true,
+                    'view' => true,
+                    'create' => true,
+                    'update' => true,
+                    'delete' => true,
+                ),
+                'user' => array(
+                    'index' =>true,
+                    'view' => true,
+                    'create' => true,
+                    'update' => true,
+                    'delete' => true,
+                ),
+            ),
+
+            'OPERATOR' => array(
+                'materials' => array(
+                    'index' =>true,
+                    'view' => true,
+                    'create' => false,
+                    'update' => false,
+                    'delete' => false,
+                ),
+                'movements' => array(
+                    'index' =>true,
+                    'view' => true,
+                    'create' => true,
+                    'update' => false,
+                    'delete' => false,
+                ),
+                'orders' => array(
+                    'index' =>false,
+                    'view' => false,
+                    'create' => false,
+                    'update' => false,
+                    'delete' => false,
+                ),
+                'stocks' => array(
+                    'index' =>true,
+                    'view' => true,
+                    'create' => true,
+                    'update' => true,
+                    'delete' => false,
+                ),
+                'user' => array(
+                    'index' =>false,
+                    'view' => false,
+                    'create' => false,
+                    'update' => false,
+                    'delete' => false,
+                ),
+            ),
+        );
+    }
 }

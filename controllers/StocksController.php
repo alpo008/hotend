@@ -4,9 +4,11 @@ namespace app\controllers;
 
 use app\models\Locations;
 use app\models\Materials;
+use app\models\User;
 use Yii;
 use app\models\Stocks;
 use app\models\search\StocksSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -28,6 +30,29 @@ class StocksController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view', 'create', 'update', 'delete'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['site/login'],
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                        'matchCallback' => function ($rule, $action) {
+                            return User::checkRights(Yii::$app->user->identity['role'], $this->uniqueId, $action->id);
+                        }
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['logout'],
+                        'roles' => ['@'],
+                    ],
+                ],
+            ]
         ];
     }
 

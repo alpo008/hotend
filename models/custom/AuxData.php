@@ -87,7 +87,6 @@ class AuxData extends Model
             }else{
 
                 $orders_map = array_column ($urgent['orders'], 'status', 'id');
-                //var_dump($orders_map);
                 if (min($orders_map) <= 2){
                     $min_key = array_search(min($orders_map), $orders_map);
                     $order_to_update = Orders::findOne(['id' => $min_key]);

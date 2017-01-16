@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+
 use yii;
 use yii\db\ActiveRecord;
 
@@ -29,7 +30,7 @@ class Stocks extends ActiveRecord
     public function rules()
     {
         return [
-            [['placename', 'description'], 'required'],
+            [['placename'], 'required'],
             [['description'], 'string'],
             [['placename'], 'string', 'max' => 32],
             [['placename'], 'unique'],
@@ -46,6 +47,19 @@ class Stocks extends ActiveRecord
             'placename' => Yii::t('app', 'Placename'),
             'description' => Yii::t('app', 'Description'),
         ];
+    }
+
+    public  function beforeDelete()
+    {
+        if (parent::beforeDelete()){
+            if (!!$this->locations){
+                return false;
+            }else{
+                return true;
+            }
+        }else{
+            return false;
+        }
     }
 
     public function getLocations()

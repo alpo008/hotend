@@ -26,7 +26,7 @@ use yii\bootstrap\ActiveForm;
 
     <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'role')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'role')->dropDownList($model->getDropdown()) ?>
 
     <?= $form->field($model, 'created')->textInput([
         'value' => ($model->isNewRecord ) ? date('Y-m-d') : $model->created,

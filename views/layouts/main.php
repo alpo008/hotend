@@ -45,10 +45,16 @@ AppAsset::register($this);
             'linkOptions' => ['class' => ($action_name === 'movements') ? 'active' : '']
             ],
             ['label' => Yii::t ('app','Stocks'), 'url' => ['/stocks'],
-            'linkOptions' => ['class' => ($action_name === 'stocks') ? 'active' : '']
+            'linkOptions' => ['class' => ($action_name === 'stocks') ? 'active' : '',]
             ],
             ['label' => Yii::t ('app','Orders'), 'url' => ['/orders'],
-            'linkOptions' => ['class' => ($action_name === 'orders') ? 'active' : '']
+                'options' =>
+                [
+                    'class' => (Yii::$app->user->identity['role'] == 'OPERATOR') ? 'hidden' : '',
+                ],
+            'linkOptions' => [
+                'class' => ($action_name === 'orders') ? 'active' : '',
+            ]
             ],
             Yii::$app->user->isGuest ? (
                 ['label' => Yii::t ('app','Login'), 'url' => ['/site/login']]
@@ -81,7 +87,6 @@ AppAsset::register($this);
 
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
-    <?php var_dump($action_name);?>
 </footer>
 
 <?php $this->endBody() ?>
