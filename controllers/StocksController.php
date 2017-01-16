@@ -2,10 +2,8 @@
 
 namespace app\controllers;
 
-use app\models\Locations;
-use app\models\Materials;
+use yii;
 use app\models\User;
-use Yii;
 use app\models\Stocks;
 use app\models\search\StocksSearch;
 use yii\filters\AccessControl;

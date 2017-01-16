@@ -140,9 +140,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php
 
             if (!!count($model->stocks)):?>
-
-
-                <table class="table table-striped">
+               <table class="table table-striped">
                     <?php
                     foreach ($model->stocks as $stock): ?>
                         <tr>
@@ -162,15 +160,11 @@ $this->params['breadcrumbs'][] = $this->title;
             endif;
                     ?>
                 </table>
-
         </div>
 
         <div role="tabpanel" class="tab-pane" id="orders">
             <?php
-
             if (!!count($model->orders)):?>
-
-
             <table class="table table-striped">
                 <?php
                 foreach ($model->orders as $order): ?>
@@ -194,7 +188,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 endif;
                 ?>
             </table>
-
         </div>
     </div>
 </div>

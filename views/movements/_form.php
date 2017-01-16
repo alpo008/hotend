@@ -20,7 +20,10 @@ use anmaslov\autocomplete\AutoComplete;
     ]); ?>
 
     <?php /*echo $form->field($model, 'materials_id')->textInput()*/ ?>
-    <?php $trans_date = (isset ($model->transaction_date)) ? $model->transaction_date : date ('Y-m-d');?>
+    <?php
+        $trans_date = (isset ($model->transaction_date)) ? $model->transaction_date : date ('Y-m-d');
+        $is_operator = (Yii::$app->user->identity['role'] == 'OPERATOR');
+    ?>
     
     <?php echo
     $form->field($model, 'longname')->textInput()->widget(
@@ -37,13 +40,22 @@ use anmaslov\autocomplete\AutoComplete;
 
     ?>
 
-    <?= $form->field($model, 'direction')->dropDownList($lists['directions']) ?>
+    <?= $form->field($model, 'direction')->dropDownList($lists['directions'],
+        ['options' =>
+            [
+            '1' => ($is_operator) ? ['disabled' => true] : ['disabled' => false],
+            ]
+        ]) ?>
 
     <?= $form->field($model, 'qty')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'from_to')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'transaction_date')->textInput(['value' => $trans_date]) ?>
+    <?= $form->field($model, 'transaction_date')->textInput([
+        'value' => $trans_date,
+        'disabled' => true,
+        ])
+    ?>
 
     <?= $form->field($model, 'stocks_id')->dropDownList($lists['stocks'], ['value' => $model->stocks_id]) ?>
 
@@ -51,11 +63,20 @@ use anmaslov\autocomplete\AutoComplete;
         'maxlength' => true,
         'value' => ($model->isNewRecord ) ?
             ((!!Yii::$app->user->identity) ? Yii::$app->user->identity->surname . ' ' . Yii::$app->user->identity->name : '') :
-            $model->person_in_charge
+            $model->person_in_charge,
+        'disabled' => true,
         ])
     ?>
     
-    <?= $form->field($model, 'person_receiver')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'person_receiver')->textInput([
+        'maxlength' => true,
+        'value' => ($model->isNewRecord ) ?
+            ((!!Yii::$app->user->identity && $is_operator) ? Yii::$app->user->identity->surname . ' ' . Yii::$app->user->identity->name : '') :
+            $model->person_in_charge,
+        'disabled' =>($is_operator) ? true : false,
+
+    ])
+    ?>
 
     <?= $form->field($model, 'docref')->textInput(['maxlength' => true]) ?>
 
