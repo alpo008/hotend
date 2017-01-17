@@ -219,7 +219,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function checkRights($user, $contr, $act)
     {
-        return self::getRights()[$user][$contr][$act];
+        return (!!$user && !!$contr && !!$act) ? self::getRights()[$user][$contr][$act] : false;
     }
 
     /**

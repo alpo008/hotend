@@ -81,10 +81,11 @@ class MaterialsController extends Controller
     {
             $model = $this->findModel($id);
             $qties = $model->getQuantities();
+            $loc = $model->getLocations();
             $movements_data = $model->getMovements()->orderBy('transaction_date DESC')->all();
             $lists['directions'] = AuxData::getDirections();
             $lists['statuses'] = AuxData::getOrderStatus();
-            return $this->render('view', compact ("model", "movements_data", "lists", "qties"));
+            return $this->render('view', compact ("model", "movements_data", "lists", "qties", "loc"));
     }
 
     /**

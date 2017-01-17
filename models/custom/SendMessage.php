@@ -40,9 +40,9 @@ class SendMessage extends Model
 
 
         Yii::$app->mailer->compose('@app/mail/layouts/html.php', ['content' => $message_body])
-        ->setTo('test@test.ru')
+        ->setTo(['knesgovoro@ruscam.ru', 'pkrotov@ruscam.ru', 'rtavganimov@ruscam.ru'])
         ->setFrom('stock@test.ru')
-        ->setSubject('Test message')
+        ->setSubject(Yii::t('app', 'Stock state notification'))
         //->attach($fileName)
         ->send();
         return true;

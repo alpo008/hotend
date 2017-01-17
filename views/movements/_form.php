@@ -35,17 +35,18 @@ use anmaslov\autocomplete\AutoComplete;
                 'value' => (isset ($lists['materials'][$model->materials_id])) ? $lists['materials'][$model->materials_id] : '',
                 'clientOptions' => [
                     'minChars' => 2,
-                ]
+                ],
             ])
 
     ?>
 
-    <?= $form->field($model, 'direction')->dropDownList($lists['directions'],
+    <?php echo $form->field($model, 'direction')->dropDownList($lists['directions'],
         ['options' =>
             [
-            '1' => ($is_operator) ? ['disabled' => true] : ['disabled' => false],
+            '1' => ($is_operator || !!$l_data) ? ['disabled' => true, 'selected' => false] : ['disabled' => false],
             ]
-        ]) ?>
+        ]);
+    ?>
 
     <?= $form->field($model, 'qty')->textInput(['maxlength' => true]) ?>
 
@@ -57,20 +58,24 @@ use anmaslov\autocomplete\AutoComplete;
         ])
     ?>
 
-    <?= $form->field($model, 'stocks_id')->dropDownList($lists['stocks'], ['value' => $model->stocks_id]) ?>
+    <?= $form->field($model, 'stocks_id')->dropDownList($lists['stocks'],
+        [
+            'disabled' => (!!$l_data) ? true : false,
+        ])
+    ?>
 
     <?= $form->field($model, 'person_in_charge')->textInput([
         'maxlength' => true,
         'value' => ($model->isNewRecord ) ?
             ((!!Yii::$app->user->identity) ? Yii::$app->user->identity->surname . ' ' . Yii::$app->user->identity->name : '') :
             $model->person_in_charge,
-        'disabled' => true,
+        //'disabled' => true,
         ])
     ?>
     
     <?= $form->field($model, 'person_receiver')->textInput([
         'maxlength' => true,
-        'value' => ($model->isNewRecord ) ?
+        'value' => ($model->isNewRecord) ?
             ((!!Yii::$app->user->identity && $is_operator) ? Yii::$app->user->identity->surname . ' ' . Yii::$app->user->identity->name : '') :
             $model->person_in_charge,
         'disabled' =>($is_operator) ? true : false,

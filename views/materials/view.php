@@ -151,6 +151,14 @@ $this->params['breadcrumbs'][] = $this->title;
                             </td>
                             <td>
                                 <?php echo $qties[$stock->id] . ' ' . $model->unit; ?>
+                            </td>                            
+                            <td>
+                                <?php $loc = array_column ($model->locations, 'id', 'stocks_id'); ?>
+
+                                <a href="/movements/create/<?php echo $loc[$stock->id] ?>">
+                                    <?php echo Yii::t('app','Pick up from the warehouse') ?>
+                                </a>
+
                             </td>
                         </tr>
                         <?php

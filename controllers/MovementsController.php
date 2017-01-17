@@ -3,6 +3,8 @@
 namespace app\controllers;
 
 use app\models\custom\AuxData;
+use app\models\Locations;
+use app\models\Materials;
 use app\models\User;
 use yii;
 use app\models\Movements;
@@ -89,18 +91,28 @@ class MovementsController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id = NULL)
     {
         $model = new Movements();
         $lists['directions'] = AuxData::getDirections();
         $lists['materials'] = AuxData::getMaterials();
         $lists['stocks'] = AuxData::getStocks();
+        if ($id !== NULL){
+            
+
+            $l_data = Locations::findOne($id);
+            $model->materials_id =$l_data->materials_id;
+            $model->stocks_id =$l_data->stocks_id;
+            $model->qty = $l_data->qty;
+        }else{
+            $l_data = NULL;
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $model->materials->getQuantities();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render('create', compact ("model", "lists"));
+            return $this->render('create', compact ("model", "lists", "l_data"));
         }
     }
 

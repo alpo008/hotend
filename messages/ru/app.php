@@ -228,7 +228,7 @@ return [
     'Order ref' => 'Номер заявки',
     'Applicant' => 'Лицо, оформившее заявку',
     'To do' => 'Сделать',
-    'Out of date' => 'Нет действий',
+    'Out of date' => 'Не выполняется',
     'Placed' => 'Подана',
     'Paid' => 'Оплачена',
     'Arrived' => 'Поступила на склад',
@@ -246,6 +246,8 @@ return [
     'Remember Me' => 'Запомнить меня',
     'Create User' => 'Новая учетная запись',
     'Update User' => 'Изменить данные учетной записи',
+    'Stock state notification' => 'Уведомление о состоянии склада',
+    'Pick up from the warehouse' => 'Взять со склада',
     
     'No stock data available' => 'Нет данных по наличию материала на складе.',
     'No movements data available' => 'Нет данных по складским операциям.',
