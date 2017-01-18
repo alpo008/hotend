@@ -97,6 +97,7 @@ class MovementsController extends Controller
         $lists['directions'] = AuxData::getDirections();
         $lists['materials'] = AuxData::getMaterials();
         $lists['stocks'] = AuxData::getStocks();
+        $lists['locations'] = AuxData::getLocations();
         if ($id !== NULL){
             
 
@@ -128,6 +129,7 @@ class MovementsController extends Controller
         $lists['directions'] = AuxData::getDirections();
         $lists['materials'] = AuxData::getMaterials();
         $lists['stocks'] = AuxData::getStocks();
+        $lists['locations'] = NULL;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

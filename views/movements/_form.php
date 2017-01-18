@@ -23,6 +23,7 @@ use anmaslov\autocomplete\AutoComplete;
     <?php
         $trans_date = (isset ($model->transaction_date)) ? $model->transaction_date : date ('Y-m-d');
         $is_operator = (Yii::$app->user->identity['role'] == 'OPERATOR');
+        $l_data = (isset($l_data)) ? $l_data : false;
     ?>
     
     <?php echo
@@ -60,7 +61,7 @@ use anmaslov\autocomplete\AutoComplete;
 
     <?= $form->field($model, 'stocks_id')->dropDownList($lists['stocks'],
         [
-            'disabled' => (!!$l_data) ? true : false,
+            'disabled' => (!!$l_data || !$model->isNewRecord) ? true : false,
         ])
     ?>
 
@@ -91,4 +92,39 @@ use anmaslov\autocomplete\AutoComplete;
 
     <?php ActiveForm::end(); ?>
 
+</div>
+
+<?php //var_dump( $lists['locations']); ?>
+
+<div class="locations-list hidden">
+    <?php foreach($lists['locations'] as $loc): ?>
+        <div class="location">
+            <?php foreach($loc as $k => $v): ?>
+                <div class = <?= $k ?>>
+                    <?=$v?>
+                </div>
+            <?php endforeach;?>
+        </div>
+
+    <?php endforeach;?>
+</div>
+
+<div class="modal fade" id ="qty-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Остаток материала</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Данный материал отсутствует на складе!
+                Форма будет закрыта автоматически.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
 </div>

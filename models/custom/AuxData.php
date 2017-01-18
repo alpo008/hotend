@@ -9,6 +9,7 @@
 namespace app\models\custom;
 
 
+use app\models\Locations;
 use app\models\Materials;
 use app\models\Orders;
 use app\models\Stocks;
@@ -49,6 +50,12 @@ class AuxData extends Model
         return array_column($temp, 'value', 's_id');
     }    
     
+    public static function getLocations(){
+        return Locations::find()
+            ->asArray()
+            ->all();
+    }
+    
     public static function getOrderStatus(){
         return array(
             '0' => Yii::t('app', 'To do'),
@@ -70,7 +77,6 @@ class AuxData extends Model
             ->where(['>=', '([[materials.minqty]] - [[materials.qty]])', 0])
             ->andWhere(['>', 'materials.minqty', 0])->joinWith(['orders'])
             ->all();
-
     }
 
     /**

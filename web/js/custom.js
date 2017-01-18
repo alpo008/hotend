@@ -47,6 +47,38 @@
             if (!!$field) {
                 $field.val(name);
             }
+
+        },
+
+        /**
+         *
+         * @param mat_id
+         * @returns {Array}
+         */
+        getLocations : function (mat_id) {
+            var locations = $('.locations-list').children();
+            var places_list = [];
+            for (var i = 0; i < locations.length; i++ ){
+                var $location = $(locations[i]);
+                if ($location.children('.materials_id').html() == mat_id){
+                    places_list[parseInt($location.children('.stocks_id').html())] =
+                        parseInt($location.children('.qty').html());
+                }
+            }
+            return places_list;
+        },
+
+        updatePlaces : function (available, qty) {
+            var $places_dropdown = $('#movements-stocks_id').children('option');
+            var options_number = 0;
+            $places_dropdown.each(function(i, opt){
+                if (available[parseInt($(opt).val())] === undefined || available[parseInt($(opt).val())] < parseInt(qty)){
+                    $(opt).hide();
+                }else{
+                    options_number ++;
+                }
+            });
+            return options_number;
         }
     };
 
@@ -54,10 +86,47 @@
      * Fills recipients field when material comes to the stock.
      */
     $('#movements-direction').on('change', function(){
-        console.log(this);
+        $('#movements-qty').change();
+        var uname;
         if (this.value == 0){
-            FormData.setDealerName($('#movements-person_receiver'), FormData.userName());
+            uname = FormData.userName();
+        }else{
+            uname = 'Эльвира';
+        }
+        FormData.setDealerName($('#movements-person_receiver'), uname);
+    });
+
+    /**
+     * Checks if material is available at the stock then displays a message and change stock places dropdown.
+     */
+    $('#movements-qty').on('change', function(){
+        //noinspection JSUnresolvedFunction
+        if ($('#movements-direction').val() == 0) {
+            var materialId = parseInt($('#movements-longname').autocomplete(':selected').val());
+            var enabledStockPlaces = FormData.getLocations(materialId);
+            var $modal_window = $("#qty-modal");
+            var $modal_body = $('.modal-body');
+            if (enabledStockPlaces.length < 1) {
+                //noinspection JSUnresolvedFunction
+                $modal_window.modal('show');
+                setTimeout('location.replace("/movements")', 5000);
+            } else {
+                var message = 'Остатки:' + '<br />';
+                enabledStockPlaces.forEach(function (item, i, arr) {
+                    message += i + ': ' + item + '<br />';
+                });
+                $modal_body.find('p').html(message);
+                $modal_window.modal('show');
+                var opt_available = FormData.updatePlaces(enabledStockPlaces, this.value);
+                if (opt_available == 0) {
+                    $('#movements-stocks_id').attr("disabled", "disabled");
+                    message = 'Ни на одном складском месте нет такого количества материала.' + '<br />' + 'Попробуйте взять меньше.';
+                    $modal_body.find('p').html(message);
+                    $modal_window.modal('show');
+                }
+            }
         }
     });
+
 
 })(jQuery);
