@@ -100,31 +100,51 @@ $this->params['breadcrumbs'][] = $this->title;
             if (!!count($movements_data)): ?>
 
                     <table class="table table-striped">
+                        <tr>
+                            <th>
+                                <?= $mov_labels['transaction_date'] ?>
+                            </th>
+                            <th>
+                                <?= $mov_labels['direction'] ?>
+                            </th>
+                            <th>
+                                <?= $mov_labels['from_to'] ?>
+                            </th>
+                            <th>
+                                <?= $mov_labels['qty'] ?>
+                            </th>
+                            <th>
+                                <?= $mov_labels['person_in_charge'] ?>
+                            </th>
+                            <th>
+                                <?= $mov_labels['docref'] ?>
+                            </th>
+                        </tr>
                         <?php
                         foreach ($movements_data as $movement):?>
-                            <tr>
-                                <td>
-                                    <a href="/movements/<?php echo $movement->id ?>">
-                                        <?php echo $movement->transaction_date; ?>
-                                    </a>
-                                </td>
-                                <td>
-                                    <?php echo $lists['directions'][$movement->direction]; ?>
-                                </td>
-                                <td>
-                                    <?php echo $movement->from_to; ?>
-                                </td>
-                                <td>
-                                    <?php echo $movement->qty . ' ' . $model->unit; ?>
-                                </td>
-                                <td>
-                                    <?php echo $movement->person_in_charge; ?>
-                                </td>
-                                <td>
-                                    <?php echo $movement->docref; ?>
-                                </td>
-                            </tr>
-                            <?php
+                        <tr>
+                            <td>
+                                <a href="/movements/<?php echo $movement->id ?>">
+                                    <?php echo $movement->transaction_date; ?>
+                                </a>
+                            </td>
+                            <td>
+                                <?php echo $lists['directions'][$movement->direction]; ?>
+                            </td>
+                            <td>
+                                <?php echo $movement->from_to; ?>
+                            </td>
+                            <td>
+                                <?php echo $movement->qty . ' ' . $model->unit; ?>
+                            </td>
+                            <td>
+                                <?php echo $movement->person_in_charge; ?>
+                            </td>
+                            <td>
+                                <?php echo $movement->docref; ?>
+                            </td>
+                        </tr>
+                        <?php
                         endforeach; ?>
                     </table>
 
@@ -141,27 +161,38 @@ $this->params['breadcrumbs'][] = $this->title;
 
             if (!!count($model->stocks)):?>
                <table class="table table-striped">
+                   <tr>
+                       <th>
+                           <?= $mov_labels['stocks_id'] ?>
+                       </th>
+                       <th>
+                           <?= $mov_labels['qty'] ?>
+                       </th>
+                       <th>
+                           &nbsp;
+                       </th>
+                   </tr>
                     <?php
                     foreach ($model->stocks as $stock): ?>
-                        <tr>
-                            <td>
-                                <a href="/stocks/<?php echo $stock->id ?>">
-                                    <?php echo $stock->placename ?>
-                                </a>
-                            </td>
-                            <td>
-                                <?php echo $qties[$stock->id] . ' ' . $model->unit; ?>
-                            </td>                            
-                            <td>
-                                <?php $loc = array_column ($model->locations, 'id', 'stocks_id'); ?>
+                    <tr>
+                        <td>
+                            <a href="/stocks/<?php echo $stock->id ?>">
+                                <?php echo $stock->placename ?>
+                            </a>
+                        </td>
+                        <td>
+                            <?php echo $qties[$stock->id] . ' ' . $model->unit; ?>
+                        </td>
+                        <td>
+                            <?php $loc = array_column ($model->locations, 'id', 'stocks_id'); ?>
 
-                                <a href="/movements/create/<?php echo $loc[$stock->id] ?>">
-                                    <?php echo Yii::t('app','Pick up from the warehouse') ?>
-                                </a>
+                            <a href="/movements/create/<?php echo $loc[$stock->id] ?>">
+                                <?php echo Yii::t('app','Pick up from the warehouse') ?>
+                            </a>
 
-                            </td>
-                        </tr>
-                        <?php
+                        </td>
+                    </tr>
+                    <?php
                     endforeach;
             else:
                 echo Yii::t('app', 'No stock data available');
@@ -174,6 +205,17 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php
             if (!!count($model->orders)):?>
             <table class="table table-striped">
+                <tr>
+                    <th>
+                        <?= $ord_labels['order_date'] ?>
+                    </th>
+                    <th>
+                        <?= $ord_labels['docref'] ?>
+                    </th>
+                    <th>
+                        <?= $ord_labels['status'] ?>
+                    </th>
+                </tr>
                 <?php
                 foreach ($model->orders as $order): ?>
                     <tr>

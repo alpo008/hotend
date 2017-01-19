@@ -6732,6 +6732,9 @@ body {
   background-size: 100%;
   /* Современные браузеры */
 }
+/*.navbar-inverse.navbar-fixed-top.navbar{
+  #gradient >.vertical(@navbar-inverse-bg; @brand-primary);
+}*/
 .tab-content {
   border: 1px solid #647a92;
   border-top: none;

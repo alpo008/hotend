@@ -4,6 +4,8 @@ namespace app\controllers;
 
 use app\models\custom\AuxData;
 use app\models\Locations;
+use app\models\Movements;
+use app\models\Orders;
 use app\models\Stocks;
 use yii;
 use app\models\Materials;
@@ -83,9 +85,11 @@ class MaterialsController extends Controller
             $qties = $model->getQuantities();
             $loc = $model->getLocations();
             $movements_data = $model->getMovements()->orderBy('transaction_date DESC')->all();
+            $mov_labels = (Movements::getLabels());
+            $ord_labels = (Orders::getLabels());
             $lists['directions'] = AuxData::getDirections();
             $lists['statuses'] = AuxData::getOrderStatus();
-            return $this->render('view', compact ("model", "movements_data", "lists", "qties", "loc"));
+            return $this->render('view', compact ("model", "movements_data", "lists", "qties", "loc", "mov_labels", "ord_labels"));
     }
 
     /**

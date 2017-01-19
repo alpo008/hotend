@@ -68,4 +68,9 @@ class Orders extends ActiveRecord
     {
         return $this->hasOne(Materials::className(), ['id' => 'materials_id']);
     }
+
+    public static function getLabels()
+    {
+        return self::attributeLabels();
+    }
 }

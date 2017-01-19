@@ -69,12 +69,16 @@
         },
 
         updatePlaces : function (available, qty) {
-            var $places_dropdown = $('#movements-stocks_id').children('option');
+            var $places_container = $('#movements-stocks_id');
+            var $places_dropdown = $places_container.children('option');
             var options_number = 0;
             $places_dropdown.each(function(i, opt){
+                $(opt).show();
                 if (available[parseInt($(opt).val())] === undefined || available[parseInt($(opt).val())] < parseInt(qty)){
+                    $(opt).attr("selected", false);
                     $(opt).hide();
                 }else{
+                    $(opt).attr("selected", "selected");
                     options_number ++;
                 }
             });
@@ -101,6 +105,7 @@
      */
     $('#movements-qty').on('change', function(){
         //noinspection JSUnresolvedFunction
+        $('#movements-stocks_id').attr("disabled", false);
         if ($('#movements-direction').val() == 0) {
             var materialId = parseInt($('#movements-longname').autocomplete(':selected').val());
             var enabledStockPlaces = FormData.getLocations(materialId);

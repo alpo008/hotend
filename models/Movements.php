@@ -187,4 +187,9 @@ class Movements extends ActiveRecord
     {
         return Locations::find()->where(['stocks_id' => $this->stocks_id, 'materials_id' => $this->materials_id])->one();
     }
+    
+    public static function getLabels()
+    {
+        return self::attributeLabels();
+    }
 }
