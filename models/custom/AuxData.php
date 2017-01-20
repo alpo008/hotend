@@ -119,7 +119,11 @@ class AuxData extends Model
         return $updated_list;
 
     }
-    
+
+    /**
+     * @param object $item
+     * @return array $update_list
+     */
     public static function createNewOrder($item){
         $new_order = new Orders();
         $new_order->materials_id = $item->id;
@@ -166,5 +170,27 @@ class AuxData extends Model
         ];
         $item->save();
         return $update_list;
+    }
+
+    public static  function getFullTable()
+    {
+        $request = Materials::find()->joinWith(['stocks'])->joinWith(['movements'])->asArray()->all();
+        $result = array();
+        foreach ($request as $entry){
+            $line = array();
+            foreach ($entry as $k => $v){
+                if (!is_array($v)){
+                    $line[$k] = $v;
+                }else{
+                    switch ($k){
+                        case 'stocks' :
+                            $line['placename'] = implode( array_column($v, 'placename'), '; ');
+                        break;
+                    }
+                }
+            }
+            $result[] = $line;
+        }
+        return $result;
     }
 }

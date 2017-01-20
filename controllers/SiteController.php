@@ -76,6 +76,7 @@ class SiteController extends Controller
         $urgents = AuxData::getUrgents();
         $output_data = TempFile::getInstance();
         $tbl_labels = AuxData::getUrgentsLabels(Materials::getLabels());
+        //var_dump( AuxData::getFullTable()[0]);
         $mail_list = NULL;
         if(!!$urgents){
             $mail_list = AuxData::updateUrgents($urgents);
