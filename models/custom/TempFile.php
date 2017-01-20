@@ -49,9 +49,9 @@ class TempFile
     {
         $filename = $this->getStoragePath() . $data['name'] . '.' . $data['ext'];
         if ($data['ext'] === 'csv'){
-            return $this->writeCsv($filename, $data['content']);
+            return $this->writeCsv($filename, $data);
         }elseif ($data['ext'] === 'xls'){
-            return $this->writeXls($filename, $data['content']);
+            return $this->writeXls($filename, $data);
         }else{
             return false;
         }
@@ -63,10 +63,13 @@ class TempFile
      * @return bool
      */
     public function writeCsv($name, $data){
-        if (!!$data){
+        if (!!$data['content']){
         $link = fopen($name, 'a+');
         $result = true;
-        foreach ($data as $line) {
+            if (!!$data['labels']){
+                $result = fputcsv($link, $data['labels'], ',');
+            }
+        foreach ($data['content'] as $line) {
             $result = fputcsv($link, $line, ',');
         }
         fclose($link);
@@ -121,7 +124,14 @@ class TempFile
             $link = fopen($name, 'w+');
             fwrite($link, $htmlbegin);
             fwrite($link, '<table border="1" align="left">');
-            foreach ($data as $line) {
+            if (!!$data['labels']){
+                $result = fwrite($link, '<tr>');
+                foreach ($data['labels'] as $cell){
+                        $result = fwrite($link, '<td>' . $cell . '</td>');
+                }
+                fwrite($link, '</tr>');
+            }
+            foreach ($data['content'] as $line) {
                 $result = fwrite($link, '<tr>');
                 foreach ($line as $cell){
                     $result = fwrite($link, '<td>' . $cell . '</td>');

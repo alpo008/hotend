@@ -65,4 +65,8 @@ $this->title = 'H O T E N D';
     ]); ?>
     <?php Pjax::end(); ?>
 
+    <div class="download-link">
+        <?php echo Html::a("Download", ['/site/download', 'name' => 'urgents.xls'], ['class' => 'download-link',]) . '<br>'; ?>
+    </div>
+
 </div>

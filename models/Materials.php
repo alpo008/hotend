@@ -129,4 +129,11 @@ class Materials extends ActiveRecord
         $this->save();
     }
 
+    /**
+     * @return array
+     */
+    public static function getLabels()
+    {
+        return self::attributeLabels();
+    }
 }

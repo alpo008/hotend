@@ -78,6 +78,18 @@ class AuxData extends Model
             ->andWhere(['>', 'materials.minqty', 0])->joinWith(['orders'])
             ->all();
     }
+    
+    public  static  function getUrgentsLabels($all_labels){
+        return  [
+            $all_labels['ref'],
+            $all_labels['name'],
+            $all_labels['qty'],
+            $all_labels['unit'],
+            $all_labels['type'],
+            $all_labels['gruppa'],
+            Yii::t('app', 'Status'),
+        ];
+    }
 
     /**
      * @param array $urgents
@@ -105,6 +117,7 @@ class AuxData extends Model
             }
         }
         return $updated_list;
+
     }
     
     public static function createNewOrder($item){

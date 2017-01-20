@@ -6,6 +6,7 @@ use app\models\custom\AuxData;
 use app\models\custom\SendMail;
 use app\models\custom\SendMessage;
 use app\models\custom\TempFile;
+use app\models\Materials;
 use app\models\search\MissedOrdersSearch;
 use yii;
 use yii\filters\AccessControl;
@@ -13,6 +14,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use yii\web\NotFoundHttpException;
 
 class SiteController extends Controller
 {
@@ -73,7 +75,7 @@ class SiteController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $urgents = AuxData::getUrgents();
         $output_data = TempFile::getInstance();
-
+        $tbl_labels = AuxData::getUrgentsLabels(Materials::getLabels());
         $mail_list = NULL;
         if(!!$urgents){
             $mail_list = AuxData::updateUrgents($urgents);
@@ -81,6 +83,13 @@ class SiteController extends Controller
                 'name' => 'temp',
                 'ext' => 'csv',
                 'content' => $mail_list,
+                'labels' => $tbl_labels,
+            ]);
+            $output_data->saveTemp([
+                'name' => 'urgents',
+                'ext' => 'xls',
+                'content' => $mail_list,
+                'labels' => $tbl_labels,
             ]);
         }
 
@@ -95,6 +104,16 @@ class SiteController extends Controller
 
         $lists['statuses'] = AuxData::getOrderStatus();
         return $this->render('index', compact ("searchModel", "dataProvider", "lists", "message"));
+    }
+
+    public function actionDownload($name)
+    {
+        $f_instance = TempFile::getInstance();
+        $path = $f_instance->getStoragePath();
+        if (!preg_match('/^[a-z0-9_]+\.[a-z0-9]+$/i', $name) || !is_file("$path/$name")) {
+            throw new NotFoundHttpException(Yii::t('app', 'The file does not exists.'));
+        }
+        return Yii::$app->response->sendFile("$path/$name", date('Y-m-d') . '_' . $name);
     }
 
     /**
