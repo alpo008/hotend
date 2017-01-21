@@ -75,8 +75,8 @@ class SiteController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $urgents = AuxData::getUrgents();
         $output_data = TempFile::getInstance();
-        $tbl_labels = AuxData::getUrgentsLabels(Materials::getLabels());
-        //var_dump( AuxData::getFullTable()[0]);
+        $download_data = array();
+        $mail_labels = AuxData::getUrgentsLabels(Materials::getLabels());
         $mail_list = NULL;
         if(!!$urgents){
             $mail_list = AuxData::updateUrgents($urgents);
@@ -84,15 +84,32 @@ class SiteController extends Controller
                 'name' => 'temp',
                 'ext' => 'csv',
                 'content' => $mail_list,
-                'labels' => $tbl_labels,
+                'labels' => $mail_labels,
             ]);
             $output_data->saveTemp([
                 'name' => 'urgents',
                 'ext' => 'xls',
-                'content' => $mail_list,
-                'labels' => $tbl_labels,
+                'content' => $urgents,
+                'labels' => NULL,
             ]);
+            $download_data[Yii::t('app', 'Urgent orders')] = 'urgents.xls';
+            if(!!$mail_list){
+                $output_data->saveTemp([
+                    'name' => 'emails',
+                    'ext' => 'xls',
+                    'content' => $mail_list,
+                    'labels' => $mail_labels,
+                ]);
+                $download_data[Yii::t('app', 'Urgent messages')] = 'emails.xls';
+            }
         }
+        $output_data->saveTemp([
+            'name' => 'materials',
+            'ext' => 'xls',
+            'content' => AuxData::getFullTable(),
+            'labels' => NULL,
+        ]);
+        $download_data[Yii::t('app', 'Materials')] = 'materials.xls';
 
 /*        $attachment = $output_data->getStoragePath() . 'temp.csv';
         if (!!file($attachment)){
@@ -104,6 +121,7 @@ class SiteController extends Controller
         $message = (!$mail_list) ? true : false;
 
         $lists['statuses'] = AuxData::getOrderStatus();
+        $lists['downloads'] = $download_data;
         return $this->render('index', compact ("searchModel", "dataProvider", "lists", "message"));
     }
 

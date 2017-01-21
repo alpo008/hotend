@@ -123,24 +123,40 @@ class TempFile
             $result = true;
             $link = fopen($name, 'w+');
             fwrite($link, $htmlbegin);
-            fwrite($link, '<table border="1" align="left">');
-            if (!!$data['labels']){
-                $result = fwrite($link, '<tr>');
-                foreach ($data['labels'] as $cell){
-                        $result = fwrite($link, '<td>' . $cell . '</td>');
-                }
-                fwrite($link, '</tr>');
-            }
-            foreach ($data['content'] as $line) {
-                $result = fwrite($link, '<tr>');
-                foreach ($line as $cell){
-                    $result = fwrite($link, '<td>' . $cell . '</td>');
-                }
-                fwrite($link, '</tr>');
-            }
-            fwrite($link, '</table>');
+            $tbl_body = $this->tableBody($data['labels'], $data['content']);
+            fwrite($link, $tbl_body);
             fwrite($link, $htmlend);
             fclose($link);
         return $result;
+
+
+
+    }
+
+    /**
+     * @param array $labels
+     * @param array $content
+     * @return string $body
+     */
+    protected function tableBody ($labels = NULL, $content){
+        $body = '<table border="1" align="left">';
+        if (!!$labels){
+            $body .= '<tr>';
+            foreach ($labels as $label){
+                $body .= '<th>' . $label . '</th>';
+            }
+        }
+        $body .= '</tr>';
+        if (!!$content){
+            foreach ($content as $line) {
+                $body .= '<tr>';
+                foreach ($line as $cell){
+                    $body .= '<td>' . $cell . '</td>';
+                }
+                $body .= '</tr>';
+            }
+            $body .= '</table>';
+        }
+        return $body;
     }
 }

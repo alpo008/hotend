@@ -64,9 +64,12 @@ $this->title = 'H O T E N D';
         ]
     ]); ?>
     <?php Pjax::end(); ?>
-
-    <div class="download-link">
-        <?php echo Html::a("Download", ['/site/download', 'name' => 'urgents.xls'], ['class' => 'download-link',]) . '<br>'; ?>
-    </div>
+    <?php if (!!$lists['downloads']):?>
+        <?php foreach ($lists['downloads'] as $k => $v): ?>
+            <div class="download-link">
+                <?php echo Html::a($k, ['/site/download', 'name' => $v], ['class' => 'download-link',]) . '<br>'; ?>
+            </div>
+        <?php endforeach ?>
+    <?php endif;?>
 
 </div>

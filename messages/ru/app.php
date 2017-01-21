@@ -248,6 +248,7 @@ return [
     'Update User' => 'Изменить данные учетной записи',
     'Stock state notification' => 'Уведомление о состоянии склада',
     'Pick up from the warehouse' => 'Взять со склада',
+    'Urgent messages' => 'Срочные сообщения',
     
     'No stock data available' => 'Нет данных по наличию материала на складе.',
     'No movements data available' => 'Нет данных по складским операциям.',
