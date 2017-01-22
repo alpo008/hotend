@@ -1,2 +1,65 @@
 @import "../../vendor/bower/bootstrap/less/mixins.less";
 @import "_variables.less";
+
+.border-radius(@rad: 2px){
+  -webkit-border-radius:@rad;
+  -moz-border-radius:@rad;
+  border-radius:@rad;
+}
+
+.border(@bd-width){
+  border:@bd-width * 0.4px solid transparent;
+  -webkit-border-image: url('../img/board-border.png') @bd-width   repeat;
+  -moz-border-image: url('../img/board-border.png') @bd-width   repeat;
+  -o-border-image: url('../img/board-border.png') @bd-width   repeat;
+  border-image: url('../img/board-border.png') @bd-width   repeat;
+}
+
+.mess-brd(@bgc, @p){
+  padding: 0 @p @p @p;
+  background-color: @bgc;
+  .border(10)
+}
+
+.folded(left, @bgc-folded, @fold-size, @fold-shadow, @bgc-bg){
+  &:before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-bottom: @fold-size solid darken(@bgc-folded, 10%);
+    border-left: @fold-size solid transparent;
+    -webkit-box-shadow: @fold-shadow @fold-shadow @fold-shadow rgba(0,0,0,0.3);
+    -moz-box-shadow: @fold-shadow @fold-shadow @fold-shadow rgba(0,0,0,0.3);
+    box-shadow: @fold-shadow @fold-shadow @fold-shadow rgba(0,0,0,0.3);
+  }
+  &:after{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-top: @fold-size * 0.96 solid @bgc-bg;
+    border-right: @fold-size * 0.96 solid transparent;
+  }
+}
+
+.sticker(@bg-color: rgba(196, 196, 196, 0.4); @size: 200px){
+  display: block;
+  position: relative;
+  width: @size;
+  height: @size;
+  -webkit-box-shadow: 5px 5px 5px rgba(0,0,0,0.8);
+  -moz-box-shadow: 5px 5px 5px rgba(0,0,0,0.8);
+  box-shadow: 5px 5px 5px rgba(0,0,0,0.4);
+  #gradient > .vertical(@bg-color; darken(@bg-color, 30%); 0%; 100%);
+  .folded(left, @bg-color, 30px, 7px, @bgc-mess-board)
+
+}
+
+.sticker-header(@p-top,@p-bottom){
+  padding: @p-top 0 0 @p-bottom;
+}

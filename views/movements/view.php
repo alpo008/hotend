@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Movements */
 
-$this->title = $model->id;
+$this->title = $model->materials->ref . ' - ' .$model->transaction_date;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Movements'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

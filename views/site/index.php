@@ -65,11 +65,16 @@ $this->title = 'H O T E N D';
     ]); ?>
     <?php Pjax::end(); ?>
     <?php if (!!$lists['downloads']):?>
-        <?php foreach ($lists['downloads'] as $k => $v): ?>
-            <div class="download-link">
-                <?php echo Html::a($k, ['/site/download', 'name' => $v], ['class' => 'download-link',]) . '<br>'; ?>
+        <div class="mess-board">
+            <div class="download-links">
+                <h4><?= Yii::t('app', 'Download') ?></h4>
+                <?php foreach ($lists['downloads'] as $k => $v): ?>
+                    <div class="download-link">
+                        <?php echo Html::a($k, ['/site/download', 'name' => $v], ['class' => 'download-link',]) . '<br>'; ?>
+                    </div>
+                <?php endforeach ?>
             </div>
-        <?php endforeach ?>
+        </div>
     <?php endif;?>
 
 </div>
