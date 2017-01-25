@@ -72,4 +72,9 @@ class Stocks extends ActiveRecord
         return $this->hasMany(Materials::className(), ['id' => 'materials_id'])
             ->via('locations');
     }
+
+    public static function getLabels()
+    {
+        return self::attributeLabels();
+    }
 }

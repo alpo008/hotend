@@ -7,6 +7,7 @@ use app\models\custom\SendMail;
 use app\models\custom\SendMessage;
 use app\models\custom\TempFile;
 use app\models\Materials;
+use app\models\Orders;
 use app\models\search\MissedOrdersSearch;
 use yii;
 use yii\filters\AccessControl;
@@ -78,6 +79,12 @@ class SiteController extends Controller
         $download_data = array();
         $mail_labels = AuxData::getUrgentsLabels(Materials::getLabels());
         $mail_list = NULL;
+
+
+
+        $labels = AuxData::getLabels([['materials',['id', 'ref']],  ['orders', ['id']]]);
+
+
         if(!!$urgents){
             $mail_list = AuxData::updateUrgents($urgents);
             $output_data->saveTemp([
@@ -86,11 +93,16 @@ class SiteController extends Controller
                 'content' => $mail_list,
                 'labels' => $mail_labels,
             ]);
-            $output_data->saveTemp([
+
+            $urgents_labels = AuxData::getLabels([
+                ['materials',
+                ['id', 'ref', 'name', 'qty', 'minqty', 'unit', 'type', 'gruppa']]
+            ]);
+                $output_data->saveTemp([
                 'name' => 'urgents',
                 'ext' => 'xls',
                 'content' => $urgents,
-                'labels' => NULL,
+                'labels' => $urgents_labels,
             ]);
             $download_data[Yii::t('app', 'Urgent orders')] = 'urgents.xls';
             if(!!$mail_list){
@@ -103,20 +115,35 @@ class SiteController extends Controller
                 $download_data[Yii::t('app', 'Urgent messages')] = 'emails.xls';
             }
         }
+        $materials_labels =  AuxData::getLabels([
+            ['materials',['id', 'ref', 'name', 'qty', 'minqty', 'unit', 'type', 'gruppa']],
+            ['stocks', ['placename']]
+        ]);
         $output_data->saveTemp([
             'name' => 'materials',
             'ext' => 'xls',
             'content' => AuxData::getFullTable(),
-            'labels' => NULL,
+            'labels' => $materials_labels,
         ]);
         $download_data[Yii::t('app', 'Materials')] = 'materials.xls';
 
-/*        $attachment = $output_data->getStoragePath() . 'temp.csv';
-        if (!!file($attachment)){
-            if(SendMail::sendNotification($attachment)){
-                unlink ($attachment);
-            }
-        }*/
+        $orders_labels = AuxData::getLabels([
+            ['orders',['order_date' , 'docref']],
+            ['materials', ['ref', 'name']],
+            ['orders',['qty', 'status']],
+            ]);
+        $output_data->saveTemp([
+            'name' => 'orders',
+            'ext' => 'xls',
+            'content' => Orders::find()
+                ->leftJoin('materials', '`orders`.`materials_id` = `materials`.`id`')
+                ->select(['`orders`.`order_date`', '`orders`.`docref`', '`materials`.`ref`', '`materials`.`name`', '`orders`.`qty`','`orders`.`status`' ])
+                ->orderBy('`orders`.`order_date` DESC')
+                ->asArray()
+                ->all(),
+            'labels' => $orders_labels,
+        ]);
+        $download_data[Yii::t('app', 'Orders')] = 'orders.xls';
 
         $message = (!$mail_list) ? true : false;
 

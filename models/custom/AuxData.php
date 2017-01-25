@@ -11,6 +11,7 @@ namespace app\models\custom;
 
 use app\models\Locations;
 use app\models\Materials;
+use app\models\Movements;
 use app\models\Orders;
 use app\models\Stocks;
 use yii;
@@ -172,9 +173,13 @@ class AuxData extends Model
         return $update_list;
     }
 
+    /**
+     * @return array
+     */
     public static  function getFullTable()
     {
-        $request = Materials::find()->joinWith(['stocks'])->joinWith(['movements'])->asArray()->all();
+        $request = Materials::find()->joinWith(['stocks'])->asArray()->all();
+
         $result = array();
         foreach ($request as $entry){
             $line = array();
@@ -192,5 +197,35 @@ class AuxData extends Model
             $result[] = $line;
         }
         return $result;
+    }
+
+    /**
+     * @param array $attrs
+     * @return array $labels
+     */
+    public static function getLabels($attrs){
+        $labels = array();
+        foreach ($attrs as $table_data) {
+            switch ($table_data[0]) {
+                case 'materials':
+                    $labels_array = Materials::getLabels();
+                    break;
+                case 'orders':
+                    $labels_array = Orders::getLabels();
+                    break;
+                case 'movements':
+                    $labels_array = Movements::getLabels();
+                    break;
+                case 'stocks':
+                    $labels_array = Stocks::getLabels();
+                    break;
+            }
+            foreach ($table_data[1] as $lbl_data){
+              if (!empty($labels_array)) {
+                  $labels[] = $labels_array[$lbl_data];
+              }
+            }
+        }
+        return $labels;
     }
 }
