@@ -174,7 +174,7 @@ class AuxData extends Model
     }
 
     /**
-     * @return array
+     * @return array $result
      */
     public static  function getFullTable()
     {
@@ -227,5 +227,56 @@ class AuxData extends Model
             }
         }
         return $labels;
+    }
+
+    /**
+     * @return array|yii\db\ActiveRecord[] $orders_array
+     */
+    public static function  getOrders (){
+    $orders_array = Orders::find()
+                    ->leftJoin('materials', '`orders`.`materials_id` = `materials`.`id`')
+                    ->select(['`orders`.`order_date`', '`orders`.`docref`', '`materials`.`ref`', '`materials`.`name`', '`orders`.`qty`','`orders`.`status`' ])
+                    ->orderBy('`orders`.`order_date` DESC')
+                    ->asArray()
+                    ->all();
+        $order_status = self::getOrderStatus();
+        array_walk_recursive($orders_array, function (&$v, $k) use ($order_status){
+            if ($k == 'status'){
+               $v = $order_status[$v];
+            }
+        });
+    return $orders_array;
+    }
+
+    /**
+     * @return array $stock_table
+     */
+    public static function getStockTable(){
+        $stock_table = array();
+        $stock_objects = Stocks::find()
+            ->joinWith('materials')
+            ->orderBy('stocks.placename')
+            ->asArray()
+            ->all();
+        foreach ($stock_objects as $stock_object){
+            $duplicate = true;
+            foreach ($stock_object['materials'] as $material){
+                $qty = 0;
+                foreach ($stock_object['locations'] as $location){
+                    if ($location['materials_id'] === $material['id']){
+                        $qty .= $location['qty'];
+                    }
+                }
+                $stock_table[] = [
+                    'placename' => ($duplicate) ? $stock_object['placename'] : '',
+                    'description' => ($duplicate) ? $stock_object['description'] : '',
+                    'ref' => $material['ref'],
+                    'name' => $material['name'],
+                    'qty' => $qty,
+                ];
+                $duplicate = false;
+            }
+        }
+        return $stock_table;
     }
 }

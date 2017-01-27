@@ -3,11 +3,9 @@
 namespace app\controllers;
 
 use app\models\custom\AuxData;
-use app\models\custom\SendMail;
 use app\models\custom\SendMessage;
 use app\models\custom\TempFile;
 use app\models\Materials;
-use app\models\Orders;
 use app\models\search\MissedOrdersSearch;
 use yii;
 use yii\filters\AccessControl;
@@ -80,11 +78,6 @@ class SiteController extends Controller
         $mail_labels = AuxData::getUrgentsLabels(Materials::getLabels());
         $mail_list = NULL;
 
-
-
-        $labels = AuxData::getLabels([['materials',['id', 'ref']],  ['orders', ['id']]]);
-
-
         if(!!$urgents){
             $mail_list = AuxData::updateUrgents($urgents);
             $output_data->saveTemp([
@@ -135,15 +128,22 @@ class SiteController extends Controller
         $output_data->saveTemp([
             'name' => 'orders',
             'ext' => 'xls',
-            'content' => Orders::find()
-                ->leftJoin('materials', '`orders`.`materials_id` = `materials`.`id`')
-                ->select(['`orders`.`order_date`', '`orders`.`docref`', '`materials`.`ref`', '`materials`.`name`', '`orders`.`qty`','`orders`.`status`' ])
-                ->orderBy('`orders`.`order_date` DESC')
-                ->asArray()
-                ->all(),
+            'content' => AuxData::getOrders(),
             'labels' => $orders_labels,
         ]);
         $download_data[Yii::t('app', 'Orders')] = 'orders.xls';
+
+        $orders_labels = AuxData::getLabels([
+            ['stocks',['placename' , 'description']],
+            ['materials', ['ref', 'name', 'qty']],
+        ]);
+        $output_data->saveTemp([
+            'name' => 'stock',
+            'ext' => 'xls',
+            'content' => AuxData::getStockTable(),
+            'labels' => $orders_labels,
+        ]);
+        $download_data[Yii::t('app', 'Stocks')] = 'stock.xls';
 
         $message = (!$mail_list) ? true : false;
 
