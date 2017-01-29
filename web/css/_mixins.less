@@ -1,6 +1,7 @@
 @import "../../vendor/bower/bootstrap/less/mixins.less";
 @import "_variables.less";
 
+
 .border-radius(@rad: 2px){
   -webkit-border-radius:@rad;
   -moz-border-radius:@rad;
@@ -8,17 +9,14 @@
 }
 
 .border(@bd-width){
-  border:@bd-width * 0.4px solid transparent;
-  -webkit-border-image: url('../img/board-border.png') @bd-width   repeat;
-  -moz-border-image: url('../img/board-border.png') @bd-width   repeat;
-  -o-border-image: url('../img/board-border.png') @bd-width   repeat;
-  border-image: url('../img/board-border.png') @bd-width   repeat;
+ border: @bd-width double #888;
+
 }
 
 .mess-brd(@bgc, @p){
   padding: 0 @p @p @p;
   background-color: @bgc;
-  .border(10)
+  .border(4px);
 }
 
 .folded(left, @bgc-folded, @fold-size, @fold-shadow, @bgc-bg){
@@ -49,15 +47,24 @@
 
 .sticker(@bg-color: rgba(196, 196, 196, 0.4); @size: 200px){
   display: block;
+  .size(@size, @size);
+  .transition(0.5s ease-in-out;);
+  .scale(1; 1);
   position: relative;
-  width: @size;
-  height: @size;
-  -webkit-box-shadow: 5px 5px 5px rgba(0,0,0,0.8);
-  -moz-box-shadow: 5px 5px 5px rgba(0,0,0,0.8);
+  margin-right: @size * 0.05;
+  -webkit-box-shadow: 5px 5px 5px rgba(0,0,0,0.4);
+  -moz-box-shadow: 5px 5px 5px rgba(0,0,0,0.4);
   box-shadow: 5px 5px 5px rgba(0,0,0,0.4);
   #gradient > .vertical(@bg-color; darken(@bg-color, 30%); 0%; 100%);
-  .folded(left, @bg-color, 30px, 7px, @bgc-mess-board)
-
+  .folded(left, @bg-color, @size * 0.15, 7px, @bgc-mess-board);
+  font-family: 'Ubuntu', Times, serif !important;
+  font-style: italic;
+  &:hover{
+    .scale(1.04; 1.04);
+    -webkit-box-shadow: 7px 7px 7px rgba(0,0,0,0.4);
+    -moz-box-shadow: 7px 7px 7px rgba(0,0,0,0.4);
+    box-shadow: 7px 7px 7px rgba(0,0,0,0.4);
+  }
 }
 
 .sticker-header(@p-top,@p-bottom){

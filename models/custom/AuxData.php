@@ -84,7 +84,7 @@ class AuxData extends Model
         return  [
             $all_labels['ref'],
             $all_labels['name'],
-            $all_labels['qty'],
+            Yii::t('app', 'Qty'),
             $all_labels['unit'],
             $all_labels['type'],
             $all_labels['gruppa'],

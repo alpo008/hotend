@@ -108,6 +108,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?= $mov_labels['direction'] ?>
                             </th>
                             <th>
+                                <?= $mov_labels['person_receiver'] ?>
+                            </th>
+                            <th>
                                 <?= $mov_labels['from_to'] ?>
                             </th>
                             <th>
@@ -130,6 +133,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             </td>
                             <td>
                                 <?php echo $lists['directions'][$movement->direction]; ?>
+                            </td>
+                            <td>
+                                <?php echo $movement->person_receiver; ?>
                             </td>
                             <td>
                                 <?php echo $movement->from_to; ?>

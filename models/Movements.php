@@ -156,6 +156,7 @@ class Movements extends ActiveRecord
                         'name' => 'temp',
                         'ext' => 'csv',
                         'content' => $update_data,
+                        'labels' => Orders::getLabels(),
                     ]);
                 }
             }
