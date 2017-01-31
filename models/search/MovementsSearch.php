@@ -47,8 +47,8 @@ class MovementsSearch extends Movements
      */
     public function search($params)
     {
-        $query = Movements::find()
-            ->orderBy('transaction_date DESC');;
+        $query = Movements::find()->orderBy('transaction_date DESC');
+
 
         // add conditions that should always apply here
 
@@ -87,6 +87,7 @@ class MovementsSearch extends Movements
         $query->andFilterWhere(['LIKE', 'materials.name', $this->getAttribute('materials.name')]);
         $query->andFilterWhere(['LIKE', 'materials.ref', $this->getAttribute('materials.ref')]);
         $query->andFilterWhere(['LIKE', 'stocks.placename', $this->getAttribute('stocks.placename')]);
+
 
 
         return $dataProvider;

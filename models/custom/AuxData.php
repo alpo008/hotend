@@ -279,4 +279,15 @@ class AuxData extends Model
         }
         return $stock_table;
     }
+    
+    public static function updateAllQuantitites(){
+        $materials_data = Materials::find()->joinWith('locations')->all();
+
+        foreach ($materials_data as $materials_object){
+            $mat_qties = array_column($materials_object->locations, 'qty');
+            if ($materials_object->qty = array_sum($mat_qties)){
+                $materials_object->save();
+            }
+        }
+    }
 }

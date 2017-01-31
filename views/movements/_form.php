@@ -53,9 +53,8 @@ use anmaslov\autocomplete\AutoComplete;
 
     <?= $form->field($model, 'from_to')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'transaction_date')->textInput([
+    <?= $form->field($model, 'transaction_date' , ['options' => ['class' => 'hidden']])->textInput([
         'value' => $trans_date,
-        'disabled' => true,
         ])
     ?>
 
@@ -65,23 +64,20 @@ use anmaslov\autocomplete\AutoComplete;
         ])
     ?>
 
-    <?= $form->field($model, 'person_in_charge')->textInput([
+    <?= $form->field($model, 'person_in_charge', ['options' => ['class' => 'hidden']])->textInput([
         'maxlength' => true,
         'value' => ($model->isNewRecord ) ?
             ((!!Yii::$app->user->identity) ? Yii::$app->user->identity->surname . ' ' . Yii::$app->user->identity->name : '') :
             $model->person_in_charge,
-        //'disabled' => true,
         ])
     ?>
-    
+
     <?= $form->field($model, 'person_receiver')->textInput([
         'maxlength' => true,
         'value' => ($model->isNewRecord) ?
             ((!!Yii::$app->user->identity && $is_operator) ? Yii::$app->user->identity->surname . ' ' . Yii::$app->user->identity->name : '') :
             $model->person_in_charge,
-        'disabled' =>($is_operator) ? true : false,
-
-    ])
+        ])
     ?>
 
     <?= $form->field($model, 'docref')->textInput(['maxlength' => true]) ?>
@@ -94,20 +90,20 @@ use anmaslov\autocomplete\AutoComplete;
 
 </div>
 
-<?php //var_dump( $lists['locations']); ?>
+<?php if (!!$lists['locations']): ?>
+    <div class="locations-list hidden">
+        <?php foreach($lists['locations'] as $loc): ?>
+            <div class="location">
+                <?php foreach($loc as $k => $v): ?>
+                    <div class = <?= $k ?>>
+                        <?=$v?>
+                    </div>
+                <?php endforeach;?>
+            </div>
 
-<div class="locations-list hidden">
-    <?php foreach($lists['locations'] as $loc): ?>
-        <div class="location">
-            <?php foreach($loc as $k => $v): ?>
-                <div class = <?= $k ?>>
-                    <?=$v?>
-                </div>
-            <?php endforeach;?>
-        </div>
-
-    <?php endforeach;?>
-</div>
+        <?php endforeach;?>
+    </div>
+<?php endif;?>
 
 <div class="modal fade" id ="qty-modal">
     <div class="modal-dialog" role="document">

@@ -4,7 +4,6 @@ namespace app\controllers;
 
 use app\models\custom\AuxData;
 use app\models\Locations;
-use app\models\Materials;
 use app\models\User;
 use yii;
 use app\models\Movements;
@@ -89,6 +88,7 @@ class MovementsController extends Controller
     /**
      * Creates a new Movements model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
      * @return mixed
      */
     public function actionCreate($id = NULL)

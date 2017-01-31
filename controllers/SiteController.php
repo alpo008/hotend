@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\custom\AuxData;
 use app\models\custom\SendMessage;
 use app\models\custom\TempFile;
+use app\models\Locations;
 use app\models\Materials;
 use app\models\search\MissedOrdersSearch;
 use yii;
@@ -69,6 +70,8 @@ class SiteController extends Controller
         if(Yii::$app->user->isGuest){
             return $this->actionLogin();
         };
+
+        AuxData::updateAllQuantitites();
 
         $searchModel = new MissedOrdersSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);

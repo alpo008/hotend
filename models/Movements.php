@@ -47,7 +47,7 @@ class Movements extends ActiveRecord
     public function rules()
     {
         return [
-            [['materials_id', 'from_to', 'person_in_charge', 'person_receiver', 'qty' ], 'required'],
+            [['materials_id', 'from_to', 'person_receiver', 'qty' ], 'required'],
             [['direction', 'stocks_id'], 'integer'],
             [['qty'], 'number'],
             [['transaction_date', 'materials_id'], 'safe'],
@@ -76,6 +76,7 @@ class Movements extends ActiveRecord
             'longname' => Yii::t('app', 'Long Name'),
         ];
     }
+
 
     /**
      * @param bool $insert
