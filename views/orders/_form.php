@@ -54,7 +54,7 @@ use anmaslov\autocomplete\AutoComplete;
             '5' => ['disabled' => true]
         ]]) ?>
 
-    <?= $form->field($model, 'person')->textInput([
+    <?= $form->field($model, 'person', ['options' => ['class' => 'hidden']])->textInput([
         'maxlength' => true,
         'disabled' => true,
         'value' =>($model->isNewRecord ) ?

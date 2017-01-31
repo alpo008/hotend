@@ -73,4 +73,16 @@ class Orders extends ActiveRecord
     {
         return self::attributeLabels();
     }
+
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)){
+            if ($this->status > 1){
+                $this->person = Yii::$app->user->identity->surname . ' ' . Yii::$app->user->identity->name;
+            }
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
