@@ -6860,3 +6860,11 @@ body {
   color: #00596a;
   font-size: 1.3em!important;
 }
+.filters td:last-child .glyphicon {
+  color: #647a92;
+  font-size: 1.5em;
+  cursor: pointer!important;
+}
+.filters td:last-child .glyphicon:hover {
+  color: #00596a;
+}

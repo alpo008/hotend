@@ -86,6 +86,10 @@
         }
     };
 
+    //$searchIconContainer = $('.filters').find('td').last();
+    //$searchIconContainer.addClass('search-icon');
+    //$searchIconContainer.html('<span class="glyphicon glyphicon-search" aria-hidden="true"></span>');
+
     /**
      * Fills recipients field when material comes to the stock.
      */

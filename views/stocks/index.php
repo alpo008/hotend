@@ -28,7 +28,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'placename',
             'description:ntext',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'app\models\custom\CustomActionColumn',
+                'filter' => '<span class="glyphicon glyphicon-filter"></span>'
+            ],
         ],
     ]); ?>
 <?php Pjax::end(); ?></div>

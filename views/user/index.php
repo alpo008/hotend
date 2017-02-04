@@ -32,7 +32,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'role',
             // 'created',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'app\models\custom\CustomActionColumn',
+                'filter' =>     '<span class="glyphicon glyphicon-filter" title="Применить фильтр"></span>
+                                <span class="glyphicon glyphicon-refresh" title="Сбросить фильтр"></span>',
+            ],
         ],
     ]); ?>
 <?php Pjax::end(); ?></div>

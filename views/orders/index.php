@@ -51,7 +51,10 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'person',
             'docref',
 
-            ['class' => 'yii\grid\ActionColumn', 'buttons' => ['delete' => function(){return false;}]],
+            ['class' => 'app\models\custom\CustomActionColumn',
+                'buttons' => ['delete' => function(){return false;}],
+                'filter' => '<span class="glyphicon glyphicon-filter"></span>'
+            ],
         ],
     ]); ?>
 <?php Pjax::end(); ?></div>

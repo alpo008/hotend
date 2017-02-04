@@ -37,9 +37,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'value' => function($model){
                     if ($model->minqty == 0 && $model->qty == 0){
-                        return Html::img('@web/icons/off_led.jpg', ['alt' => 'OK', 'style' => 'width: 16px;']);
+                        return Html::img('@web/icons/off_led.png', ['alt' => 'OK', 'style' => 'width: 16px;']);
                     }elseif ($model->qty > $model->minqty){
-                        return Html::img('@web/icons/green_led.jpg', ['alt' => 'OK', 'style' => 'width: 16px;']);
+                        return Html::img('@web/icons/green_led.png', ['alt' => 'OK', 'style' => 'width: 16px;']);
                     }elseif($model->qty == $model->minqty){
                         return Html::img('@web/icons/blinking_green_led.gif', ['alt' => 'MIN', 'style' => 'width: 18px;']);
                     }else{
@@ -49,7 +49,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'app\models\custom\CustomActionColumn',
+                'filter' => '<span class="glyphicon glyphicon-filter"></span>'
+            ],
         ],
     ]); ?>
 <?php Pjax::end(); ?></div>
