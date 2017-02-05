@@ -70,7 +70,7 @@ class OrdersSearch extends Orders
         $query->andFilterWhere([
             //'id' => $this->id,
             'materials_id' => $this->materials_id,
-            'qty' => $this->qty,
+            'orders.qty' => $this->qty,
             'order_date' => $this->order_date,
         ]);
 

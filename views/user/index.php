@@ -33,8 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'created',
 
             ['class' => 'app\models\custom\CustomActionColumn',
-                'filter' =>     '<span class="glyphicon glyphicon-filter" title="Применить фильтр"></span>
-                                <span class="glyphicon glyphicon-refresh" title="Сбросить фильтр"></span>',
+                'filter' =>     '<a href="/user"><span class="glyphicon glyphicon-refresh" title="Сбросить фильтр"></span></a>'
             ],
         ],
     ]); ?>

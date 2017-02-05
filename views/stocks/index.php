@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'description:ntext',
 
             ['class' => 'app\models\custom\CustomActionColumn',
-                'filter' => '<span class="glyphicon glyphicon-filter"></span>'
+                'filter' => '<a href="/stocks"><span class="glyphicon glyphicon-refresh" title="Сбросить фильтр"></span></a>'
             ],
         ],
     ]); ?>

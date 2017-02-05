@@ -62,7 +62,7 @@ class MaterialsSearch extends Materials
         $query->andFilterWhere([
             'id' => $this->id,
             'ref' => $this->ref,
-            'qty' => $this->qty,
+            'materials.qty' => $this->qty,
             'minqty' => $this->minqty,
         ]);
 
