@@ -53,7 +53,9 @@ class MissedOrdersSearch extends Orders
     {
         $query = Orders::find()
             ->where(['<', 'status', '2'])
-            ->orderBy('order_date DESC');
+            ->orderBy('order_date DESC')
+            ->joinWith('materials')
+            ->andFilterWhere(['>=', '([[materials.minqty]] - [[materials.qty]])', 0]);
         
 
         $dataProvider = new ActiveDataProvider([

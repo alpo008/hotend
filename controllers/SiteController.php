@@ -76,8 +76,9 @@ class SiteController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         
         $messagesProvider = MessageData::getInstance();
-        $lists = $messagesProvider->prepareDownloads()['lists'];
-        $message = $messagesProvider->prepareDownloads()['message'];
+        $mess_data = $messagesProvider->prepareDownloads();
+        $lists = $mess_data['lists'];
+        $message = $mess_data['message'];
 
         return $this->render('index', compact ("searchModel", "dataProvider", "lists", "message"));
     }

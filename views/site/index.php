@@ -15,9 +15,9 @@ $this->title = 'H O T E N D';
             <div class="col-lg-12">
                 <?php
                 if (!$message):?>
-                <p class="alert-warning"><?= Yii::t('app', 'DB was rebuilt'); ?></p>
+                <p class="alert-warning"><?= Yii::t('app', 'There is an urgent message'); ?></p>
                 <?php else:?>
-                 <p class="alert-success"><?= Yii::t('app', 'DB integrity is normal'); ?></p>
+                 <p class="alert-success"><?= Yii::t('app', 'There are no urgent messages'); ?></p>
                 <?php endif; ?>
                 
                 <h2><?= Yii::t('app', 'Urgent orders')?></h2>
