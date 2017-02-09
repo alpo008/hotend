@@ -6,13 +6,16 @@ use app\models\custom\AuxData;
 use app\models\custom\MessageData;
 use app\models\custom\SendMessage;
 use app\models\custom\TempFile;
+use app\models\Movements;
 use app\models\search\MissedOrdersSearch;
+use Symfony\Component\CssSelector\XPath\Extension\HtmlExtension;
 use yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use yii\web\HttpException;
 use yii\web\NotFoundHttpException;
 
 class SiteController extends Controller
@@ -68,7 +71,7 @@ class SiteController extends Controller
     {
         if(Yii::$app->user->isGuest){
             return $this->actionLogin();
-        };
+        }elseif (Yii::$app->user->identity->role === 'ADMIN' || Yii::$app->user->identity->role === 'ENGINEER'){
 
         AuxData::updateAllQuantitites();
 
@@ -81,6 +84,21 @@ class SiteController extends Controller
         $message = $mess_data['message'];
 
         return $this->render('index', compact ("searchModel", "dataProvider", "lists", "message"));
+        }elseif (Yii::$app->user->identity->role === 'OPERATOR'){
+            $lists['materials'] = AuxData::getMaterials();
+            $recents = Movements::find()
+                ->select(['transaction_date', 'materials_id'])->distinct()
+                ->limit(10)
+                ->orderBy('transaction_date DESC')
+                ->joinWith('materials')
+                ->asArray()
+                ->all();
+            $lists['recent'] = array_column($recents, 'materials');
+
+            return $this->render('fastsearch', compact ("lists"));
+        }else{
+            return new HttpException(404, 'The requested Item could not be found.');
+        }
     }
 
     public function actionDownload($name)

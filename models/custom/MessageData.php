@@ -102,7 +102,6 @@ class MessageData extends  Model
         $download_data[Yii::t('app', 'Stocks')] = 'stock.xls';
 
         $message = (!$mail_list) ? true : false;
-        var_dump(($message));
 
         $lists['statuses'] = AuxData::getOrderStatus();
         $lists['downloads'] = $download_data;
