@@ -87,9 +87,11 @@ class SiteController extends Controller
         }elseif (Yii::$app->user->identity->role === 'OPERATOR'){
             $lists['materials'] = AuxData::getMaterials();
             $recents = Movements::find()
-                ->select(['transaction_date', 'materials_id'])->distinct()
+                ->select(['materials_id', 'COUNT(materials_id) AS countmat'])->distinct()
+                ->where(['direction' => 0])
                 ->limit(10)
-                ->orderBy('transaction_date DESC')
+                ->orderBy(['countmat' => SORT_DESC])
+                ->groupBy('materials_id')
                 ->joinWith('materials')
                 ->asArray()
                 ->all();

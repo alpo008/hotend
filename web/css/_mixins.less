@@ -70,3 +70,25 @@
 .sticker-header(@p-top,@p-bottom){
   padding: @p-top 0 0 @p-bottom;
 }
+
+.thumb-link{
+  position: relative;
+  float: left;
+  width: 18%;
+  min-height: 22%;
+  margin: 0 1.5% 1.5% 0;
+  background-color: #fff;
+  border: @tab-content-border;
+}
+
+.curtain(@height){
+  position: absolute;
+  width: 100%;
+  height: @height;
+  text-align: center;
+  padding-top: 30px;
+  word-break: keep-all;
+  background-color: #fff;
+  border-bottom: @tab-content-border;
+  transition: (0.5s);
+}

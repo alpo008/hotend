@@ -7,25 +7,14 @@
  */
 
 $this->title = 'H O T E N D';
-use yii\bootstrap\ActiveForm;
 use anmaslov\autocomplete\AutoComplete;
+use yii\bootstrap\Html;
+
 ?>
 
-<div class="fastsearch-form">
 
-<?php
-/*    echo
-    AutoComplete::className(
-        [
-            //'attribute' => 'materials_id',
-            'name' => 'Movements[materials_id]',
-            'data' =>  $lists['materials'],
-            'value' => '',
-            'clientOptions' => [
-                'minChars' => 2,
-            ],
-        ]);*/
-
+<div class="search-container">
+    <?php
     echo AutoComplete::widget([
         'name' => 'link',
         'id' => 'fastsearch',
@@ -37,18 +26,29 @@ use anmaslov\autocomplete\AutoComplete;
     ?>
 
 
-</div>
-<div id = "startsearch"><span class="glyphicon glyphicon-search"></span></div>
 
-<?php
-foreach ($lists['recent'] as $recent): ?>
-<div>
-    <?php var_dump($recent); ?>
-</div>
-<?php endforeach; ?>
+    <div id="startsearch" class="fastsearch-link"><span class="glyphicon glyphicon-arrow-right"></span></div>
 
+    <div class="search-thumbs">
+        <?php
+        foreach ($lists['recent'] as $recent): ?>
+            <div class="search-thumb">
+                <div class="search-thumb-txt">
+                    <?= Html::a($recent['name'], ['materials/view', 'id' => $recent['id']], ['class' => 'fastsearch-link']) ?>
+                </div>
+                <?php
+                    $imgPath = Yii::$app->basePath . '/web/photos/';
+                    if (is_file($imgPath . $recent['ref'] . '.jpg')) {
+                        echo Html::img('@web/photos/' . $recent['ref'] . '.jpg', ['alt' => $recent['name'], 'title' => $recent['name']]);
+                    } else {
+                        echo Html::img('@web/photos/_no-image.jpg', ['alt' => $recent['name'], 'title' => $recent['name']]);
+                    }
+                ?>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</div>
 <script type="text/javascript">
-
         var fsInput = document.getElementById('fastsearch');
         var fsStart = document.getElementById('startsearch');
         fsStart.onclick =(function () {
@@ -57,6 +57,4 @@ foreach ($lists['recent'] as $recent): ?>
                 location.replace("/materials/view/" + materialId);
             }
         })
-
-
 </script>

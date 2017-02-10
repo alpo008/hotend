@@ -153,4 +153,47 @@ body{
   }
 }
 
+.search-container{
+  position: relative;
+  top: 100px;
+}
+.search-container input{
+  width: 90%;
+  float: left;
+  margin-right: 10px;
+}
+.search-container .fastsearch-link{
+  font-size: 1.8em;
+  cursor: pointer;
+  color: @table-border-color;
+  &:hover{
+    color: @nav-link-active-bg;
+  }
+}
+.search-thumbs{
+  width: 93%;
+  margin-top: 60px;
+}
+.search-thumb{
+  .thumb-link;
+  &:hover .search-thumb-txt{
+    transform: scale(1, 1);
+  }
+}
+.search-thumb img{
+  width: 100%;
+  height: @thumb-img-height;
+  }
+
+
+.search-thumb-txt{
+  .curtain(100%);
+  display: block;
+  transform: translateY(-@thumb-img-height/2) scale(1, 0.004);
+}
+
+.search-thumb .fastsearch-link{
+  font-size: 1em;
+}
+
 
