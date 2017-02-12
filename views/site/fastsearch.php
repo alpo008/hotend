@@ -49,12 +49,16 @@ use yii\bootstrap\Html;
     </div>
 </div>
 <script type="text/javascript">
-        var fsInput = document.getElementById('fastsearch');
-        var fsStart = document.getElementById('startsearch');
-        fsStart.onclick =(function () {
-            var materialId = parseInt(fsInput.value);
-            if (!!materialId) {
-                location.replace("/materials/view/" + materialId);
-            }
-        })
+    "use strict";
+    var fsInput = document.getElementById("fastsearch");
+    var fsStart = document.getElementById("startsearch");
+    fsInput.classList.toggle('list-group-item-info');
+    fsStart.onclick = (function () {
+        var materialId = parseInt(fsInput.value);
+        if (!!materialId) {
+            location.replace("/materials/view/" + materialId);
+        }else{
+            fsInput.classList.toggle('list-group-item-warning');
+        }
+    });
 </script>
