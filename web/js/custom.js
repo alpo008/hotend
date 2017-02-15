@@ -83,9 +83,13 @@
                 }
             });
             return options_number;
+        },
+
+        getPlaceNames : function (id) {
+            var name = '#place_' + id;
+            return $('.stocks-list').find(name).html();
         }
     };
-
 
     /**
      * Fills recipients field when material comes to the stock.
@@ -117,9 +121,9 @@
                 $modal_window.modal('show');
                 setTimeout('location.replace("/movements")', 5000);
             } else {
-                var message = 'Остатки:' + '<br />';
+                var message = 'Расположение:' + '<br />';
                 enabledStockPlaces.forEach(function (item, i, arr) {
-                    message += i + ': ' + item + '<br />';
+                        message += 'Складское место:' + FormData.getPlaceNames(i) + ', количество: ' + item + '<br />';
                 });
                 $modal_body.find('p').html(message);
                 $modal_window.modal('show');
@@ -129,6 +133,7 @@
                     message = 'Ни на одном складском месте нет такого количества материала.' + '<br />' + 'Попробуйте взять меньше.';
                     $modal_body.find('p').html(message);
                     $modal_window.modal('show');
+                    $(this).val(null);
                 }
             }
         }

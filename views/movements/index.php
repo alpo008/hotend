@@ -30,7 +30,20 @@ $this->params['breadcrumbs'][] = $this->title;
             //'materials_id',
             //'materials.ref',
             'materials.name',
-            'qty',
+            
+            [
+                'attribute' => 'qty',
+                'value' => function ($searchModel){
+                    if (isset ($searchModel->materials->unit)){
+                        return $searchModel->qty . ' ' . $searchModel->materials->unit;
+                    }else{
+                        return $searchModel->qty;
+                    }
+                },
+
+                'format' => 'raw',
+            ],
+            
             'stocks.placename',
 
             [

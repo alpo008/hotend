@@ -96,14 +96,28 @@ use anmaslov\autocomplete\AutoComplete;
             <div class="location">
                 <?php foreach($loc as $k => $v): ?>
                     <div class = <?= $k ?>>
-                        <?=$v?>
+                        <?php if (!is_array($v)):?>
+                            <?php echo $v;?>
+                        <?php endif ?>
                     </div>
                 <?php endforeach;?>
             </div>
-
         <?php endforeach;?>
     </div>
 <?php endif;?>
+
+<?php if (!!$lists['stocks']): ?>
+    <div class="stocks-list hidden">
+        <?php foreach($lists['stocks'] as $id => $stock): ?>
+            <div id = <?= 'place_'.$id ?>>
+                <?php if (!is_array($stock)):?>
+                    <?php echo $stock;?>
+                <?php endif ?>
+            </div>
+        <?php endforeach;?>
+    </div>
+<?php endif;?>
+
 
 <div class="modal fade" id ="qty-modal">
     <div class="modal-dialog" role="document">
