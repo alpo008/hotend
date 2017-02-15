@@ -106,13 +106,13 @@ class AuxData extends Model
             }else{
 
                 $orders_map = array_column ($urgent['orders'], 'status', 'id');
-                if (min($orders_map) <= 2){
+                if (min($orders_map) <= 4){
                     $min_key = array_search(min($orders_map), $orders_map);
                     $order_to_update = Orders::findOne(['id' => $min_key]);
                     if ($order_to_update->attributes['updated'] < $two_weeks_ago){
                         $updated_list[] = self::updateExistingOrder($order_to_update);
                     }
-                }elseif ((max($orders_map) >= 2) && (min($orders_map) >= 2)){
+                }elseif ((max($orders_map) >= 5) && (min($orders_map) >= 5)){
                     $updated_list[] = self::createNewOrder($urgent);
                 }
             }
@@ -158,7 +158,7 @@ class AuxData extends Model
     {
         $item->setAttributes([
             'updated' => date ('Y-m-d'),
-            'status' => 1,
+            'status' => ($item->status > 1)? $item->status : 1,
         ]);
         $update_list = [
             $item->materials->ref,

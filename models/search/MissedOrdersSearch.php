@@ -19,7 +19,7 @@ class MissedOrdersSearch extends Orders
      */
     public function attributes()
     {
-        return array_merge(parent::attributes(), ['materials.name', 'materials.ref', 'materials.qty']);
+        return array_merge(parent::attributes(), ['materials.name', 'materials.ref', 'materials.qty', 'materials.unit']);
     }
     /**
      * @inheritdoc
@@ -29,7 +29,7 @@ class MissedOrdersSearch extends Orders
         return [
             [['materials_id'], 'integer'],
             [['qty', 'materials.qty'], 'number'],
-            [['id', 'order_date', 'status', 'docref', 'materials.name', 'materials.ref'], 'safe'],
+            [['id', 'order_date', 'status', 'docref', 'materials.name', 'materials.ref', 'materials.unit'], 'safe'],
         ];
     }
 
@@ -52,7 +52,7 @@ class MissedOrdersSearch extends Orders
     public function search($params)
     {
         $query = Orders::find()
-            ->where(['<', 'status', '2'])
+            ->where(['<', 'status', '5'])
             ->orderBy('order_date DESC')
             ->joinWith('materials')
             ->andFilterWhere(['>=', '([[materials.minqty]] - [[materials.qty]])', 0]);

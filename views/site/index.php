@@ -31,10 +31,46 @@ $this->title = 'H O T E N D';
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'materials.ref',
+            [
+                'attribute' => 'materials.ref',
+                'value' => function ($searchModel){
+                    if (isset ($searchModel->materials->ref)){
+                        return Html::a($searchModel->materials->ref, ['/materials/update/', 'id' => $searchModel->materials_id], ['title' => Yii::t('app', 'Update Materials')]);
+                    }else{
+                        return NULL;
+                    }
+                },
+
+                'format' => 'raw',
+            ],
+
             'materials.name',
-            'qty',
-            'materials.qty',
+
+            [
+                'attribute' => 'qty',
+                'value' => function ($searchModel){
+                    if (isset ($searchModel->materials->unit)){
+                        return $searchModel->qty . ' ' . $searchModel->materials->unit;
+                    }else{
+                        return $searchModel->qty;
+                    }
+                },
+
+                'format' => 'raw',
+            ],
+
+            [
+                'attribute' => 'materials.qty',
+                'value' => function ($searchModel){
+                    if (isset ($searchModel->materials->unit)){
+                        return $searchModel->materials->qty . ' ' . $searchModel->materials->unit;
+                    }else{
+                        return $searchModel->materials->qty;
+                    }
+                },
+
+                'format' => 'raw',
+            ],
             'order_date',
             [
                 'attribute' => 'status',
@@ -58,7 +94,7 @@ $this->title = 'H O T E N D';
                 'label' => '',
                 'format' => 'raw',
                 'value' => function($searchModel){
-                    return  Html::a('<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>', ['/orders/update/', 'id' => $searchModel->id], ['class' => 'profile-link']);
+                    return  Html::a('<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>', ['/orders/update/', 'id' => $searchModel->id], ['class' => 'profile-link', 'title' => Yii::t('app', 'Update Orders')]);
                 },
             ],
         ]
