@@ -67,7 +67,13 @@
             }
             return places_list;
         },
-
+        
+        /**
+         * 
+         * @param available 
+         * @param qty
+         * @returns {number}
+         */
         updatePlaces : function (available, qty) {
             var $places_container = $('#movements-stocks_id');
             var $places_dropdown = $places_container.children('option');
@@ -85,6 +91,11 @@
             return options_number;
         },
 
+        /**
+         * 
+         * @param id
+         * @returns {string|JQuery}
+         */
         getPlaceNames : function (id) {
             var name = '#place_' + id;
             return $('.stocks-list').find(name).html();
@@ -119,7 +130,7 @@
             if (enabledStockPlaces.length < 1) {
                 //noinspection JSUnresolvedFunction
                 $modal_window.modal('show');
-                setTimeout('location.replace("/movements")', 5000);
+                setTimeout('location.replace("/movements")', 2000);
             } else {
                 var message = 'Расположение:' + '<br />';
                 enabledStockPlaces.forEach(function (item, i, arr) {

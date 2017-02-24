@@ -285,9 +285,12 @@ class AuxData extends Model
 
         foreach ($materials_data as $materials_object){
             $mat_qties = array_column($materials_object->locations, 'qty');
-            if ($materials_object->qty = array_sum($mat_qties)){
-                $materials_object->save();
+            if(!$mat_qties){
+                $materials_object->qty = 0;
+            }else {
+                $materials_object->qty = array_sum($mat_qties);
             }
+                $materials_object->save();
         }
     }
 }
