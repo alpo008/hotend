@@ -6936,3 +6936,6 @@ body {
 .search-thumb .fastsearch-link {
   font-size: 1em;
 }
+.autocomplete-suggestions {
+  background: #ccc;
+}
