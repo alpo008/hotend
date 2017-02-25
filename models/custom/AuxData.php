@@ -105,7 +105,10 @@ class AuxData extends Model
                 $updated_list[] = self::createNewOrder($urgent);
             }else{
 
-                $orders_map = array_column ($urgent['orders'], 'status', 'id');
+                $orders_map = array();
+                foreach ($urgent['orders'] as $ord){
+                    $orders_map[$ord['id']] = $ord['status'];
+                }
                 if (min($orders_map) <= 4){
                     $min_key = array_search(min($orders_map), $orders_map);
                     $order_to_update = Orders::findOne(['id' => $min_key]);
@@ -279,18 +282,18 @@ class AuxData extends Model
         }
         return $stock_table;
     }
-    
+
     public static function updateAllQuantitites(){
         $materials_data = Materials::find()->joinWith('locations')->all();
 
         foreach ($materials_data as $materials_object){
-            $mat_qties = array_column($materials_object->locations, 'qty');
-            if(!$mat_qties){
-                $materials_object->qty = 0;
-            }else {
-                $materials_object->qty = array_sum($mat_qties);
+            $locations_array = $materials_object->locations;
+            $mat_qty = 0;
+            foreach ($locations_array as $v){
+                $mat_qty += $v['qty'];
             }
-                $materials_object->save();
+            $materials_object->qty = $mat_qty;
+            $materials_object->save();
         }
     }
 }
