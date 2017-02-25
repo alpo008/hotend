@@ -190,7 +190,12 @@ $this->params['breadcrumbs'][] = $this->title;
                             <?php echo $qties[$stock->id] . ' ' . $model->unit; ?>
                         </td>
                         <td>
-                            <?php $loc = array_column ($model->locations, 'id', 'stocks_id'); ?>
+                            <?php
+                                $loc = array();
+                                foreach ($model->locations as $v){
+                                    $loc[$v->stocks_id] = $v->id;
+                                } 
+                            ?>
 
                             <a href="/movements/create/<?php echo $loc[$stock->id] ?>">
                                 <?php echo Yii::t('app','Pick up from the warehouse') ?>

@@ -58,8 +58,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         </td>
                         <td>
                             <?php
-                            $temp = array_column($material->locations, 'qty', 'materials_id');
-                            echo $temp[$material->id] . ' ' . $material->unit;
+                            $temp = array();
+                            foreach ($material->locations as $v){
+                                $temp[$v->stocks_id] = $v->qty;
+                            }
+                            echo $temp[$model->id] . ' ' . $material->unit;
                             ?>
                         </td>
                     </tr>

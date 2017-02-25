@@ -69,7 +69,7 @@ class MaterialsController extends Controller
             return $this->goHome();
         };
 
-        AuxData::updateAllQuantitites();
+        //AuxData::updateAllQuantitites();
 
         $searchModel = new MaterialsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);

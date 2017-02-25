@@ -107,14 +107,17 @@ class Materials extends ActiveRecord
         return $this->hasMany(Orders::className(), ['materials_id' => 'id']);
     }
 
-    /**
-     * @param integer $stocks_id
-     * @return mixed
-     */
     
+    /**
+     * This function was modified to avoid using array_column function for php5.6
+     * @return array $temp_array
+     */
     public function getQuantities()
     {
-        $temp_array = array_column ($this->locations, 'qty', 'stocks_id');
+        $temp_array = array();
+        foreach ($this->locations as $loc){
+            $temp_array[$loc->stocks_id] = $loc->qty;
+        }
         $this->updateQuantity(array_sum($temp_array));
         return $temp_array;
     }
