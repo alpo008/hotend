@@ -73,7 +73,7 @@ class SiteController extends Controller
             return $this->actionLogin();
         }elseif (Yii::$app->user->identity->role === 'ADMIN' || Yii::$app->user->identity->role === 'ENGINEER'){
 
-        AuxData::updateAllQuantitites();
+        //AuxData::updateAllQuantitites();
 
         $searchModel = new MissedOrdersSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);

@@ -87,6 +87,7 @@ class Movements extends ActiveRecord
         if (parent::beforeSave($insert)) {
 
             $location = $this->getLocation();
+            $material = Materials::findOne(['id' => $this->materials_id]);
             if(!count($location)){
                 $location = new Locations();
                 $location->materials_id = (int) $this->materials_id;
@@ -96,18 +97,23 @@ class Movements extends ActiveRecord
             
             if (!!$this->direction){
                 $quantity = (int) $location->qty + (int) $this->qty;
+                $material->qty = (int) $material->qty + (int) $this->qty;
             }else{
                 $quantity = (int) $location->qty - (int) $this->qty;
+                $material->qty = (int) $material->qty + (int) $this->qty;
             }
 
             if ($quantity == 0){
+                $material->save();
                 return $location->delete();
             }elseif ($quantity < 0){
                     $this->addError('qty', Yii::t('app', 'The stock rest is too small for this movement'));
                     return false;
                 }else{
                     $location->setAttribute('qty', $quantity);
-                        
+
+                    $material->setAttribute('qty', $material->qty + $quantity);
+                    $material->save();
                     return $location->save();
                 }
         } else {
