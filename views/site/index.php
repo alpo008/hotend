@@ -25,8 +25,17 @@ $this->title = 'H O T E N D';
         </div>
     </div>
 
-    <?php Pjax::begin(); ?>    <?= GridView::widget([
+    <?php Pjax::begin(); ?>
+    <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'rowOptions' => function ($searchModel)
+        {
+            if($searchModel->status == 1)  {
+                return ['style' =>'background-color: #f2dede;'];
+            }else{
+                return NULL;
+            }
+        },
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
@@ -83,6 +92,7 @@ $this->title = 'H O T E N D';
                 },
 
                 'format' => 'raw',
+
                 /**
                  * Отображение фильтра.
                  * Вместо поля для ввода - выпадающий список с заданными значениями directions
@@ -98,8 +108,10 @@ $this->title = 'H O T E N D';
                 },
             ],
         ]
-    ]); ?>
+    ]);
+    ?>
     <?php Pjax::end(); ?>
+
     <?php if (!!$lists['downloads']):?>
         <div class="mess-board">
             <div class="download-links">
