@@ -20,6 +20,14 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 <?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'rowOptions' => function ($searchModel)
+        {
+            if($searchModel->status > 4)  {
+                return ['style' =>'background-color: #def2de;'];
+            }else{
+                return NULL;
+            }
+        },
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
@@ -34,8 +42,10 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'status',
                 'value' => function ($searchModel) use ($lists){
-                    if (isset ($searchModel->status)){
-                        return $lists['statuses'][$searchModel->status];
+                    if (isset ($searchModel->status) && ($searchModel->status >4)) {
+                        return $lists['statuses'][$searchModel->status] . '<br />' . $searchModel->updated;
+                    }elseif(isset ($searchModel->status)){
+                            return $lists['statuses'][$searchModel->status];
                     }else{
                         return NULL;
                     }

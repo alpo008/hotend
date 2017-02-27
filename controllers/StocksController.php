@@ -94,7 +94,8 @@ class StocksController extends Controller
         $model = new Stocks();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            //return $this->redirect(['view', 'id' => $model->id]);  **Customer's request
+            return  $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,

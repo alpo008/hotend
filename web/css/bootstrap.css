@@ -6938,4 +6938,6 @@ body {
 }
 .autocomplete-suggestions {
   background: #ccc;
+  height: 300px;
+  overflow: scroll;
 }
