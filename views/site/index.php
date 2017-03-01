@@ -122,6 +122,15 @@ $this->title = 'H O T E N D';
                     </div>
                 <?php endforeach ?>
             </div>
+            <div class="top-five">
+                <h4><?= Yii::t('app', 'Top-five') ?></h4>
+                <?php foreach ($lists['recent'] as $recent): ?>
+                    <?php $name = substr($recent['name'], 0, strpos($recent['name'], ' ')) . ' - ' .$recent['ref']; ?>
+                <div class="download-link">
+                        <?= Html::a($name, ['materials/view', 'id' => $recent['id']], ['class' => 'fastsearch-link']) ?>
+                </div>
+                <?php endforeach; ?>
+            </div>
         </div>
     <?php endif;?>
 
