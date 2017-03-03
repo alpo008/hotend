@@ -122,19 +122,18 @@ body{
   .mess-brd(@bgc-mess-board, 10px);
 }
 
-.download-links{
+.download-links, .top-five{
   .sticker();
 }
-.download-links > h4{
-  .sticker-header(40px, 10px)!important;
-  font-weight: bolder;
-
+.download-links > h4, .top-five > h4{
+  .sticker-header(25px, 10px)!important;
 }
 
-.download-links a {
+.download-links a, .top-five a{
   margin-left: @ml-sticker-elem;
   color: @nav-link-active-bg;
   font-size: 1.3em!important;
+  cursor: pointer;
 }
 
 .filters td:last-child .glyphicon{

@@ -6803,9 +6803,13 @@ body {
   padding: 0 10px 10px 10px;
   background-color: #ddd;
   border: 4px double #888;
+  min-height: 230px;
 }
-.download-links {
+.download-links,
+.top-five {
+  position: relative;
   display: block;
+  float: left;
   width: 200px;
   height: 200px;
   -webkit-transition: 0.5s ease-in-out;
@@ -6815,8 +6819,8 @@ body {
   -ms-transform: scale(1, 1);
   -o-transform: scale(1, 1);
   transform: scale(1, 1);
-  position: relative;
-  margin-right: 10px;
+  margin-right: 16px;
+  margin-top: 10px;
   -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
   -moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
@@ -6828,7 +6832,8 @@ body {
   font-family: 'Ubuntu', Times, serif !important;
   font-style: italic;
 }
-.download-links:before {
+.download-links:before,
+.top-five:before {
   content: "";
   position: absolute;
   top: 0;
@@ -6841,7 +6846,8 @@ body {
   -moz-box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.3);
   box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.3);
 }
-.download-links:after {
+.download-links:after,
+.top-five:after {
   content: "";
   position: absolute;
   top: 0;
@@ -6851,7 +6857,8 @@ body {
   border-top: 28.8px solid #ddd;
   border-right: 28.8px solid transparent;
 }
-.download-links:hover {
+.download-links:hover,
+.top-five:hover {
   -webkit-transform: scale(1.04, 1.04);
   -ms-transform: scale(1.04, 1.04);
   -o-transform: scale(1.04, 1.04);
@@ -6860,14 +6867,17 @@ body {
   -moz-box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.4);
   box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.4);
 }
-.download-links > h4 {
-  padding: 40px 0 0 10px !important;
-  font-weight: bolder;
+.download-links > h4,
+.top-five > h4 {
+  padding: 25px 0 0 10px !important;
+  font-weight: bolder !important;
 }
-.download-links a {
+.download-links a,
+.top-five a {
   margin-left: 6px;
   color: #00596a;
   font-size: 1.3em!important;
+  cursor: pointer;
 }
 .filters td:last-child .glyphicon {
   color: #647a92;
@@ -6939,5 +6949,5 @@ body {
 .autocomplete-suggestions {
   background: #ccc;
   height: 300px;
-  overflow: scroll;
+  overflow: hidden;
 }

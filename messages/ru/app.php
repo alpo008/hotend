@@ -249,6 +249,7 @@ return [
     'Stock state notification' => 'Уведомление о состоянии склада',
     'Pick up from the warehouse' => 'Взять со склада',
     'Urgent messages' => 'Срочное сообщение',
+    'Top-five' => 'Топ - пятерка',
     
     'No stock data available' => 'Нет данных по наличию материала на складе.',
     'No movements data available' => 'Нет данных по складским операциям.',

@@ -82,6 +82,16 @@ class SiteController extends Controller
         $mess_data = $messagesProvider->prepareDownloads();
         $lists = $mess_data['lists'];
         $message = $mess_data['message'];
+        $recents = Movements::find()
+            ->select(['materials_id', 'COUNT(materials_id) AS countmat'])
+            ->where(['direction' => 0])
+            ->limit(5)
+            ->orderBy(['countmat' => SORT_DESC])
+            ->groupBy('materials_id')
+            ->joinWith('materials')
+            ->asArray()
+            ->all();
+        $lists['recent'] = array_column($recents, 'materials');
 
         return $this->render('index', compact ("searchModel", "dataProvider", "lists", "message"));
         }elseif (Yii::$app->user->identity->role === 'OPERATOR'){

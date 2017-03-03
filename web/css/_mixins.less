@@ -17,6 +17,7 @@
   padding: 0 @p @p @p;
   background-color: @bgc;
   .border(4px);
+  min-height: 230px;
 }
 
 .folded(left, @bgc-folded, @fold-size, @fold-shadow, @bgc-bg){
@@ -46,12 +47,14 @@
 }
 
 .sticker(@bg-color: rgba(196, 196, 196, 0.4); @size: 200px){
+  position: relative;
   display: block;
+  float: left;
   .size(@size, @size);
   .transition(0.5s ease-in-out;);
   .scale(1; 1);
-  position: relative;
-  margin-right: @size * 0.05;
+  margin-right: @size * 0.08;
+  margin-top: @size * 0.05;
   -webkit-box-shadow: 5px 5px 5px rgba(0,0,0,0.4);
   -moz-box-shadow: 5px 5px 5px rgba(0,0,0,0.4);
   box-shadow: 5px 5px 5px rgba(0,0,0,0.4);
@@ -69,6 +72,7 @@
 
 .sticker-header(@p-top,@p-bottom){
   padding: @p-top 0 0 @p-bottom;
+  font-weight: bolder;
 }
 
 .thumb-link{

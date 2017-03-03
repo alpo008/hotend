@@ -100,6 +100,7 @@ $this->title = 'H O T E N D';
                 'filter' => $lists['statuses'],
             ],
             'docref',
+            'person',
             [
                 'label' => '',
                 'format' => 'raw',
@@ -121,6 +122,15 @@ $this->title = 'H O T E N D';
                         <?php echo Html::a($k, ['/site/download', 'name' => $v], ['class' => 'download-link',]) . '<br>'; ?>
                     </div>
                 <?php endforeach ?>
+            </div>
+            <div class="top-five">
+                <h4><?= Yii::t('app', 'Top-five') ?></h4>
+                <?php foreach ($lists['recent'] as $recent): ?>
+                    <?php $name = substr($recent['name'], 0, strpos($recent['name'], ' ')) . ' - ' .$recent['ref']; ?>
+                <div class="download-link">
+                        <?= Html::a($name, ['materials/view', 'id' => $recent['id']], ['class' => 'fastsearch-link']) ?>
+                </div>
+                <?php endforeach; ?>
             </div>
         </div>
     <?php endif;?>
