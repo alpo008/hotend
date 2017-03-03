@@ -76,10 +76,10 @@ class OrdersSearch extends Orders
 
         $query->joinWith('materials');
 
-
         $query->andFilterWhere(['like', 'status', $this->status])
             ->andFilterWhere(['like', 'person', $this->person])
             ->andFilterWhere(['like', 'docref', $this->docref])
+            ->andFilterWhere(['like', 'person', $this->person])
         ->andFilterWhere(['LIKE', 'materials.name', $this->getAttribute('materials.name')])
         ->andFilterWhere(['LIKE', 'materials.ref', $this->getAttribute('materials.ref')]);
 

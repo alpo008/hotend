@@ -100,6 +100,7 @@ $this->title = 'H O T E N D';
                 'filter' => $lists['statuses'],
             ],
             'docref',
+            'person',
             [
                 'label' => '',
                 'format' => 'raw',

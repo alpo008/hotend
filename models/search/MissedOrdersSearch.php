@@ -29,7 +29,7 @@ class MissedOrdersSearch extends Orders
         return [
             [['materials_id'], 'integer'],
             [['qty', 'materials.qty'], 'number'],
-            [['id', 'order_date', 'status', 'docref', 'materials.name', 'materials.ref', 'materials.unit'], 'safe'],
+            [['id', 'order_date', 'status', 'docref', 'person', 'materials.name', 'materials.ref', 'materials.unit'], 'safe'],
         ];
     }
 
@@ -80,15 +80,13 @@ class MissedOrdersSearch extends Orders
 
         $query->joinWith('materials');
 
-
         $query->andFilterWhere(['like', 'status', $this->status])
             ->andFilterWhere(['like', 'person', $this->person])
             ->andFilterWhere(['like', 'docref', $this->docref])
+            ->andFilterWhere(['like', 'person', $this->person])
         ->andFilterWhere(['LIKE', 'materials.name', $this->getAttribute('materials.name')])
         ->andFilterWhere(['LIKE', 'materials.ref', $this->getAttribute('materials.ref')]);
 
-
         return $dataProvider;
     }
-
 }

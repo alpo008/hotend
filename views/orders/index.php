@@ -60,6 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             // 'person',
             'docref',
+            'person',
 
             ['class' => 'app\models\custom\CustomActionColumn',
                 'buttons' => ['delete' => function(){return false;}],
