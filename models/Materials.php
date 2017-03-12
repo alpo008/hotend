@@ -43,7 +43,7 @@ class Materials extends ActiveRecord
         return [
             [['ref'], 'integer'],
             [['ref', 'qty', 'minqty'], 'number'],
-            [['qty', 'minqty', 'name'], 'required'],
+            [['minqty', 'name'], 'required'],
             [['name'], 'string', 'max' => 128],
             [['unit', 'gruppa'], 'string', 'max' => 3],
             [['type'], 'string', 'max' => 8],
