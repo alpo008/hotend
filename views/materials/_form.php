@@ -25,7 +25,7 @@ use yii\bootstrap\ActiveForm;
 
     <?= $form->field($model, 'ref')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'qty')->textInput(['maxlength' => true, 'disabled' => true]) ?>
+    <?php // echo $form->field($model, 'qty')->textInput(['maxlength' => true, 'disabled' => true]) ?>
 
     <?= $form->field($model, 'minqty')->textInput(['maxlength' => true]) ?>
 
