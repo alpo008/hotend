@@ -36,6 +36,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => '',
                 'format' => 'raw',
                 'value' => function($model){
+                    return Html::a('<span class ="glyphicon glyphicon-list-alt" title ="Создать приход-расход"></span>', ['movements/create', 'id' => NULL, 'name' => $model->id ]);
+
+                },
+            ],            
+            [
+                'label' => '',
+                'format' => 'raw',
+                'value' => function($model){
                     if ($model->minqty == 0 && $model->qty == 0){
                         return Html::img('@web/icons/off_led.png', ['alt' => 'OK', 'style' => 'width: 16px;']);
                     }elseif ($model->qty > $model->minqty){
