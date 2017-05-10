@@ -2271,6 +2271,7 @@ th {
   line-height: 1.42857143;
   vertical-align: top;
   border-top: 1px solid #647a92;
+  word-wrap: break-word;
 }
 .table > thead > tr > th {
   vertical-align: bottom;
@@ -6950,4 +6951,7 @@ body {
   background: #ccc;
   height: 300px;
   overflow: hidden;
+}
+.detail-view td {
+  word-wrap: break-word;
 }

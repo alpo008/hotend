@@ -16,6 +16,7 @@ use app\models\Orders;
 use app\models\Stocks;
 use yii;
 use yii\base\Model;
+use yii\caching\FileCache;
 
 
 class AuxData extends Model
@@ -36,11 +37,19 @@ class AuxData extends Model
         );
     }    
     public static function getMaterials(){
-        $temp = Materials::find()
-            ->select (['m_id' => 'id', 'value' => "concat (id, '; ', ref, '; ',name)"])
-            ->asArray()
-            ->all();
-        return array_column($temp, 'value', 'm_id');
+        $cache = new FileCache;
+        $materials = $cache->get('materials');
+        if ($materials === false) {
+            $temp = Materials::find()
+                ->select (['m_id' => 'id', 'value' => "concat (id, '; ', ref, '; ',name)"])
+                ->asArray()
+                ->all();
+            $materials = array_column($temp, 'value', 'm_id');
+
+            $cache->set('materials', $materials);
+        }
+        
+        return $materials;
     }    
     
     public static function getStocks(){
@@ -48,7 +57,9 @@ class AuxData extends Model
             ->select (['s_id' => 'id', 'value' => 'placename'])
             ->asArray()
             ->all();
-        return array_column($temp, 'value', 's_id');
+        $temp = array_column($temp, 'value', 's_id');
+        $temp[0] = Yii::t('app', 'Please select');
+        return $temp;
     }    
     
     public static function getLocations(){

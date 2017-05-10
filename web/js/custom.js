@@ -130,7 +130,6 @@
             if (enabledStockPlaces.length < 1) {
                 //noinspection JSUnresolvedFunction
                 $modal_window.modal('show');
-                setTimeout('location.replace("/movements")', 2000);
             } else {
                 var message = 'Расположение:' + '<br />';
                 enabledStockPlaces.forEach(function (item, i, arr) {

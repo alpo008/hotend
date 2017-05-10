@@ -24,6 +24,10 @@ use anmaslov\autocomplete\AutoComplete;
         $trans_date = (isset ($model->transaction_date)) ? $model->transaction_date : date ('Y-m-d');
         $is_operator = (Yii::$app->user->identity['role'] == 'OPERATOR');
         $l_data = (isset($l_data)) ? $l_data : false;
+        if ($model->isNewRecord && $model->stocks_id == NULL){
+            $model->stocks_id = 0;
+        }
+
     ?>
     
     <?php echo
@@ -129,8 +133,7 @@ use anmaslov\autocomplete\AutoComplete;
                 </button>
             </div>
             <div class="modal-body">
-                <p>Данный материал отсутствует на складе!
-                Форма будет закрыта автоматически.</p>
+                <p>Данный материал отсутствует на складе!</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>

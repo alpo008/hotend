@@ -64,6 +64,8 @@ use anmaslov\autocomplete\AutoComplete;
 
     <?= $form->field($model, 'docref')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'comment')->textarea(['rows' => 4]) ?>
+
     <?= $form->field($model, 'updated')->textInput(['maxlength' => true, 'value' => date ('Y-m-d'), 'disabled' => ($model->isNewRecord)? false : true]) ?>
 
 

@@ -81,7 +81,26 @@ class Materials extends ActiveRecord
             return true;
         }
     }
-    
+
+    public function beforeDelete()
+    {
+        $result = parent::beforeDelete();
+
+        $movement_data = $this->movements;
+        foreach ($movement_data as $movement_obj){
+            $result = $movement_obj->delete();
+        }
+        $location_data = $this->locations;
+        foreach ($location_data as $location_obj){
+            $result = $location_obj->delete();
+        }
+        $order_data = $this->orders;
+        foreach ($order_data as $order_obj){
+            $result = $order_obj->delete();
+        }
+        return $result;
+    }
+
     public function getMovements()
     {
         return $this->hasMany(Movements::className(), ['materials_id' => 'id']);

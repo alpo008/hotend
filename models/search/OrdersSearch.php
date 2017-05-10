@@ -27,7 +27,7 @@ class OrdersSearch extends Orders
         return [
             [['materials_id'], 'integer'],
             [['qty'], 'number'],
-            [['id', 'order_date', 'status', 'person', 'docref', 'materials.name', 'materials.ref'], 'safe'],
+            [['id', 'order_date', 'status', 'person', 'docref', 'materials.name', 'materials.ref', 'comment'], 'safe'],
         ];
     }
 
@@ -80,6 +80,7 @@ class OrdersSearch extends Orders
             ->andFilterWhere(['like', 'person', $this->person])
             ->andFilterWhere(['like', 'docref', $this->docref])
             ->andFilterWhere(['like', 'person', $this->person])
+            ->andFilterWhere(['like', 'comment', $this->comment])
         ->andFilterWhere(['LIKE', 'materials.name', $this->getAttribute('materials.name')])
         ->andFilterWhere(['LIKE', 'materials.ref', $this->getAttribute('materials.ref')]);
 

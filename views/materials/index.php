@@ -30,8 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'qty',
             'minqty',
             'unit',
-            'type',
-            'gruppa',
+            //'type',
+            //'gruppa',
             [
                 'label' => '',
                 'format' => 'raw',
