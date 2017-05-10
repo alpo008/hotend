@@ -151,7 +151,7 @@ class TempFile
             foreach ($content as $line) {
                 $body .= '<tr>';
                 foreach ($line as $cell){
-                    $body .= '<td>' . $cell . '</td>';
+                    $body .= '<td>' . (string) $cell . '</td>';
                 }
                 $body .= '</tr>';
             }

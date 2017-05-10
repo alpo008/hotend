@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\models\custom\AuxData;
 use yii;
 use yii\db\ActiveRecord;
 
@@ -15,6 +16,7 @@ use yii\db\ActiveRecord;
  * @property string $status
  * @property string $person
  * @property string $docref
+ * @property string $comment
  *
  * @property Materials $materials
  */
@@ -40,6 +42,7 @@ class Orders extends ActiveRecord
             [['order_date', 'updated', 'materials_id'], 'safe'],
             [['person'], 'string', 'max' => 64],
             [['docref'], 'string', 'max' => 128],
+            [['comment'], 'string'],
             [['materials_id'], 'exist', 'skipOnError' => true, 'targetClass' => Materials::className(), 'targetAttribute' => ['materials_id' => 'id']],
         ];
     }
@@ -58,6 +61,7 @@ class Orders extends ActiveRecord
             'person' => Yii::t('app', 'Applicant'),
             'docref' => Yii::t('app', 'Order ref'),
             'updated' => Yii::t('app', 'Updated'),
+            'comment' => Yii::t('app', 'Comments'),
         ];
     }
 

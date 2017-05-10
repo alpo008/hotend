@@ -80,6 +80,7 @@ class MissedOrdersSearch extends Orders
 
         $query->joinWith('materials');
 
+
         $query->andFilterWhere(['like', 'status', $this->status])
             ->andFilterWhere(['like', 'person', $this->person])
             ->andFilterWhere(['like', 'docref', $this->docref])
@@ -87,6 +88,8 @@ class MissedOrdersSearch extends Orders
         ->andFilterWhere(['LIKE', 'materials.name', $this->getAttribute('materials.name')])
         ->andFilterWhere(['LIKE', 'materials.ref', $this->getAttribute('materials.ref')]);
 
+
         return $dataProvider;
     }
+
 }

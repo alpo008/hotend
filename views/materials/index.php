@@ -30,8 +30,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'qty',
             'minqty',
             'unit',
-            'type',
-            'gruppa',
+            //'type',
+            //'gruppa',
+            [
+                'label' => '',
+                'format' => 'raw',
+                'value' => function($model){
+                    return Html::a('<span class ="glyphicon glyphicon-list-alt" title ="Создать приход-расход"></span>', ['movements/create', 'id' => NULL, 'name' => $model->id ]);
+
+                },
+            ],            
             [
                 'label' => '',
                 'format' => 'raw',

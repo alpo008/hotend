@@ -48,13 +48,21 @@ class Movements extends ActiveRecord
     {
         return [
             [['materials_id', 'from_to', 'person_receiver', 'qty' ], 'required'],
-            [['direction', 'stocks_id'], 'integer'],
+            [['direction'], 'integer'],
             [['qty'], 'number'],
             [['transaction_date', 'materials_id'], 'safe'],
             [['from_to', 'person_in_charge', 'person_receiver'], 'string', 'max' => 64],
             [['docref'], 'string', 'max' => 128],
             [['longname'], 'string', 'min' => 16],
+            ['stocks_id', 'validateStocksId'],
         ];
+    }
+
+    public function validateStocksId()
+    {
+        if ($this->stocks_id < 1){
+            $this->addError('stocks_id', Yii::t('app', 'It is obligatory to select stocks place') . ' !');
+        }
     }
 
     /**

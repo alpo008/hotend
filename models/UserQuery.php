@@ -18,7 +18,7 @@ class UserQuery extends ActiveQuery
 
     /**
      * @inheritdoc
-     * @return \app\models\Users[]|array
+     * @return \app\models\User[]|array
      */
     public function all($db = null)
     {
@@ -27,7 +27,7 @@ class UserQuery extends ActiveQuery
 
     /**
      * @inheritdoc
-     * @return \app\models\Users|array|null
+     * @return \app\models\User|array|null
      */
     public function one($db = null)
     {

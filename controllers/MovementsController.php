@@ -91,7 +91,7 @@ class MovementsController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionCreate($id = NULL)
+    public function actionCreate($id = NULL, $name = NULL)
     {
         $model = new Movements();
         $lists['directions'] = AuxData::getDirections();
@@ -99,14 +99,15 @@ class MovementsController extends Controller
         $lists['stocks'] = AuxData::getStocks();
         $lists['locations'] = AuxData::getLocations();
         if ($id !== NULL){
-            
 
             $l_data = Locations::findOne($id);
             $model->materials_id =$l_data->materials_id;
             $model->stocks_id =$l_data->stocks_id;
             $model->qty = $l_data->qty;
-        }else{
+        }elseif(!$name){
             $l_data = NULL;
+        }else{
+            $model->materials_id = $name;
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

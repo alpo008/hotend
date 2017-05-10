@@ -64,17 +64,17 @@ class MessageData extends  Model
                 $download_data[Yii::t('app', 'Urgent messages')] = 'emails.xls';
             }
         }
-        $materials_labels =  AuxData::getLabels([
+/*        $materials_labels =  AuxData::getLabels([
             ['materials',['id', 'ref', 'name', 'qty', 'minqty', 'unit', 'type', 'gruppa']],
             ['stocks', ['placename']]
         ]);
-        $output_data->saveTemp([
+/       $output_data->saveTemp([
             'name' => 'materials',
             'ext' => 'xls',
             'content' => AuxData::getFullTable(),
             'labels' => $materials_labels,
         ]);
-        $download_data[Yii::t('app', 'Materials')] = 'materials.xls';
+        $download_data[Yii::t('app', 'Materials')] = 'materials.xls';*/
 
         $orders_labels = AuxData::getLabels([
             ['orders',['order_date' , 'docref']],

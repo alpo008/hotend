@@ -250,6 +250,9 @@ return [
     'Pick up from the warehouse' => 'Взять со склада',
     'Urgent messages' => 'Срочное сообщение',
     'Top-five' => 'Топ - пятерка',
+    'Please select' => 'Пожалуйста, укажите место',
+    'It is obligatory to select stocks place' => 'Складское место - обязательное поле',
+    'This material does not exist' => 'Такого материала не существует',
     
     'No stock data available' => 'Нет данных по наличию материала на складе.',
     'No movements data available' => 'Нет данных по складским операциям.',

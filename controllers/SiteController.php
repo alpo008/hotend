@@ -6,6 +6,7 @@ use app\models\custom\AuxData;
 use app\models\custom\MessageData;
 use app\models\custom\SendMessage;
 use app\models\custom\TempFile;
+use app\models\Materials;
 use app\models\Movements;
 use app\models\search\MissedOrdersSearch;
 use Symfony\Component\CssSelector\XPath\Extension\HtmlExtension;
@@ -74,6 +75,26 @@ class SiteController extends Controller
         }elseif (Yii::$app->user->identity->role === 'ADMIN' || Yii::$app->user->identity->role === 'ENGINEER'){
 
         //AuxData::updateAllQuantitites();
+
+/*            $nf = fopen("/home/alpo/Projects/hotend/data/all_stock17.csv", "r");
+            while ($dt = fgetcsv($nf)){
+                $ref = (int) $dt[0];
+                $name = trim ($dt[1]);
+                $gruppa = trim ($dt[2]);
+                $type = trim ($dt[3]);
+                $a = new Materials();
+                $a->ref = $ref;
+                $a->name = $name;
+                $a->type = $type;
+                $a->gruppa = $gruppa;
+                $a->unit = 'ШТ';
+                $a->minqty = 0;
+                $a->qty = 0;
+                $a->save();
+
+
+            }*/
+
 
         $searchModel = new MissedOrdersSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
