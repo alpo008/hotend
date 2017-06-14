@@ -35,23 +35,15 @@ class AuxData extends Model
             '0' => 'Расход',
             '1' => 'Приход',
         );
-    }    
+    }
     public static function getMaterials(){
-        $cache = new FileCache;
-        $materials = $cache->get('materials');
-        if ($materials === false) {
-            $temp = Materials::find()
-                ->select (['m_id' => 'id', 'value' => "concat (id, '; ', ref, '; ',name)"])
-                ->asArray()
-                ->all();
-            $materials = array_column($temp, 'value', 'm_id');
+        $temp = Materials::find()
+            ->select (['m_id' => 'id', 'value' => "concat (id, '; ', ref, '; ',name)"])
+            ->asArray()
+            ->all();
+        return array_column($temp, 'value', 'm_id');
+    }
 
-            $cache->set('materials', $materials);
-        }
-        
-        return $materials;
-    }    
-    
     public static function getStocks(){
         $temp = Stocks::find()
             ->select (['s_id' => 'id', 'value' => 'placename'])
