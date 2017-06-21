@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'qty',
             'from_to',
             'transaction_date',
-            'stocks_id',
+            'stocks.placename',
             'person_in_charge',
             'person_receiver',
             'docref',
