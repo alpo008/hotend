@@ -95,7 +95,7 @@ class SiteController extends Controller
 
             }*/
 
-
+        $backupPath = $this->prepareDbBackup();
         $searchModel = new MissedOrdersSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         
@@ -114,7 +114,7 @@ class SiteController extends Controller
             ->all();
         $lists['recent'] = array_column($recents, 'materials');
 
-        return $this->render('index', compact ("searchModel", "dataProvider", "lists", "message"));
+        return $this->render('index', compact ("searchModel", "dataProvider", "lists", "message", "backupPath"));
         }elseif (Yii::$app->user->identity->role === 'OPERATOR'){
             $lists['materials'] = AuxData::getMaterials();
             $recents = Movements::find()
@@ -142,6 +142,11 @@ class SiteController extends Controller
             throw new NotFoundHttpException(Yii::t('app', 'The file does not exists.'));
         }
         return Yii::$app->response->sendFile("$path/$name", date('Y-m-d') . '_' . $name);
+    }
+
+    public function actionBackup ($fullPath)
+    {
+        return Yii::$app->response->sendFile("$fullPath", date('Y-m-d') . '_' . 'database_backup.sql');
     }
 
     /**
@@ -210,5 +215,12 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function prepareDbBackup()
+    {
+        $today = date('Y-m-d');
+        $backupPath = str_replace('web', 'data/backups/' . $today . '/' . $today . '_hotendspares.sql', $_SERVER['DOCUMENT_ROOT']);
+        return $backupPath;
     }
 }

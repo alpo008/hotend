@@ -70,7 +70,8 @@ class MaterialsController extends Controller
         };
 
         //AuxData::updateAllQuantitites();
-
+        $afterDeleteUrl = !!Yii::$app->request->getUrl() ? Yii::$app->request->getUrl() : ['index'];
+        Yii::$app->user->setReturnUrl($afterDeleteUrl);
         $searchModel = new MaterialsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         return $this->render('index', compact("searchModel", "dataProvider"));
@@ -140,7 +141,7 @@ class MaterialsController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(Yii::$app->user->returnUrl);
     }
 
     /**
