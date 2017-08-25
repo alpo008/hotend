@@ -221,6 +221,7 @@ class SiteController extends Controller
     {
         $today = date('Y-m-d');
         $backupPath = str_replace('web', 'data/backups/' . $today . '/' . $today . '_hotendspares.sql', $_SERVER['DOCUMENT_ROOT']);
-        return $backupPath;
+
+        return (is_file($backupPath)) ? $backupPath : null;
     }
 }

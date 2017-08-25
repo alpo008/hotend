@@ -253,6 +253,7 @@ return [
     'Please select' => 'Пожалуйста, укажите место',
     'It is obligatory to select stocks place' => 'Складское место - обязательное поле',
     'This material does not exist' => 'Такого материала не существует',
+    'DB backup' => 'Резерв. БД',
     
     'No stock data available' => 'Нет данных по наличию материала на складе.',
     'No movements data available' => 'Нет данных по складским операциям.',

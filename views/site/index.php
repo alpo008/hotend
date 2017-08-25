@@ -122,9 +122,11 @@ $this->title = 'H O T E N D';
                         <?php echo Html::a($k, ['/site/download', 'name' => $v], ['class' => 'download-link',]) . '<br>'; ?>
                     </div>
                 <?php endforeach ?>
-                <div class="download-link">
-                    <?php echo Html::a(Yii::t('app', 'DB backup'), ['/site/backup', 'fullPath' => $backupPath], ['class' => 'download-link',]) . '<br>'; ?>
-                </div>
+                <?php if (!!$backupPath): ?>
+                    <div class="download-link">
+                        <?php echo Html::a(Yii::t('app', 'DB backup'), ['/site/backup', 'fullPath' => $backupPath], ['class' => 'download-link',]) . '<br>'; ?>
+                    </div>
+                <?php endif;?>
             </div>
             <div class="top-five">
                 <h4><?= Yii::t('app', 'Top-five') ?></h4>
