@@ -5,8 +5,9 @@ use yii\bootstrap\ActiveForm;
 use anmaslov\autocomplete\AutoComplete;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Movements */
+/* @var $model \app\models\Movements */
 /* @var $form yii\bootstrap\ActiveForm */
+/* @var $lists array */
 ?>
 
 <div class="movements-form">
@@ -53,7 +54,19 @@ use anmaslov\autocomplete\AutoComplete;
         ]);
     ?>
 
-    <?= $form->field($model, 'qty')->textInput(['maxlength' => true]) ?>
+    <?php if (!empty($model->materials)) : ?>
+        <div>
+            <div class="col-lg-3 col-md-3"></div>
+            <div class="col-lg-9 col-md-9">
+                Остаток <?= $model->materials->qty . ' ' . $model->materials->unit ?>
+            </div>
+        </div>
+    <?php endif ?>
+
+    <?= $form->field($model, 'qty')->textInput([
+            'type' => 'number', 'value' => 0, 'min' => 1, /*'max' => $model->materials->qty*/
+            'placeholder' => 'Остаток ' . $model->materials->qty . ' ' . $model->materials->unit
+    ]) ?>
 
     <?= $form->field($model, 'from_to')->textInput(['maxlength' => true]) ?>
 

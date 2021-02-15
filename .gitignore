@@ -4,6 +4,9 @@
 # netbeans project files
 nbproject
 
+#log files
+*.log
+
 # zend studio for eclipse project files
 .buildpath
 .project
@@ -14,6 +17,9 @@ Thumbs.db
 
 # user data dir
 /data
+
+#config files
+/config/db.php
 
 #temp file dir
 /temp

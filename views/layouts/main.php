@@ -50,7 +50,7 @@ AppAsset::register($this);
             ['label' => Yii::t ('app','Orders'), 'url' => ['/orders'],
                 'options' =>
                 [
-                    'class' => (Yii::$app->user->identity['role'] == 'OPERATOR') ? 'hidden' : '',
+                    'class' => (empty(Yii::$app->user->identity['role']) || Yii::$app->user->identity['role'] == 'OPERATOR') ? 'hidden' : '',
                 ],
             'linkOptions' => [
                 'class' => ($action_name === 'orders') ? 'active' : '',

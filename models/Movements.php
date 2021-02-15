@@ -21,6 +21,8 @@ use app\models\custom\TempFile;
  * @property string $person_receiver
  * @property string $docref
  * @property string $longname
+ *
+ * @property Materials $materials
  */
 class Movements extends ActiveRecord
 {
@@ -89,6 +91,8 @@ class Movements extends ActiveRecord
     /**
      * @param bool $insert
      * @return bool
+     * @throws \Throwable
+     * @throws yii\db\StaleObjectException
      */
     public function beforeSave($insert)
     {
@@ -96,7 +100,7 @@ class Movements extends ActiveRecord
 
             $location = $this->getLocation();
             $material = Materials::findOne(['id' => $this->materials_id]);
-            if(!count($location)){
+            if(empty($location)){
                 $location = new Locations();
                 $location->materials_id = (int) $this->materials_id;
                 $location->stocks_id = $this->stocks_id;
@@ -183,7 +187,7 @@ class Movements extends ActiveRecord
     /**
      * @return yii\db\ActiveQuery
      */
-    public function getMaterials()
+    public function getMaterials(): yii\db\ActiveQuery
     {
         return $this->hasOne(Materials::className(), ['id' => 'materials_id']);
     }

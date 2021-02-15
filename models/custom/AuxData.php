@@ -47,6 +47,7 @@ class AuxData extends Model
     public static function getStocks(){
         $temp = Stocks::find()
             ->select (['s_id' => 'id', 'value' => 'placename'])
+            ->orderBy('placename')
             ->asArray()
             ->all();
         $temp = array_column($temp, 'value', 's_id');

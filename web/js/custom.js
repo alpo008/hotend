@@ -119,7 +119,7 @@
     /**
      * Checks if material is available at the stock then displays a message and change stock places dropdown.
      */
-    $('#movements-qty').on('change', function(){
+    $('#movements-qty').on('focusout', function(){
         //noinspection JSUnresolvedFunction
         $('#movements-stocks_id').attr("disabled", false);
         if ($('#movements-direction').val() == 0) {

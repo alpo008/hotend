@@ -98,16 +98,16 @@ class MovementsController extends Controller
         $lists['materials'] = AuxData::getMaterials();
         $lists['stocks'] = AuxData::getStocks();
         $lists['locations'] = AuxData::getLocations();
-        if ($id !== NULL){
-
+        if ($id !== null){
             $l_data = Locations::findOne($id);
             $model->materials_id =$l_data->materials_id;
             $model->stocks_id =$l_data->stocks_id;
             $model->qty = $l_data->qty;
         }elseif(!$name){
-            $l_data = NULL;
+            $l_data = null;
         }else{
             $model->materials_id = $name;
+            $l_data = null;
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
