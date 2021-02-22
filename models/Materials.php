@@ -20,6 +20,8 @@ use yii\web\UploadedFile;
  * @property resource $file
  * @property mixed $locations
  * @property mixed $stocks
+ *
+ * @property string $photoPath
  */
 class Materials extends ActiveRecord
 {
@@ -139,6 +141,16 @@ class Materials extends ActiveRecord
         }
         $this->updateQuantity(array_sum($temp_array));
         return $temp_array;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhotoPath()
+    {
+        $imgfile = '@web/photos/' . $this->ref . '.jpg';
+        return file_exists($_SERVER['DOCUMENT_ROOT'] . '/hotend/photos/' . $this->ref . '.jpg') ?
+            $imgfile : '@web/photos/_no-image.jpg';
     }
 
     /**

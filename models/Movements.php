@@ -187,7 +187,7 @@ class Movements extends ActiveRecord
     /**
      * @return yii\db\ActiveQuery
      */
-    public function getMaterials(): yii\db\ActiveQuery
+    public function getMaterials()
     {
         return $this->hasOne(Materials::className(), ['id' => 'materials_id']);
     }

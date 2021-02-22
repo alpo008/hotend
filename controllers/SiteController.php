@@ -217,11 +217,14 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
+    /**
+     * Checks if backup file exists and returns path if yes or null if no
+     * @return string|null
+     */
     public function prepareDbBackup()
     {
         $today = date('Y-m-d');
-        $backupPath = str_replace('web', 'data/backups/' . $today . '/' . $today . '_hotendspares.sql', $_SERVER['DOCUMENT_ROOT']);
-
+        $backupPath = Yii::$app->params['backupPath'] . $today . '/' . $today . '_hotendspares.sql';
         return (is_file($backupPath)) ? $backupPath : null;
     }
 }

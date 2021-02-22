@@ -19,11 +19,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
     <div class="row material-cart">
         <div class="col-lg-3 material-cart__image">
             <?php
-            $imgfile = '@web/photos/' . $model->ref . '.jpg';
-            $imgfile = (file_exists($_SERVER['DOCUMENT_ROOT'] . '/photos/' . $model->ref . '.jpg')) ? $imgfile : '@web/photos/_no-image.jpg';
-
-
-            echo Html::img($imgfile, ['alt' => $model->name,
+            echo Html::img($model->photoPath, ['alt' => $model->name,
                 'title' => $model->name,
                 'width' => '200'
             ]);

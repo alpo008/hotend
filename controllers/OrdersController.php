@@ -7,7 +7,6 @@ use yii;
 use app\models\Orders;
 use app\models\custom\AuxData;
 use app\models\search\OrdersSearch;
-use yii\caching\FileCache;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;

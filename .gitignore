@@ -20,6 +20,7 @@ Thumbs.db
 
 #config files
 /config/db.php
+/config/params.php
 
 #temp file dir
 /temp
