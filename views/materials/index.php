@@ -36,8 +36,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => '',
                 'format' => 'raw',
                 'value' => function($model){
-                    return Html::a('<span class ="glyphicon glyphicon-list-alt" title ="Создать приход-расход"></span>', ['movements/create', 'id' => NULL, 'name' => $model->id ]);
-
+                /* @var $model \app\models\Materials */
+                    $relocateLink = '';
+                    if (!empty($model->stocks) && !!$model->qty) {
+                        $relocateLink = Html::a(
+                            '<span class ="glyphicon glyphicon-random" title ="Переместить на складе"></span>',
+                            ['materials/change-location', 'id' => $model->id ]);
+                    }
+                    return Html::a('<span class ="glyphicon glyphicon-list-alt" title ="Создать приход-расход"></span>',
+                        ['movements/create', 'id' => null, 'name' => $model->id ]) . $relocateLink;
                 },
             ],            
             [

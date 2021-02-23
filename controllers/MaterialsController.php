@@ -6,6 +6,7 @@ use app\models\custom\AuxData;
 use app\models\Locations;
 use app\models\Movements;
 use app\models\Orders;
+use app\models\RelocationForm;
 use app\models\Stocks;
 use yii;
 use app\models\Materials;
@@ -62,6 +63,7 @@ class MaterialsController extends Controller
     /**
      * Lists all Materials models.
      * @return mixed
+     * @throws yii\base\InvalidConfigException
      */
     public function actionIndex()
     {
@@ -81,6 +83,7 @@ class MaterialsController extends Controller
      * Displays a single Materials model.
      * @param integer $id
      * @return mixed
+     * @throws NotFoundHttpException
      */
     public function actionView($id)
     {
@@ -117,6 +120,7 @@ class MaterialsController extends Controller
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
+     * @throws NotFoundHttpException
      */
     public function actionUpdate($id)
     {
@@ -136,12 +140,35 @@ class MaterialsController extends Controller
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @throws NotFoundHttpException
+     * @throws \Throwable
+     * @throws yii\db\StaleObjectException
      */
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
 
         return $this->redirect(Yii::$app->user->returnUrl);
+    }
+
+    /**
+     * @param integer $id
+     * @param integer | null $stid
+     * @return string|yii\web\Response
+     */
+    public function actionChangeLocation($id, $stid = null)
+    {
+        $model = new RelocationForm([
+            'materials_id' => $id,
+            'stocks_id_old' => $stid
+
+        ]);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $id, 'tab' => 'location']);
+        } else {
+            return $this->render('relocation_form', compact('model'));
+        }
     }
 
     /**

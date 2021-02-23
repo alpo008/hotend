@@ -9,6 +9,16 @@ use yii\widgets\DetailView;
 $this->title = $model->ref;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Materials'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
+$this->registerJs(/** @lang JavaScript */ "
+    const urlParams = new URLSearchParams(window.location.search);
+    const tabParam = urlParams.get('tab'); 
+    if (typeof tabParam === 'string') {
+        let selectorId = '#' + tabParam;
+        document.querySelector('[href=\"' + selectorId + '\"]').click();
+    }
+", $this::POS_END);
+
 ?>
 <div class="materials-view">
 
@@ -123,7 +133,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         foreach ($movements_data as $movement):?>
                         <tr>
                             <td>
-                                <a href="/movements/<?php echo $movement->id ?>">
+                                <a href="/hotend/movements/<?php echo $movement->id ?>">
                                     <?php echo $movement->transaction_date; ?>
                                 </a>
                             </td>
@@ -170,15 +180,14 @@ $this->params['breadcrumbs'][] = $this->title;
                        <th>
                            <?= $mov_labels['qty'] ?>
                        </th>
-                       <th>
-                           &nbsp;
-                       </th>
+                       <th></th>
+                       <th></th>
                    </tr>
                     <?php
                     foreach ($model->stocks as $stock): ?>
                     <tr>
                         <td>
-                            <a href="/stocks/<?php echo $stock->id ?>">
+                            <a href="/hotend/stocks/<?php echo $stock->id ?>">
                                 <?php echo $stock->placename ?>
                             </a>
                         </td>
@@ -193,10 +202,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                 } 
                             ?>
 
-                            <a href="/movements/create/<?php echo $loc[$stock->id] ?>">
+                            <a href="/hotend/movements/create/<?php echo $loc[$stock->id] ?>">
                                 <?php echo Yii::t('app','Pick up from the warehouse') ?>
                             </a>
-
+                        </td>
+                        <td>
+                            <?= Html::a(Yii::t('app', 'Relocate'),
+                                ['change-location', 'id' => $model->id, 'stid' => $stock->id]
+                            ); ?>
                         </td>
                     </tr>
                     <?php
@@ -227,7 +240,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 foreach ($model->orders as $order): ?>
                     <tr>
                         <td>
-                            <a href="/orders/<?php echo $order->id ?>">
+                            <a href="/hotend/orders/<?php echo $order->id ?>">
                                 <?php echo $order->order_date ?>
                             </a>
                         </td>

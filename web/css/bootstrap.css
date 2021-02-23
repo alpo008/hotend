@@ -6955,3 +6955,7 @@ body {
 .detail-view td {
   word-wrap: break-word;
 }
+
+.relocation-form > button[type="submit"] {
+  float: right;
+}

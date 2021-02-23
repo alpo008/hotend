@@ -8,9 +8,12 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "locations".
  *
+ * @property integer $id
  * @property integer $materials_id
  * @property integer $stocks_id
  * @property string $qty
+ *
+ * @property Stocks $stocks
  */
 class Locations extends ActiveRecord
 {
@@ -28,7 +31,7 @@ class Locations extends ActiveRecord
     public function rules()
     {
         return [
-            [['materials_id', 'stocks_id'], 'integer'],
+            [['id', 'materials_id', 'stocks_id'], 'integer'],
             [['qty'], 'number', 'min' => 0],
         ];
     }

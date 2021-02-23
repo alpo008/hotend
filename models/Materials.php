@@ -18,10 +18,10 @@ use yii\web\UploadedFile;
  * @property string $type
  * @property string $gruppa
  * @property resource $file
- * @property mixed $locations
- * @property mixed $stocks
  *
  * @property string $photoPath
+ * @property Locations[] $locations
+ * @property Stocks[] $stocks
  */
 class Materials extends ActiveRecord
 {
@@ -74,6 +74,9 @@ class Materials extends ActiveRecord
         ];
     }
 
+    /**
+     * @inheritDoc
+     */
     public function afterSave($insert, $changedAttributes)
     {
         $storagePath = Yii::getAlias('@app/web/photos/');
@@ -84,6 +87,9 @@ class Materials extends ActiveRecord
         }
     }
 
+    /**
+     * @inheritDoc
+     */
     public function beforeDelete()
     {
         $result = parent::beforeDelete();
@@ -103,17 +109,26 @@ class Materials extends ActiveRecord
         return $result;
     }
 
+    /**
+     * @return yii\db\ActiveQuery
+     */
     public function getMovements()
     {
         return $this->hasMany(Movements::className(), ['materials_id' => 'id']);
     }
 
+    /**
+     * @return yii\db\ActiveQuery
+     */
     public function getLocations()
     {
         return $this->hasMany(Locations::className(), ['materials_id' => 'id']);
     }
 
-    
+
+    /**
+     * @return yii\db\ActiveQuery
+     */
     public function getStocks()
     {
         return $this->hasMany(Stocks::className(), ['id' => 'stocks_id'])
