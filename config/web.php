@@ -13,6 +13,10 @@ $config = [
             'cookieValidationKey' => 'cy4Uit5jr2JP8IUsla1sIWfPOAOdKXRc',
             'baseUrl' => '/hotend',
         ],
+        'session' => [
+            'name' => 'PHPHOTSESSID',
+            'savePath' => dirname(__DIR__, 1) . DIRECTORY_SEPARATOR . 'tmp',
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
