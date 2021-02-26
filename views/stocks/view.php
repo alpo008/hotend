@@ -49,9 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 foreach ($model->materials as $material): ?>
                     <tr>
                         <td>
-                            <a href="/materials/<?php echo $material->id ?>">
-                                <?php echo $material->ref; ?>
-                            </a>
+                            <?= Html::a($material->ref, ['/materials/' . $material->id]) ?>
                         </td>
                         <td>
                             <?php echo $material->name; ?>
