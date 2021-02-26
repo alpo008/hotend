@@ -31,6 +31,7 @@ return [
     'Machines' => 'Машины',
     'Machine' => 'Машинa',
     'Spare parts' => 'Запасные части',
+    'See material page' => 'Перейти на страницу материала',
     'Parts' => 'Запасные части',
     'Error' => 'Ошибка',
     'File upload failed.' => 'Загрузка файла не удалась.',

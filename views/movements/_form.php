@@ -22,7 +22,7 @@ use anmaslov\autocomplete\AutoComplete;
 
     <?php /*echo $form->field($model, 'materials_id')->textInput()*/ ?>
     <?php
-        $trans_date = (isset ($model->transaction_date)) ? $model->transaction_date : date ('Y-m-d');
+        $trans_date = (isset ($model->transaction_date)) ? $model->transaction_date : date ('Y-m-d H:i:s');
         $is_operator = (Yii::$app->user->identity['role'] == 'OPERATOR');
         $l_data = (isset($l_data)) ? $l_data : false;
         if ($model->isNewRecord && $model->stocks_id == NULL){
@@ -65,7 +65,9 @@ use anmaslov\autocomplete\AutoComplete;
 
     <?= $form->field($model, 'qty')->textInput([
             'type' => 'number', 'value' => 0, 'min' => 1, /*'max' => $model->materials->qty*/
-            'placeholder' => 'Остаток ' . $model->materials->qty . ' ' . $model->materials->unit
+            'placeholder' => !empty($model->materials) ?
+                'Остаток ' . $model->materials->qty . ' ' . $model->materials->unit :
+                ''
     ]) ?>
 
     <?= $form->field($model, 'from_to')->textInput(['maxlength' => true]) ?>

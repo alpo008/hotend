@@ -49,7 +49,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 foreach ($model->materials as $material): ?>
                     <tr>
                         <td>
-                            <?= Html::a($material->ref, ['/materials/' . $material->id]) ?>
+                            <?= Html::a($material->ref,
+                                ['/materials/' . $material->id],
+                                ['title' => Yii::t('app', 'See material page')]
+                            ) ?>
                         </td>
                         <td>
                             <?php echo $material->name; ?>
