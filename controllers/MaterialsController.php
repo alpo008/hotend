@@ -36,7 +36,7 @@ class MaterialsController extends Controller
             ],
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['view', 'create', 'update', 'delete'],
+                'only' => ['view', 'create', 'update', 'delete', 'change-location'],
                 'rules' => [
                     [
                         'allow' => true,
@@ -45,7 +45,7 @@ class MaterialsController extends Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                        'actions' => ['index', 'view', 'create', 'update', 'delete', 'change-location'],
                         'matchCallback' => function ($rule, $action) {
                             return User::checkRights(Yii::$app->user->identity['role'], $this->uniqueId, $action->id);
                         }

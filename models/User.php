@@ -247,6 +247,7 @@ class User extends ActiveRecord implements IdentityInterface
                     'create' => true,
                     'update' => true,
                     'delete' => true,
+                    'change-location' => true
                 ),
                 'movements' => array(
                     'index' =>true,
@@ -285,6 +286,7 @@ class User extends ActiveRecord implements IdentityInterface
                     'create' => true,
                     'update' => true,
                     'delete' => true,
+                    'change-location' => true
                 ),
                 'movements' => array(
                     'index' =>true,
@@ -323,6 +325,7 @@ class User extends ActiveRecord implements IdentityInterface
                     'create' => false,
                     'update' => false,
                     'delete' => false,
+                    'change-location' => false
                 ),
                 'movements' => array(
                     'index' =>true,
@@ -351,8 +354,8 @@ class User extends ActiveRecord implements IdentityInterface
                     'create' => false,
                     'update' => false,
                     'delete' => false,
-                ),
-            ),
+                )
+            )
         );
     }
 }

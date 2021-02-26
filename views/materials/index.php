@@ -37,8 +37,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'value' => function($model){
                 /* @var $model \app\models\Materials */
+                    $user = Yii::$app->user;
                     $relocateLink = '';
-                    if (!empty($model->stocks) && !!$model->qty) {
+                    if (!empty($model->stocks) && !!$model->qty && !$user->isGuest && $user->identity->role !== 'OPERATOR') {
                         $relocateLink = Html::a(
                             '<span class ="glyphicon glyphicon-random" title ="Переместить на складе"></span>',
                             ['materials/change-location', 'id' => $model->id ]);

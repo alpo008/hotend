@@ -104,62 +104,60 @@ $this->registerJs(/** @lang JavaScript */ "
             /** @var object $movements_data */
 
             if (!!count($movements_data)): ?>
-
-                    <table class="table table-striped">
-                        <tr>
-                            <th>
-                                <?= $mov_labels['transaction_date'] ?>
-                            </th>
-                            <th>
-                                <?= $mov_labels['direction'] ?>
-                            </th>
-                            <th>
-                                <?= $mov_labels['person_receiver'] ?>
-                            </th>
-                            <th>
-                                <?= $mov_labels['from_to'] ?>
-                            </th>
-                            <th>
-                                <?= $mov_labels['qty'] ?>
-                            </th>
-                            <th>
-                                <?= $mov_labels['person_in_charge'] ?>
-                            </th>
-                            <th>
-                                <?= $mov_labels['docref'] ?>
-                            </th>
-                        </tr>
-                        <?php
-                        foreach ($movements_data as $movement):?>
-                        <tr>
-                            <td>
-                                <a href="/hotend/movements/<?php echo $movement->id ?>">
-                                    <?php echo $movement->transaction_date; ?>
-                                </a>
-                            </td>
-                            <td>
-                                <?php echo $lists['directions'][$movement->direction]; ?>
-                            </td>
-                            <td>
-                                <?php echo $movement->person_receiver; ?>
-                            </td>
-                            <td>
-                                <?php echo $movement->from_to; ?>
-                            </td>
-                            <td>
-                                <?php echo $movement->qty . ' ' . $model->unit; ?>
-                            </td>
-                            <td>
-                                <?php echo $movement->person_in_charge; ?>
-                            </td>
-                            <td>
-                                <?php echo $movement->docref; ?>
-                            </td>
-                        </tr>
-                        <?php
-                        endforeach; ?>
-                    </table>
-
+                <table class="table table-striped">
+                    <tr>
+                        <th>
+                            <?= $mov_labels['transaction_date'] ?>
+                        </th>
+                        <th>
+                            <?= $mov_labels['direction'] ?>
+                        </th>
+                        <th>
+                            <?= $mov_labels['person_receiver'] ?>
+                        </th>
+                        <th>
+                            <?= $mov_labels['from_to'] ?>
+                        </th>
+                        <th>
+                            <?= $mov_labels['qty'] ?>
+                        </th>
+                        <th>
+                            <?= $mov_labels['person_in_charge'] ?>
+                        </th>
+                        <th>
+                            <?= $mov_labels['docref'] ?>
+                        </th>
+                    </tr>
+                    <?php
+                    foreach ($movements_data as $movement):?>
+                    <tr>
+                        <td>
+                            <a href="/hotend/movements/<?php echo $movement->id ?>">
+                                <?php echo $movement->transaction_date; ?>
+                            </a>
+                        </td>
+                        <td>
+                            <?php echo $lists['directions'][$movement->direction]; ?>
+                        </td>
+                        <td>
+                            <?php echo $movement->person_receiver; ?>
+                        </td>
+                        <td>
+                            <?php echo $movement->from_to; ?>
+                        </td>
+                        <td>
+                            <?php echo $movement->qty . ' ' . $model->unit; ?>
+                        </td>
+                        <td>
+                            <?php echo $movement->person_in_charge; ?>
+                        </td>
+                        <td>
+                            <?php echo $movement->docref; ?>
+                        </td>
+                    </tr>
+                    <?php
+                    endforeach; ?>
+                </table>
             <?php
             else:
                 echo Yii::t('app', 'No movements data available');
@@ -181,7 +179,9 @@ $this->registerJs(/** @lang JavaScript */ "
                            <?= $mov_labels['qty'] ?>
                        </th>
                        <th></th>
+                       <?php if (!Yii::$app->user->isGuest && Yii::$app->user->identity->role !== 'OPERATOR') : ?>
                        <th></th>
+                       <?php endif; ?>
                    </tr>
                     <?php
                     foreach ($model->stocks as $stock): ?>
@@ -206,11 +206,13 @@ $this->registerJs(/** @lang JavaScript */ "
                                 <?php echo Yii::t('app','Pick up from the warehouse') ?>
                             </a>
                         </td>
-                        <td>
-                            <?= Html::a(Yii::t('app', 'Relocate'),
-                                ['change-location', 'id' => $model->id, 'stid' => $stock->id]
-                            ); ?>
-                        </td>
+                        <?php if (!Yii::$app->user->isGuest && Yii::$app->user->identity->role !== 'OPERATOR') : ?>
+                            <td>
+                                <?= Html::a(Yii::t('app', 'Relocate'),
+                                    ['change-location', 'id' => $model->id, 'stid' => $stock->id]
+                                ); ?>
+                            </td>
+                        <?php endif ?>
                     </tr>
                     <?php
                     endforeach;
