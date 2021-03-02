@@ -64,7 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ['class' => 'app\models\custom\CustomActionColumn',
                 'buttons' => ['delete' => function(){return false;}],
-                'filter' => '<a href="/orders"><span class="glyphicon glyphicon-refresh" title="Сбросить фильтр"></span></a>'
+                'filter' => '<a href="/hotend/orders"><span class="glyphicon glyphicon-refresh" title="Сбросить фильтр"></span></a>'
             ],
         ],
     ]); ?>
